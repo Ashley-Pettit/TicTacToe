@@ -1,0 +1,108 @@
+/*
+Get a class with .
+Get an id with #
+*/
+
+body {
+	padding-top:2%;
+}
+
+.heading{
+	position: absolute;
+	left: 0;
+    top: 0;
+    width: 100%;
+	float: center;
+	background-color:teal;
+	color:white;
+	font-size: 50px;
+    margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+ }
+ 
+.setdifficulty
+ {
+    margin-left:auto; 
+    margin-right:auto;
+	font-size: 25px;
+	text-align: center;
+	margin-top:3%;
+
+ }
+
+table#difficulty{
+    margin-left:auto; 
+    margin-right:auto;
+	margin-top:2%;
+	font-weight: bold;
+	cursor:pointer;
+	text-align:center;
+}
+
+td#difficulty{
+	height: 50px;
+}
+
+#gameroll {
+    margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+	margin-top:3%;
+	font-size: 25px;
+}
+
+ 
+table#gametable{
+	margin-top:3%;
+	cursor:pointer;
+    margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+}
+ 
+ 
+ #xo {
+    margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+	width: 170px;
+	height: 170px;
+	visibility:hidden;
+}
+
+td {
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	text-align: center;
+	width: 200px;
+	height: 200px;
+}
+
+td:hover {
+	background-color:lightblue;
+}
+
+ #restart{
+    margin-left:auto; 
+    margin-right:auto;
+	font-size: 30px;
+	text-align: center;
+ }
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+	background-color:teal;
+	color:white;
+    margin-left:auto; 
+    margin-right:auto;
+	font-size: 20px;
+	text-align: center;
+	font-size: 18px;
+	padding-top: 10px
+}
