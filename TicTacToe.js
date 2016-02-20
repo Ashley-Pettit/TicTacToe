@@ -2,7 +2,7 @@
 
 // Underneath ready is everything that should occur as soon as the page finishes loading. 
 $(document).ready(function() {
-	alert("Attached JavaScript file functional");
+	alert("Attached JavaScript file functional"); // TEMPORARY
 	$('td#difficulty').click(function() {
 	$('#difficulty').fadeOut (1);
 	$('.setdifficulty').fadeOut (1);
@@ -20,13 +20,18 @@ function difficulty_selected() {
 
 
 function initialize() {
+	setupboard
+	console.log(who_starts);
+	play(who_starts);
+}
+
+function setupboard () {
 	board = {
 		A1 : null, A2 : null, A3 : null,
 		B1 : null, B2 : null, B3 : null,
 		C1 : null, C2 : null, C3 : null
 	};
-	console.log(who_starts);
-	play(who_starts);
+	return
 }
 
 function who_starts (){
