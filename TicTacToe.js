@@ -14,7 +14,7 @@ $(document).ready(function() {
 });
 
 
-function mode_selected() {
+function difficulty_selected() {
 
 }
 
@@ -42,25 +42,27 @@ function who_starts (){
 }
 
 function play (starting_player, cell_played) {
-	if (cell_played = false) {
+	if (cell_played === false) {
 	    $('td.game').click(function() {
 		if (starting_player == "Player 1") {
 	        $(this).prepend("X");
 	    	this.cell_played = true;
-	    	board.
-	    };
+	    	// now you need to change the array value
+	    }
 		else if (starting_player == "Player 2") {
 			$(this).prepend("O");
 			this.cell_played = true;
+			// now you need to change the array value
 		}
-	}
+	
 	else { 		//Can't be played here. Ignore user action
     
 	}
+	});
 }
 
 function change_player () {
-	if turn = player1 {
+	if (turn == player1) {
 		turn = player2;
 	}
 	else { 
@@ -70,26 +72,28 @@ function change_player () {
 }
 
 function horizontal_win () {
-	if (A1 + A2 + A3 = 'X')
-};
+	if (A1 + A2 + A3 == 'X') {
+	    console.log ("nothing");
+	}
+}
 
 function vertical_win () {
-	if 
-};
+    
+}
 
 function diagonal_win () {
-	if 
-}; 
+    
+}
 
 function has_won () {
-	if 
-};
 
+    
+}
 
 
 function store_score() {
 
-};
+}
 
 
 
