@@ -1,15 +1,14 @@
 <!doctype html>
 
 <head>
-    <title>Ash's Tic Tac Toe - V0.01!</title>
+    <title>Jake and Ash's Tic Tac Toe</title>
     <link rel='stylesheet' type='text/css' href='css.css'/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
     <script src='TicTacToe.js' type='text/javascript'></script>
 </head>
 
 <body>
 	<div class ="heading">Ash's Tic Tac Toe </div>
-	 <script src="js.js"></script>
 <!-- SET THE DIFFICULTY 
 Beginner >> The computer will play randomly unless a 3 in a row to win is available.
 Intermediate >> After 3 moves the computer plays randomly however, will go for 3 in a row if possible and will block 3 in a row
@@ -19,38 +18,46 @@ I want to Lose >> Unlocked after winning Average >> The computer occasionally pl
 	<div class = "setdifficulty">Choose your difficulty </div>
 		<table id="difficulty">
 			<tr>
-				<td id="difficulty" style= "border-color:green">Beginner</td>
-				<td id="difficulty" style= "border-color:orange">Intermediate</td>
-				<td id="difficulty" style = "border-color:red">Take on the BOSS!!</td>
-				<td id="difficulty" style = "border-color:red; display:none">I want to lose!</td>
+				<td id="difficulty" style= "border-color:green">Human Verus Human</td>
+				<td id="difficulty" style= "border-color:green">Beginner(Not available)</td>
+				<td id="difficulty" style= "border-color:orange">Intermediate(Not available)</td>
+				<td id="difficulty" style = "border-color:red">Take on the BOSS!!(Not available)</td>
 			</tr>
 		</table>
 		<p class = "setdifficulty"> Beat boss difficulty and win a $1,000 prize! </p>
 <!-- GAME BOX -->
 <div id="gameroll" style = "display:none"> LET'S PLAY! Rolling to see who goes first.... </div>
-<!-- JS INSERTS COUNT ELEMENT HERE -->
 	
-<!-- IS THERE AN EASIER WAY TO INSERT X O?? IMAGES -->
 	<div>
 		<table id="gametable" style="display:none">
 			<tr>
-				<td id = "Box1" class="game"></td>
-				<td id = "Box2" class="game"></td>
-				<td id = "Box3" class="game"></td>
+				<td id = "A1" class="game"></td>
+				<td id = "A2" class="game"></td>
+				<td id = "A3" class="game"></td>
 			</tr>
 			<tr>
-				<td id = "Box4" class="game"></td>
-				<td id = "Box5" class="game"></td>
-				<td id = "Box6" class="game"></td>
+				<td id = "B1" class="game"></td>
+				<td id = "B2" class="game"></td>
+				<td id = "B3" class="game"></td>
 			</tr>
 			<tr>
-				<td id = "Box7" class="game"></td>
-				<td id = "Box8" class="game"></td>
-				<td id = "Box9" class="game"></td>
+				<td id = "C1" class="game"></td>
+				<td id = "C2" class="game"></td>
+				<td id = "C3" class="game"></td>
 			</tr>
 		</table>
 	</div>
-<BR><p id="restart"><a href ="file:///C:/Users/Ashley/Desktop/Development%20stuff/Ash's%20Tic%20Tac%20Toe%20-%20V0.01_files/Ash's%20Tic%20Tac%20Toe%20-%20V0.01.html">Restart</a> </p>
+
+
+<!-- Make restart button work -->
+<BR><p id="restart">
+
+	Restart</a> </p>
+
+
+
+<!-- This is where scores are displayed -->
+
 <aside id="sidebar">
     <section id="widget_1"></section>
     <section id="widget_2"></section>
@@ -58,6 +65,6 @@ I want to Lose >> Unlocked after winning Average >> The computer occasionally pl
 </aside>
 	
 	
-	<footer>Copyright Ashley Pettit 2015</footer>
+	<footer>OpenSource Ashley Pettit and Jake Norton 2016</footer>
 	</body>
 	</html>
