@@ -8,23 +8,33 @@
 </head>
 
 <body>
-	<div class ="heading">Ash's Tic Tac Toe </div>
+	<div class ="heading">Jake's Tic Tac Toe </div>
 <!-- SET THE DIFFICULTY 
 Beginner >> The computer will play randomly unless a 3 in a row to win is available.
 Intermediate >> After 3 moves the computer plays randomly however, will go for 3 in a row if possible and will block 3 in a row
 I'm a Boss >> The computer plays perfectly and never loses. Will play defensive if not starting and will be agressive if starting
 I want to Lose >> Unlocked after winning Average >> The computer occasionally plays twice and 'cheats' :P. 
 -->
-	<div class = "setdifficulty">Choose your difficulty </div>
-		<table id="difficulty">
-			<tr>
-				<td id="difficulty" style= "border-color:green">Human Verus Human</td>
-				<td id="difficulty" style= "border-color:green">Beginner(Not available)</td>
-				<td id="difficulty" style= "border-color:orange">Intermediate(Not available)</td>
-				<td id="difficulty" style = "border-color:red">Take on the BOSS!!(Not available)</td>
-			</tr>
-		</table>
-		<p class = "setdifficulty"> Beat boss difficulty and win a $1,000 prize! </p>
+	<div class = "gameControl">
+		<h1>Choose your difficulty </h1>
+
+		<!--Probably should us bootstrap here instead of table here -->
+			<table>
+					<tr>
+					<td id="human">Human Verus Human</td>
+					<td id="easy" >Beginner(Not available)</td>
+					<td id="med"  >Intermediate(Not available)</td>
+					<td id="hard" >Take on the BOSS!!(Not available)</td>
+				</tr>
+			</table>
+
+		<p> Beat boss difficulty and win a $1,000 prize! </p>
+	</div> 
+
+
+
+
+
 <!-- GAME BOX -->
 <div id="gameroll" style = "display:none"> LET'S PLAY! Rolling to see who goes first.... </div>
 	
