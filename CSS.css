@@ -24,19 +24,19 @@ body {
  }
  
  /* GameContol */
-.game_control{
+.gameControl{
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
 	margin-top:3%;
 }
 
-.game_control h1{
+.gameControl h1{
 	font-family: Impact;
 	margin-top: 10%;
  }
 
-.game_control table{
+.gameControl table{
     margin-left:auto; 
     margin-right:auto;
 	margin-top:2%;
@@ -45,7 +45,7 @@ body {
 	text-align:center;
 }
 
-.game_control td {
+.gameControl td {
 	border: 2px solid black;
 	border-radius: 8px;
 	text-align: center;
@@ -53,11 +53,11 @@ body {
 	height: 50px;
 }
 
-.game_control td:hover {
+.gameControl td:hover {
 	border: 2px solid white;
 }
 
-.game_control p {
+.gameControl p {
 	margin-top: 10%;
 	font-family: Courier New;
 }
