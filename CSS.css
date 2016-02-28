@@ -33,7 +33,7 @@ body {
 
 .game_control h1{
 	font-family: Impact;
-	margin-top: 10%;
+	margin-top: 5%;
  }
 
 .game_control table{
@@ -104,7 +104,7 @@ footer {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 30px;
+    height: 35px;
     width: 100%;
 	background-color:teal;
 	color:white;
@@ -113,7 +113,8 @@ footer {
 	font-size: 20px;
 	text-align: center;
 	font-size: 18px;
-	padding-top: 10px
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 
@@ -122,24 +123,26 @@ footer {
 /* After 1st page */
 
 .game_in_play {
-	display:none;
+	margin-top:3%;
 }
 
 .game_in_play p {
-	margin-top: 3%;
 	font-size: 25px;
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
-	font-size: 25px;
 }
 
+#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, .game_table, #play_happening{
+	display:none;
+}
 
 .game_table {
+	text-align: center;
+	margin-top: 1.5%;
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
-	margin-top: 1.5%;
 }
 
 .game_table td {
@@ -164,3 +167,10 @@ footer {
 	width: 170px;
 	height: 170px;
 }
+
+
+/*	position:absolute;
+	top: 20%;
+    left: 50%;
+    margin-left: -300px;
+*/

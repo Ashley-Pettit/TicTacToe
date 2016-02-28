@@ -5,8 +5,16 @@ $(document).ready(function() {
 // THIS IS WHAT HAPPENS WHEN DIFFICULTIY IS CLICKED
 
 $('.game_options').click(function() {
-	$('.game_control').fadeOut (1);
-    $('.game_in_play').fadeIn(2000);
+	$('.game_control').fadeOut (500);
+    $('.game_table').delay(500).fadeIn(750);
+    $('#play_lets').delay(500).fadeIn(750).delay(8060).fadeOut(750); // In at 500 Out at 10,000
+    $('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
+    $('#play4').delay(2010).fadeIn(750).fadeOut(750); // In at 2000 out at 3500
+    $('#play3').delay(3520).fadeIn(750).fadeOut(750); // In at 3500 out at 5000
+    $('#play2').delay(5030).fadeIn(750).fadeOut(750); // in at 5000 out at 6500
+    $('#play1').delay(6540).fadeIn(750).fadeOut(750); // in at 6500 out at 8000
+    $('#play_is').delay(8050).fadeIn(750);  // in at 8000, does not go out
+    $('#play_happening').delay(10070).fadeIn(1500); // in at 10,000 - Does not go out
 });
 
 
@@ -22,7 +30,7 @@ function who_starts() {
 			starting_player = "The Computer of DOOM!";
 			current_player = 'O';
 	}
-	$('#play').append(starting_player);
+	$('#play_is').append(starting_player);
 }
 
 who_starts();
@@ -41,8 +49,14 @@ function change_player() {
 	}
 }
 
-
-
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 var board = {
 	A1 : null, A2 : null, A3 : null,
@@ -86,40 +100,6 @@ $('.clear_board').click(function() {
 
 
 /*
-
-
-
-
-
-
-
-
-// THIS DECIDES WHO'S TURN IT IS
-
-
-
-
-
-function change_player (whos_turn) {
-	if (whos_turn === player_1) {
-		whos_turn = player_2;
-	}
-	else { 
-		whos_turn = player_1;
-	}
-	}
-}
-
-
-// THIS IS WHAT HAPPENS IMMEDIDATELY AFTER A USER CLICK
-
-function play (whos_turn, cell_played) {
-	while (match_running === true) {
-		if (this.cell_played === false) {
-			change_player(whos_turn);
-		}
-	)}
-}
 
 
 		    $('td.game').click(function() {
