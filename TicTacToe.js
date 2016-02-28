@@ -3,29 +3,69 @@
 $(document).ready(function() {
 		
 // THIS IS WHAT HAPPENS WHEN DIFFICULTIY IS CLICKED
-	
+
 $('.game_options').click(function() {
 	$('.game_control').fadeOut (1);
     $('.game_in_play').fadeIn(2000);
-	});
+});
+
+
+
+
+function who_starts() {
+	var starting_player = Math.floor(Math.random()*2 + 1);
+	if (starting_player === 1) {
+		starting_player = "The Human!";
+		current_player = 'X';
+	}
+		else {
+			starting_player = "The Computer of DOOM!";
+			current_player = 'O';
+	}
+	$('#play').append(starting_player);
+}
+
+who_starts();
 
 $('.game_table td').click(function() {
-	$(this).prepend("X");
+	$(this).prepend(current_player);
+	change_player();
 	});
 
+function change_player() {
+	if (current_player === 'X') {
+		current_player = 'O';
+	}
+	else {
+		current_player = 'X';
+	}
+}
 
 
 
 
+var board = {
+	A1 : null, A2 : null, A3 : null,
+	B1 : null, B2 : null, B3 : null,
+	C1 : null, C2 : null, C3 : null
+};
+
+function clear_board() {
+	for (var i =0; i <= 9; i++) {
+		board[i] = null;
+	}
+
+}
+
+
+$('.clear_board').click(function() {
+	clear_board();
 });
 
 
 
 
 
-function initialize() {
-
-}
 
 
 
@@ -34,38 +74,25 @@ function initialize() {
 
 
 
+}); //DO NOT DELETE - THIS LINES UP WITH DOCUMENT.READY
 
-//END PAGE LOADUP
+
+
+
+
+
 
 
 
 
 /*
 
-function initialize() {
-	var match_running = true;
-	play(who_starts); //Launch play and input the result of calling who_starts 
-}
-
-board = {
-	A1 : null, A2 : null, A3 : null,
-	B1 : null, B2 : null, B3 : null,
-	C1 : null, C2 : null, C3 : null
-};
-
-function clearboard
-for (var row = 0; row <= 7 ; row += 1) {
-	for (var col = 0; col <= 7; col ++) {
-		board[row][col] = null;
-	}
-}
 
 
 
-$('#roll').click(function() {
-	match_running = true;
-	play (who_starts);
-)}
+
+
+
 
 // THIS DECIDES WHO'S TURN IT IS
 
