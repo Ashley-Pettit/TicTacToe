@@ -23,32 +23,32 @@ body {
 	text-align: center;
  }
  
- /* GameContol */
-.gameControl{
+.game_control{
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
 	margin-top:3%;
+
 }
 
-.gameControl h1{
+.game_control h1{
 	font-family: Impact;
 	margin-top: 10%;
  }
 
-.gameControl table{
+.game_control table{
     margin-left:auto; 
     margin-right:auto;
 	margin-top:2%;
 	text-align:center;
 }
 
-.gameControl .game_options{
+.game_control .game_options{
 	font-weight: bold;
 	cursor: pointer;
 }
 
-.gameControl .game_options td {
+.game_control .game_options td {
 	border-radius: 8px;
 	text-align: center;
 	width: 200px;
@@ -57,12 +57,12 @@ body {
 
 /* not currently working
 
-.gameControl td:hover {
+.game_control td:hover {
 	border: 2px solid white;
 }
 */
 
-.gameControl img{
+.game_control img{
 	width: 70%;
 }
 
@@ -91,18 +91,6 @@ body {
 }
 
 
-
-
-
-
-#gameroll {
-    margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
-	margin-top:3%;
-	font-size: 25px;
-}
-
  /* restart button */
 #restart{
     margin-left:auto; 
@@ -111,15 +99,6 @@ body {
 	text-align: center;
  }
  
- 
- #xo {
-    margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
-	width: 170px;
-	height: 170px;
-	visibility:hidden;
-}
 
 footer {
     position: absolute;
@@ -135,4 +114,53 @@ footer {
 	text-align: center;
 	font-size: 18px;
 	padding-top: 10px
+}
+
+
+
+
+/* After 1st page */
+
+.game_in_play {
+	display:none;
+}
+
+.game_in_play p {
+	margin-top: 3%;
+	font-size: 25px;
+	margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+	font-size: 25px;
+}
+
+
+.game_table {
+	margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+	margin-top: 1.5%;
+}
+
+.game_table td {
+	border-style: solid;
+	border-width: 2px;
+	margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+	border-color: black;
+	padding-top: 2%;
+	font-size: 25px;
+	width: 200px;
+	height: 200px;
+	cursor:pointer;
+}
+
+ 
+ #xo {
+    margin-left:auto; 
+    margin-right:auto;
+	text-align: center;
+	width: 170px;
+	height: 170px;
 }

@@ -1,22 +1,46 @@
-// GAME SETUP
-
-
+// THIS CODE IS FOR PAGE LOADUP
 
 $(document).ready(function() {
-	alert("Attached JavaScript file functional"); // TEMPORARY
+		
+// THIS IS WHAT HAPPENS WHEN DIFFICULTIY IS CLICKED
 	
-	
-// THIS IS THE ANIMATION OF THE PAGE
-	
-	$('.game_control').click(function() {
-    	$('.game_control').fadeOut (1);
-    	$('.setdifficulty').fadeOut (1);
-    	$('#gameroll').fadeIn(2000);
-    	$('#gametable').fadeIn(2000);	
-    	$('#gameroll').append('<p>The starting player is...</p>').fadeIn(2000);	
-    	$('#gameroll').append(who_starts.starting_player).fadeIn(2000);
-	)}
+$('.game_options').click(function() {
+	$('.game_control').fadeOut (1);
+    $('.game_in_play').fadeIn(2000);
+	});
 
+$('.game_table td').click(function() {
+	$(this).prepend("X");
+	});
+
+
+
+
+
+});
+
+
+
+
+
+function initialize() {
+
+}
+
+
+
+
+
+
+
+
+
+//END PAGE LOADUP
+
+
+
+
+/*
 
 function initialize() {
 	var match_running = true;
@@ -46,16 +70,7 @@ $('#roll').click(function() {
 // THIS DECIDES WHO'S TURN IT IS
 
 
-function who_starts () {
-	var starting_player = Math.floor(Math.random()*2 + 1);
-	if (starting_player === 1) {
-		starting_player = player_1;
-		return player_1;
-	}
-	else {
-		return player_2;
-	}
-}
+
 
 
 function change_player (whos_turn) {
@@ -145,9 +160,9 @@ function game_won() {  // DO LATER. MAKE 1 ROUND WORK FIRST
 
 
 
-
+*/
 
 
 //DONT EDIT THIS.
 
-)};
+initialize();

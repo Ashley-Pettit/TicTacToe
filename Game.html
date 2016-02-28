@@ -18,7 +18,7 @@ Intermediate >> After 3 moves the computer plays randomly however, will go for 3
 I'm a Boss >> The computer plays perfectly and never loses. Will play defensive if not starting and will be agressive if starting
 I want to Lose >> Unlocked after winning Average >> The computer occasionally plays twice and 'cheats' :P. 
 -->
-	<div class = "gameControl">
+	<div class = "game_control">
 		<h1>Choose your difficulty </h1>
 
 		<!--Probably should use bootstrap here instead of table here -->
@@ -44,30 +44,48 @@ I want to Lose >> Unlocked after winning Average >> The computer occasionally pl
 
 
 
+	<div class ="game_in_play">
 
+		<p>LET'S PLAY! Rolling to see who goes first.... <BR><BR> The starting player is... <script starting_player> </script></p>
 
-<!-- GAME BOX -->
-<div id="gameroll" style = "display:none"> LET'S PLAY! Rolling to see who goes first.... </div>
-	
-	<div>
-		<table id="gametable" style="display:none">
-			<tr>
-				<td id = "A1" class="game"></td>
-				<td id = "A2" class="game"></td>
-				<td id = "A3" class="game"></td>
-			</tr>
-			<tr>
-				<td id = "B1" class="game"></td>
-				<td id = "B2" class="game"></td>
-				<td id = "B3" class="game"></td>
-			</tr>
-			<tr>
-				<td id = "C1" class="game"></td>
-				<td id = "C2" class="game"></td>
-				<td id = "C3" class="game"></td>
-			</tr>
-		</table>
+			<table class="game_table">
+				<tr>
+					<td id = "A1"></td>
+					<td id = "A2"></td>
+					<td id = "A3"></td>
+				</tr>
+				<tr>
+					<td id = "B1"></td>
+					<td id = "B2"></td>
+					<td id = "B3"></td>
+				</tr>
+				<tr>
+					<td id = "C1"></td>
+					<td id = "C2"></td>
+					<td id = "C3"></td>
+				</tr>
+			</table>
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- Make restart button work 
