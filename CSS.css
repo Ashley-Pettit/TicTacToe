@@ -40,29 +40,33 @@ body {
     margin-left:auto; 
     margin-right:auto;
 	margin-top:2%;
-	font-weight: bold;
-	cursor:pointer;
 	text-align:center;
 }
 
-.gameControl td {
-	border: 2px solid black;
+.gameControl .game_options{
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.gameControl .game_options td {
 	border-radius: 8px;
 	text-align: center;
 	width: 200px;
 	height: 50px;
 }
 
+/* not currently working
+
 .gameControl td:hover {
 	border: 2px solid white;
 }
+*/
 
-.gameControl p {
-	margin-top: 10%;
-	font-family: Courier New;
+.gameControl img{
+	width: 70%;
 }
 
-
+/* all id's contained in game control */
 /* different button colors */
 #human{
 	background-color: blue;
@@ -79,6 +83,12 @@ body {
 #hard{
 	background-color: red;
 }
+/* short description at end of options */
+#boss{
+	margin-top: 10%;
+	font-family: fantasy;
+	font-size: 35px;
+}
 
 
 
@@ -93,14 +103,13 @@ body {
 	font-size: 25px;
 }
 
- 
-table#gametable{
-	margin-top:3%;
-	cursor:pointer;
+ /* restart button */
+#restart{
     margin-left:auto; 
     margin-right:auto;
+	font-size: 30px;
 	text-align: center;
-}
+ }
  
  
  #xo {
@@ -111,13 +120,6 @@ table#gametable{
 	height: 170px;
 	visibility:hidden;
 }
-
- #restart{
-    margin-left:auto; 
-    margin-right:auto;
-	font-size: 30px;
-	text-align: center;
- }
 
 footer {
     position: absolute;

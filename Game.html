@@ -5,10 +5,13 @@
     <link rel='stylesheet' type='text/css' href='css.css'/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
     <script src='TicTacToe.js' type='text/javascript'></script>
+
+	<!-- bootstrap link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 
 <body>
-	<div class ="heading">Jake's Tic Tac Toe </div>
+	<div class ="heading">Tic Tac Toe </div>
 <!-- SET THE DIFFICULTY 
 Beginner >> The computer will play randomly unless a 3 in a row to win is available.
 Intermediate >> After 3 moves the computer plays randomly however, will go for 3 in a row if possible and will block 3 in a row
@@ -18,17 +21,25 @@ I want to Lose >> Unlocked after winning Average >> The computer occasionally pl
 	<div class = "gameControl">
 		<h1>Choose your difficulty </h1>
 
-		<!--Probably should us bootstrap here instead of table here -->
-			<table>
-					<tr>
-					<td id="human">Human Verus Human</td>
-					<td id="easy" >Beginner(Not available)</td>
-					<td id="med"  >Intermediate(Not available)</td>
-					<td id="hard" >Take on the BOSS!!(Not available)</td>
-				</tr>
-			</table>
+		<!--Probably should use bootstrap here instead of table here -->
+		<table class="game_options">
+			<tr>
+				<td id="human">Human Verus Human</td>
+				<td id="easy" >Beginner(Not available)</td>
+				<td id="med"  >Intermediate(Not available)</td>
+				<td id="hard" >Take on the BOSS!!(Not available)</td>
+			</tr>
+		</table>
+		
+		<table>
+			<tr>
+				<td id="boss"> 
+					<p> Beat boss difficulty and win a $1,000 prize! <p>
+				</td>
+				<td> <img src="https://cdn.vectorstock.com/i/composite/97,32/tictactoe-winning-vector-639732.jpg"/> </td>
+			</tr>
+		</table>
 
-		<p> Beat boss difficulty and win a $1,000 prize! </p>
 	</div> 
 
 
@@ -59,11 +70,11 @@ I want to Lose >> Unlocked after winning Average >> The computer occasionally pl
 	</div>
 
 
-<!-- Make restart button work -->
+<!-- Make restart button work 
 <BR><p id="restart">
 
 	Restart</a> </p>
-
+-->
 
 
 <!-- This is where scores are displayed -->
@@ -75,6 +86,6 @@ I want to Lose >> Unlocked after winning Average >> The computer occasionally pl
 </aside>
 	
 	
-	<footer>OpenSource Ashley Pettit and Jake Norton 2016</footer>
+	<footer>OpenSource Ashley Pettit and Jake Naughton 2016</footer>
 	</body>
 	</html>
