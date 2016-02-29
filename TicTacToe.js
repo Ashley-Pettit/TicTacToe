@@ -1,23 +1,62 @@
 // THIS CODE IS FOR PAGE LOADUP
 
 $(document).ready(function() {
-		
-// THIS IS WHAT HAPPENS WHEN DIFFICULTIY IS CLICKED
-
-$('.game_options').click(function() {
-	$('.game_control').fadeOut (500);
-    $('.game_table').delay(500).fadeIn(750);
-    $('#play_lets').delay(500).fadeIn(750).delay(8060).fadeOut(750); // In at 500 Out at 10,000
-    $('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
-    $('#play4').delay(2010).fadeIn(750).fadeOut(750); // In at 2000 out at 3500
-    $('#play3').delay(3520).fadeIn(750).fadeOut(750); // In at 3500 out at 5000
-    $('#play2').delay(5030).fadeIn(750).fadeOut(750); // in at 5000 out at 6500
-    $('#play1').delay(6540).fadeIn(750).fadeOut(750); // in at 6500 out at 8000
-    $('#play_is').delay(8050).fadeIn(750);  // in at 8000, does not go out
-    $('#play_happening').delay(10070).fadeIn(1500); // in at 10,000 - Does not go out
+	initialize();
 });
 
 
+function initialize() {
+	countdown_animation();
+	who_starts();
+	game_board = set_up_board();
+	td_clicked(game_board);
+}
+
+
+function countdown_animation () {   // WILL UPDATE THIS WITH NICER CODE :P
+
+	$('.game_options').click(function() {
+		$('.game_control').fadeOut(500);
+		$('.game_table').delay(500).fadeIn(750);
+		$('#play_lets').delay(500).fadeIn(750).delay(8070).fadeOut(750); // In at 500 Out at 10,000
+		$('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
+		$('#play4').delay(2020).fadeIn(750).fadeOut(750); // In at 2000 out at 3500
+		$('#play3').delay(3530).fadeIn(750).fadeOut(750); // In at 3500 out at 5000
+		$('#play2').delay(5040).fadeIn(750).fadeOut(750); // in at 5000 out at 6500
+		$('#play1').delay(6550).fadeIn(750).fadeOut(750); // in at 6500 out at 8000
+		$('#play_is').delay(8060).fadeIn(750);  // in at 8000, does not go out
+		$('#play_happening').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
+	});
+}
+
+
+function td_clicked(game_board){
+
+	$('.game_table td').click(function() {
+		var col = $(this).parent().children().index($(this));
+		var row = $(this).parent().parent().children().index($(this).parent());
+		// checks if position on board has already been played
+		if (game_board[row * 3 + col] === null) {
+			$(this).prepend(current_player);
+			game_board[row * 3 + col] = current_player;
+			if (check_for_win(game_board, current_player)) {
+				confirm(current_player + " wins");
+			}
+			change_player();
+		}
+	});
+
+}
+
+
+function set_up_board() {
+
+	var game_board = new Array(9);
+	for (var i = 0; i < game_board.length; i++) {
+		game_board[i] = null;
+	}
+	return game_board;
+}
 
 
 function who_starts() {
@@ -33,12 +72,6 @@ function who_starts() {
 	$('#play_is').append(starting_player);
 }
 
-who_starts();
-
-$('.game_table td').click(function() {
-	$(this).prepend(current_player);
-	change_player();
-	});
 
 function change_player() {
 	if (current_player === 'X') {
@@ -49,6 +82,68 @@ function change_player() {
 	}
 }
 
+
+function check_for_win(game_board, player){
+
+	// check col win
+	for(var i = 0; i < 3; i++){
+		if (game_board[i] === player && game_board[i + 3] === player && game_board[i + 6] === player) {
+			return true;
+		}
+	}
+
+	// check row win
+	for(var j = 0; j < 9; j +=3 ){
+		if(game_board[j] === player && game_board[j + 1] === player && game_board[j + 2] === player){
+			return true;
+		}
+	}
+	
+	// diagonal wins
+	for(var k = 0; k <= 2; k+=2){
+		if(game_board[k] === player && game_board[4] === player && game_board[8 - k] === player){
+			return true;
+		}
+	}
+	// player has not won
+	return false;
+}
+
+
+function clear_board() {
+	for (var i = 0; i <= 8; i++) {
+		game_board[i] = null;
+	}
+//OR board.each = null
+}
+
+
+
+
+
+
+
+/*
+//CODE NOT YET IN USE 
+
+
+TO DO
+Clear board
+Score keeping mechanism
+Number of rounds
+AI
+
+
+
+
+//STORE SCORE - DO LATER
+
+function store_score() {
+	var player_1_score;
+	var player_2_score;
+}
+
+
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -58,118 +153,4 @@ function sleep(milliseconds) {
   }
 }
 
-var board = {
-	A1 : null, A2 : null, A3 : null,
-	B1 : null, B2 : null, B3 : null,
-	C1 : null, C2 : null, C3 : null
-};
-
-function clear_board() {
-	for (var i =0; i <= 9; i++) {
-		board[i] = null;
-	}
-
-}
-
-
-$('.clear_board').click(function() {
-	clear_board();
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-}); //DO NOT DELETE - THIS LINES UP WITH DOCUMENT.READY
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-		    $('td.game').click(function() {
-			if (whos_turn === player_1) {
-		        $(this).prepend("X"); // COULD PUT AN IMAGE HERE
-		    	this.cell_played = true;
-		    	board.this = "X";
-		    }
-			else if (whos_turn(player) === player_2) {
-				$(this).prepend("O");
-				this.cell_played = true;
-				board.this = "O";
-			}
-
-
-
-// WIN CONDITIONS
-
-
-function horizontal_win () {
-	if ((A1 === "X" + A2 === "X" + A3 === 'X') || (B1 === "X" + B2 === "X" + B3 === 'X') || (C1 === "X" + C2 === "X" + C3 === "X")) {
-	    return win
-	}
-}
-
-function vertical_win () {
-    if ((A1 === "X" + B1 === "X" + C1 === 'X') || (A2 === "X" + B2 === "X" + C2 === 'X') || (A3 === "X" + B3 === "X" + C3 === "X")) {
-		return win
-}
-
-function diagonal_win () {
-    if ((A1 === "X" + B2 === "X" + C3 === 'X') || (C1 === "X" + B2 === "X" + A3 === 'X')) {
-	   store_score.this.player += 1 
-	   return win
-
-}
-
-
-// CHECKING FOR ANY WIN CONDITIONS OF MATCH
-
-function is_match_won () {
-	if (horizontal win() === true || vertical_win() === true || diagonal_win = true);
-		console.log (player + " has taken the match! The score is " + player_1_score + " to " + player_2_score);
-		match_running = false;
-		console.log("Let's start the next round. Click roll to see who will start");
-}
-
-
-
-//STORE SCORE - DO LATER
-
-
-function store_score() {
-	var player_1_score;
-	var player_2_score;
-
-
-// CHECKING FOR HIT AMOUNT OF MATCHES. GAME ENDS. 
-
-function game_won() {  // DO LATER. MAKE 1 ROUND WORK FIRST
-
-}
-
-
-
-
-
 */
-
-
-//DONT EDIT THIS.
-
-initialize();
