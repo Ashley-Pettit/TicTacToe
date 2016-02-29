@@ -110,7 +110,7 @@ footer {
 	text-align: center;
 	font-size: 18px;
 	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 30px;
 }
 
 
@@ -127,16 +127,18 @@ footer {
 	text-align: center;
 }
 
-#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, .game_table, #play_happening{
+#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #play_happening, #play_again {
 	display:none;
 }
 
 .game_table {
 	text-align: center;
 	margin-top: 1.5%;
+	margin-bottom: 1%;
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
+	display:none;
 }
 
 .game_table td {
@@ -153,7 +155,10 @@ footer {
 	cursor:pointer;
 }
 
- 
+ a {
+ 	cursor:pointer;
+ }
+
  #xo {
     margin-left:auto; 
     margin-right:auto;

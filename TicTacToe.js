@@ -10,6 +10,7 @@ function initialize() {
 	who_starts();
 	game_board = set_up_board();
 	td_clicked(game_board);
+	clear_board();
 }
 
 
@@ -17,7 +18,6 @@ function countdown_animation () {   // WILL UPDATE THIS WITH NICER CODE :P
 
 	$('.game_options').click(function() {
 		$('.game_control').fadeOut(500);
-		$('.game_table').delay(500).fadeIn(750);
 		$('#play_lets').delay(500).fadeIn(750).delay(8070).fadeOut(750); // In at 500 Out at 10,000
 		$('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
 		$('#play4').delay(2020).fadeIn(750).fadeOut(750); // In at 2000 out at 3500
@@ -26,12 +26,13 @@ function countdown_animation () {   // WILL UPDATE THIS WITH NICER CODE :P
 		$('#play1').delay(6550).fadeIn(750).fadeOut(750); // in at 6500 out at 8000
 		$('#play_is').delay(8060).fadeIn(750);  // in at 8000, does not go out
 		$('#play_happening').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
+		$('.game_table').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
+		$('#play_again').delay(10080).fadeIn(1500);
 	});
 }
 
 
 function td_clicked(game_board){
-
 	$('.game_table td').click(function() {
 		var col = $(this).parent().children().index($(this));
 		var row = $(this).parent().parent().children().index($(this).parent());
@@ -50,7 +51,6 @@ function td_clicked(game_board){
 
 
 function set_up_board() {
-
 	var game_board = new Array(9);
 	for (var i = 0; i < game_board.length; i++) {
 		game_board[i] = null;
@@ -66,7 +66,7 @@ function who_starts() {
 		current_player = 'X';
 	}
 		else {
-			starting_player = "The Computer of DOOM!";
+			starting_player = "The Computer!";
 			current_player = 'O';
 	}
 	$('#play_is').append(starting_player);
@@ -91,50 +91,38 @@ function check_for_win(game_board, player){
 			return true;
 		}
 	}
-
 	// check row win
 	for(var j = 0; j < 9; j +=3 ){
 		if(game_board[j] === player && game_board[j + 1] === player && game_board[j + 2] === player){
 			return true;
 		}
 	}
-	
-	// diagonal wins
+	// check diagonal win
 	for(var k = 0; k <= 2; k+=2){
 		if(game_board[k] === player && game_board[4] === player && game_board[8 - k] === player){
 			return true;
 		}
 	}
-	// player has not won
+	// if no win player has not won
 	return false;
 }
 
 
 function clear_board() {
-	for (var i = 0; i <= 8; i++) {
-		game_board[i] = null;
-	}
-//OR board.each = null
+	$('#play_again').click(function() {
+		alert("HARRO IM CLEARRRING DA BOOOOARRDD!");
+		for (var i = 0; i <= 8; i++) {
+			game_board[i] = null;
+			//OR board.each = null
+			$('.game_table td').empty();
+		}
+	});
 }
-
-
-
-
 
 
 
 /*
 //CODE NOT YET IN USE 
-
-
-TO DO
-Clear board
-Score keeping mechanism
-Number of rounds
-AI
-
-
-
 
 //STORE SCORE - DO LATER
 
