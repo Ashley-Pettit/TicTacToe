@@ -49,6 +49,7 @@ body {
 	text-align: center;
 	width: 200px;
 	height: 50px;
+	border-right: 100px;
 }
 
 /* not currently working
@@ -127,9 +128,11 @@ footer {
 	text-align: center;
 }
 
-#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #play_happening, #play_again {
+.score, #play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #play_happening, #play_again, #computer_takes_round, #human_takes_round, #new_round {
 	display:none;
 }
+
+
 
 .game_table {
 	text-align: center;
@@ -167,9 +170,34 @@ footer {
 	height: 170px;
 }
 
+#widget_1 {
+  background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
+  left: 300px;
+  top: 200px;
+  height: 63.5%;
+  position: fixed;
+  width: 200px;
+  font-color:white;
+}
 
-/*	position:absolute;
-	top: 20%;
-    left: 50%;
-    margin-left: -300px;
-*/
+#won {
+	position: absolute;
+    left: 1300px;
+    top: 490px;
+	width: 200px;
+	height: 200px;
+	font-size: 25px;
+	font-family:fantasy;
+	display:none;
+}
+
+#whos_turn_is_it {
+	position: absolute;
+    left: 400px;
+    top: 490px;
+	width: 200px;
+	height: 200px;
+	font-size: 25px;
+	font-family:fantasy;
+	display:none;
+}
