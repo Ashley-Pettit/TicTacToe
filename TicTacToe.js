@@ -18,7 +18,7 @@ function countdown_animation () {
 	$('.game_options').click(function() {
 
 // WITHOUT DELAYS - FOR TESTING
-/*
+
 
 		$('.game_control').fadeOut(500);
 		$('#play_lets').delay().fadeIn(750).delay().fadeOut(750); // In at 500 Out at 10,000
@@ -32,10 +32,10 @@ function countdown_animation () {
 		$('.game_table').delay().fadeIn(1500); // in at 10,000 - Does not go out
 		$('#play_again').delay().fadeIn(1500);
 		$('#whos_turn_is_it').delay(100).fadeIn(1500).prepend(current_player + " It's your turn");
-*/
+
 
  //  WITH DELAYS - Need to reduce delay times and neaten code.
-
+/*
 		$('.game_control').fadeOut(500);
 		$('#play_lets').delay(500).fadeIn(750).delay(8070).fadeOut(750); // In at 500 Out at 10,000
 		$('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
@@ -48,7 +48,7 @@ function countdown_animation () {
 		$('.game_table').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
 		$('#play_again').delay(10080).fadeIn(1500);
 		$('#whos_turn_is_it').delay(10080).fadeIn(1500).prepend(current_player + " It's your turn");
-
+*/
 
 	});
 }
