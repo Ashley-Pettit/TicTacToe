@@ -128,7 +128,7 @@ footer {
 	text-align: center;
 }
 
-.score, #play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #play_happening, #play_again, #computer_takes_round, #human_takes_round, #new_round {
+#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #play_happening, #play_again, #computer_takes_round, #human_takes_round, #new_round, .score {
 	display:none;
 }
 

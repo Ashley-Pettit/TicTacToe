@@ -19,7 +19,6 @@ function countdown_animation () {
 
 // WITHOUT DELAYS - FOR TESTING
 
-
 		$('.game_control').fadeOut(500);
 		$('#play_lets').delay().fadeIn(750).delay().fadeOut(750); // In at 500 Out at 10,000
 		$('#play5').delay().fadeIn(750).fadeOut(750); // In at 500 out at 2000
@@ -33,9 +32,8 @@ function countdown_animation () {
 		$('#play_again').delay().fadeIn(1500);
 		$('#whos_turn_is_it').delay(100).fadeIn(1500).prepend(current_player + " It's your turn");
 
+/* WITH DELAYS - Need to reduce delay times and neaten code.
 
- //  WITH DELAYS - Need to reduce delay times and neaten code.
-/*
 		$('.game_control').fadeOut(500);
 		$('#play_lets').delay(500).fadeIn(750).delay(8070).fadeOut(750); // In at 500 Out at 10,000
 		$('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
@@ -47,9 +45,8 @@ function countdown_animation () {
 		$('#play_happening').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
 		$('.game_table').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
 		$('#play_again').delay(10080).fadeIn(1500);
-		$('#whos_turn_is_it').delay(10080).fadeIn(1500).prepend(current_player + " It's your turn");
+	
 */
-
 	});
 }
 
@@ -62,15 +59,17 @@ function td_clicked(game_board){
 			var row = $(this).parent().parent().children().index($(this).parent());
 			// checks if position on board has already been played
 			if (game_board[row * 3 + col] === null) {
+			//	$(this).prepend(current_player); // PREPENDS X OR O TO THE TD
 				game_board[row * 3 + col] = current_player;   // UPDATING THE ARRAY
-				update_board();
 				if (check_for_win(game_board, current_player)) {
+			//		$('#won').empty().prepend("It's a draw!").fadeIn(100);
 					$('#won').prepend(current_player + " Takes The Round!").fadeIn(100);
 					$('#whos_turn_is_it').fadeOut(0);
 					is_round_in_progress = false;
 				}
 				change_player();
-		//		AI_play("beginner");
+				update_board();
+				AI_play("beginner");
 			}
 		}
 	});
@@ -147,10 +146,7 @@ function check_for_win(game_board, player){
 
 	// check draw
 	var isAtLeastOneNull = game_board.some(function(p) { return p === null; }); 
-	if (!isAtLeastOneNull) { 
-		alert("It's a draw");
-		return true;
-	}
+	if (!isAtLeastOneNull) { alert("draw") }
 
 	// if no win player has not won
 	return false;
