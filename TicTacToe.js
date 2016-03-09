@@ -45,33 +45,9 @@ function countdown_animation () {
 		$('#play_happening').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
 		$('.game_table').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
 		$('#play_again').delay(10080).fadeIn(1500);
-	
+		$('#whos_turn_is_it').delay(10080).fadeIn(1500).prepend(current_player + " It's your turn");
+
 */
-	});
-}
-
-
-function td_clicked(game_board){
-	
-	$('.game_table td').click(function() {
-		if (is_round_in_progress === true) {
-			var col = $(this).parent().children().index($(this));
-			var row = $(this).parent().parent().children().index($(this).parent());
-			// checks if position on board has already been played
-			if (game_board[row * 3 + col] === null) {
-			//	$(this).prepend(current_player); // PREPENDS X OR O TO THE TD
-				game_board[row * 3 + col] = current_player;   // UPDATING THE ARRAY
-				if (check_for_win(game_board, current_player)) {
-			//		$('#won').empty().prepend("It's a draw!").fadeIn(100);
-					$('#won').prepend(current_player + " Takes The Round!").fadeIn(100);
-					$('#whos_turn_is_it').fadeOut(0);
-					is_round_in_progress = false;
-				}
-				change_player();
-				update_board();
-				AI_play("beginner");
-			}
-		}
 	});
 }
 
@@ -82,20 +58,6 @@ function set_up_board() {
 		game_board[i] = null;
 	}
 	return game_board;
-}
-
-
-function update_board () { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NEW DATA EXISTS? At the moment it's removing all data, then putting data back in. => Hacky
-	$('.game_table td').empty();
-	$('#A1').prepend(game_board[0]);
-	$('#A2').prepend(game_board[1]);
-	$('#A3').prepend(game_board[2]);
-	$('#B1').prepend(game_board[3]);
-	$('#B2').prepend(game_board[4]);
-	$('#B3').prepend(game_board[5]);
-	$('#C1').prepend(game_board[6]);
-	$('#C2').prepend(game_board[7]);
-	$('#C3').prepend(game_board[8]);
 }
 
 
@@ -123,6 +85,57 @@ function change_player() {
 	$('#whos_turn_is_it').empty().prepend(current_player + " It's your turn");
 }
 
+
+function td_clicked(game_board){
+	
+	$('.game_table td').click(function() {
+		if (is_round_in_progress === true) {
+			var col = $(this).parent().children().index($(this)); // Jake's complex thingo that works well :P
+			var row = $(this).parent().parent().children().index($(this).parent());
+			if (game_board[row * 3 + col] === null) { // checks if position on board has already been played
+				game_board[row * 3 + col] = current_player;   // UPDATING THE ARRAY
+				if (check_for_win(game_board, current_player)) {
+			//		$('#won').empty().prepend("It's a draw!").fadeIn(100); //NOT WORKING YET
+					$('#won').prepend(current_player + " Takes The Round!").fadeIn(100);
+					$('#whos_turn_is_it').fadeOut(0);
+					is_round_in_progress = false;
+				}
+				change_player();
+				update_board();
+				AI_play("beginner");
+			}
+		}
+	});
+}
+
+
+function update_board () { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NEW DATA EXISTS? At the moment it's removing all data, then putting data back in. => Hacky
+	$('.game_table td').empty();
+	$('#A1').prepend(game_board[0]);
+	$('#A2').prepend(game_board[1]);
+	$('#A3').prepend(game_board[2]);
+	$('#B1').prepend(game_board[3]);
+	$('#B2').prepend(game_board[4]);
+	$('#B3').prepend(game_board[5]);
+	$('#C1').prepend(game_board[6]);
+	$('#C2').prepend(game_board[7]);
+	$('#C3').prepend(game_board[8]);
+}
+
+function clear_board() {
+	$('#play_again').click(function() {
+		alert("TIME FOR THE NEXT ROUND!");
+		for (var i = 0; i < 9; i++) { // Clearing the array 
+			game_board[i] = null;
+		}
+		update_board();
+		is_round_in_progress = true;
+		$('#whos_turn_is_it').empty().delay(100).fadeIn(1500).prepend(current_player + " It's your turn");
+		$('#won').empty();
+	});
+}
+
+
 function check_for_win(game_board, player){
 
 	// check col win
@@ -146,24 +159,12 @@ function check_for_win(game_board, player){
 
 	// check draw
 	var isAtLeastOneNull = game_board.some(function(p) { return p === null; }); 
-	if (!isAtLeastOneNull) { alert("draw") }
+	if (!isAtLeastOneNull) { 
+		alert("draw") 
+	}
 
 	// if no win player has not won
 	return false;
-}
-
-
-function clear_board() {
-	$('#play_again').click(function() {
-		alert("TIME FOR THE NEXT ROUND!");
-		for (var i = 0; i < 9; i++) {
-			game_board[i] = null;
-			$('.game_table td').empty();
-		}
-		is_round_in_progress = true;
-		$('#whos_turn_is_it').empty().delay(100).fadeIn(1500).prepend(current_player + " It's your turn");
-		$('#won').empty();
-	});
 }
 
 
@@ -180,7 +181,21 @@ function AI_play (difficulty) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
+
 
 
 //CODE NOT YET IN USE 
