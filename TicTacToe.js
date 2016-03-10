@@ -100,9 +100,9 @@ function td_clicked(game_board){
 					$('#whos_turn_is_it').fadeOut(0);
 					is_round_in_progress = false;
 				}
-				change_player();
-				update_board();
-				AI_play("beginner");
+			update_board();
+			change_player();
+			AI_play("beginner");
 			}
 		}
 	});
@@ -169,28 +169,18 @@ function check_for_win(game_board, player){
 
 
 function AI_play (difficulty) {
-	if (difficulty === "beginner") {
-			for(var i = 0; i < 9; i++){
-				if (game_board[i] === null) {
-					game_board[row * 3 + col] = current_player; // Updating the array
-					update_board();
-					break;
-				}
+	if (difficulty === "beginner" && is_round_in_progress === true) {
+		for(var i = 0; i < 9; i++){
+			var random_move = Math.floor(Math.random()*9);
+			if (game_board[random_move] === null) {
+				game_board[random_move] = current_player; // Updating the array
+				change_player();
+				update_board();
+				break;
 			}
+		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -201,6 +191,9 @@ function AI_play (difficulty) {
 //CODE NOT YET IN USE 
 
 
+function time_out(time) {
+    var duration = setTimeout(break, time);
+}
 
 function sleep(milliseconds) {
   var start = new Date().getTime();

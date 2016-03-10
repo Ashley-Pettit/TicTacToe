@@ -65,23 +65,23 @@ body {
 
 /* all id's contained in game control */
 /* different button colors */
-#human{
+#human {
 	background-color: blue;
 }
 
-#easy{
+#easy {
 	background-color: green;
 }
 
-#med{
+#med {
 	background-color: orange;
 }
 
-#hard{
+#hard {
 	background-color: red;
 }
 /* short description at end of options */
-#boss{
+#boss {
 	margin-top: 10%;
 	font-family: fantasy;
 	font-size: 35px;
@@ -89,7 +89,7 @@ body {
 
 
  /* restart button */
-#restart{
+#restart {
     margin-left:auto; 
     margin-right:auto;
 	font-size: 30px;

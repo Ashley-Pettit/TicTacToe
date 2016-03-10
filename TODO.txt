@@ -1,9 +1,7 @@
-GAME NOT START BEFORE BEGIN
-NEW IMAGES FOR X O
-GAME STOP AFTER WIN
-CLEAR BOARD
+
 SCORE BOARD
 Number of rounds
 AI - Beg
 AI - IN
 AI - Adv
+Page Responsive (Adjusts to screen size)
