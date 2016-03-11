@@ -240,7 +240,8 @@ function AI_play () {
 }
 
 function AI_easy (){ // THIS LOGIC IS INCORRECT!!!! 
-	for (var i = 0; i < 9; i++) {
+	var AI_playing = true
+	while (AI_playing) {
 		var random_move = Math.floor(Math.random()*9); // COME UP WITH A RANDOM NUMBER 0-8
 		if (game_board[random_move] === null) {
 			game_board[random_move] = current_player; // Updating the array
@@ -248,6 +249,7 @@ function AI_easy (){ // THIS LOGIC IS INCORRECT!!!!
 			check_for_win();
 			check_for_draw ();
 			change_player();
+			AI_playing = false
 			break;
 		}
 	}
