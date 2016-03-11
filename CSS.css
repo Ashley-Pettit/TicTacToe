@@ -3,14 +3,11 @@ body {
 	padding-top:2%;
 }
 
-
-/* heading */
 .heading {
 	position: absolute;
 	left: 0;
     top: 0;
     width: 100%;
-	float: center;
 	background-color:teal;
 	color:white;
 	font-size: 50px;
@@ -19,6 +16,8 @@ body {
 	text-align: center;
  }
  
+
+
 .game_control{
 	margin-left:auto; 
     margin-right:auto;
@@ -42,58 +41,49 @@ body {
 .game_control .game_options{
 	font-weight: bold;
 	cursor: pointer;
+	width: 47%;
 }
 
 .game_control .game_options td {
 	border-radius: 8px;
 	text-align: center;
-	width: 200px;
-	height: 50px;
-	border-right: 100px;
+	padding: 1%;
 }
-
-/* not currently working
-
-.game_control td:hover {
-	border: 2px solid white;
-}
-*/
 
 .game_control img{
 	width: 70%;
 }
 
-/* all id's contained in game control */
-/* different button colors */
 #human {
-	background-color: blue;
+	background-color:lightblue;
 }
 
 #easy {
-	background-color: green;
+	background-color: lightgreen;
 }
 
 #med {
-	background-color: orange;
+	background-color: yellow;
 }
 
 #hard {
-	background-color: red;
+	background-color: orange;
 }
-/* short description at end of options */
-#boss {
+
+#win1000 {
 	margin-top: 10%;
 	font-family: fantasy;
 	font-size: 35px;
 }
 
 
- /* restart button */
-#restart {
-    margin-left:auto; 
-    margin-right:auto;
-	font-size: 30px;
+#home {
+	position:absolute;
+	left: 90%;
+	top: 87%;
+	font-size: 25px;
 	text-align: center;
+	font-color:white;
  }
  
 
@@ -101,17 +91,14 @@ footer {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 35px;
+    height: 4%;
     width: 100%;
 	background-color:teal;
 	color:white;
-    margin-left:auto; 
-    margin-right:auto;
-	font-size: 20px;
 	text-align: center;
 	font-size: 18px;
-	padding-top: 10px;
-	padding-bottom: 30px;
+	padding-top: .5%;
+	padding-bottom: 1.65%;
 }
 
 
@@ -128,11 +115,9 @@ footer {
 	text-align: center;
 }
 
-#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #play_happening, #play_again, #computer_takes_round, #human_takes_round, #new_round, .score {
+#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #begun, #play_again, #computer_takes_round, #human_takes_round, #new_round, #score, #home {
 	display:none;
 }
-
-
 
 .game_table {
 	text-align: center;
@@ -142,6 +127,7 @@ footer {
     margin-right:auto;
 	text-align: center;
 	display:none;
+	width: 30%;
 }
 
 .game_table td {
@@ -162,30 +148,11 @@ footer {
  	cursor:pointer;
  }
 
- #xo {
-    margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
-	width: 170px;
-	height: 170px;
-}
-
-#widget_1 {
-  background: #202024 url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/uber/black-thread.png') repeat left top;
-  left: 300px;
-  top: 200px;
-  height: 63.5%;
-  position: fixed;
-  width: 200px;
-  font-color:white;
-}
 
 #won {
 	position: absolute;
-    left: 1300px;
-    top: 490px;
-	width: 200px;
-	height: 200px;
+    left: 68%;
+    top: 51%;
 	font-size: 25px;
 	font-family:fantasy;
 	display:none;
@@ -193,11 +160,25 @@ footer {
 
 #whos_turn_is_it {
 	position: absolute;
-    left: 400px;
-    top: 490px;
-	width: 200px;
-	height: 200px;
+    left: 25%;
+    top: 51%;
 	font-size: 25px;
 	font-family:fantasy;
 	display:none;
+}
+
+#score {
+	position: absolute;
+    left: 74%;
+    top: 22%;
+	font-size: 15px;
+	cursor:pointer;
+	text-align: center;
+}
+
+#score td {
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	padding:5px;
 }

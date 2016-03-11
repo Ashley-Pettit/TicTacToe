@@ -5,3 +5,6 @@ AI - Beg
 AI - IN
 AI - Adv
 Page Responsive (Adjusts to screen size)
+Red line through winning pieces
+
+computer goes if it plays first

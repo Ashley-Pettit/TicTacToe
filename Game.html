@@ -18,16 +18,16 @@
 		<h1>Choose your difficulty </h1>
 		<table class="game_options">
 			<tr>
-				<td id="human">Human Verus Human</td>
-				<td id="easy" >Beginner<BR>(Not available)</td>
-				<td id="med"  >Intermediate<BR>(Not available)</td>
-				<td id="hard" >Take on the BOSS!!<BR>(Not available)</td>
+				<td id="human">Human Verus Human</td> <td></td>
+				<td id="easy" >Beginner</td><td></td>
+				<td id="med"  >Intermediate<BR>(Not available)</td><td></td>
+				<td id="hard" >Take on the BOSS!!<BR>(Not available)</td><td></td>
 			</tr>
 		</table>
 		
 		<table>
 			<tr>
-				<td id="boss"> 
+				<td id="win1000"> 
 					<p> Beat boss difficulty and win a $1,000 prize! <p>
 				</td>
 				<td> <img src="images/tic_tac_toe_win.jpg"/> </td>
@@ -47,7 +47,7 @@
 		<p id = "play2"> 2... </p>
 		<p id = "play1"> 1.. </p>
 		<p id = "play_is"> The starting player is </p>
-		<p id = "play_happening"> The game has begun.</p>
+		<p id = "begun"> The game has begun.</p>
 
 		<table class="game_table">
 			<tr>
@@ -71,21 +71,22 @@
 
 	<p id = "whos_turn_is_it"> </p>
 
-	<div class ="score">
+	<div id ="score">
 		<table>	
 			<tr>
-				<td>Computer Score</td>
-				<td></td>
+				<td id = "title_score1">X Score</td>
+				<td id = "title_score2">O Score</td>
 			</tr>
 			<tr>
-				<td>Human Score</td>
-				<td></td>
+				<td id = "score1">0</td>
+				<td id = "score2">0</td>
 			</tr>
 		</table>
 	</div>
 
 	<p id = "won"></p>
-	
+	<p id = "home"><a>Restart</a></p>
+
 	<footer>OpenSource Ashley Pettit and Jake Naughton 2016</footer>
 	</body>
 </html>
