@@ -74,19 +74,19 @@ function who_starts() {
     var random_player = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
         if (random_player === 1) {
-            starting_player = "The Computer of Doom! (As X)";
+            starting_player = "The Computer of Doom! (X)";
             current_player = 'X';
             AI_play();
         } else {
-            starting_player = "The Human! (As O)";
+            starting_player = "The Human! (O)";
             current_player = 'O';
         }
     } else {
         if (random_player === 1) {
-            starting_player = "Human Number 1! (As X)";
+            starting_player = "Human Number 1! (X)";
             current_player = 'X';
         } else {
-            starting_player = "Human Number 2! (As O)";
+            starting_player = "Human Number 2! (O)";
             current_player = 'O';
         }
     }
@@ -105,20 +105,20 @@ function change_player() {
 
 
 function change_starting_player() {
-	if (starting_player === "The Computer of Doom! (As X)") {
-		starting_player = "The Human! (As O)";
+	if (starting_player === "The Computer of Doom! (X)") {
+		starting_player = "The Human! (O)";
 		current_player = 'O';
     } 
-    else if (starting_player === "The Human! (As O)") {
-		starting_player = "The Computer of Doom! (As X)"; 
+    else if (starting_player === "The Human! (O)") {
+		starting_player = "The Computer of Doom! (X)"; 
 		current_player = 'X';
 	}
-    else if (starting_player === "Human Number 1! (As X)") {
-    	starting_player = "Human Number 2 (O)";
+    else if (starting_player === "Human Number 1! (X)") {
+    	starting_player = "Human Number 2! (O)";
         current_player = 'O';
     } 
-    else if (starting_player === "Human Number 2! (As O)") {
-    	starting_player = "Human Number 1 (X)";
+    else if (starting_player === "Human Number 2! (O)") {
+    	starting_player = "Human Number 1! (X)";
         current_player = 'X';
     } 
 }
