@@ -18,8 +18,8 @@ DELAY COMPUTER MOVE >> Requires known issue 3 fixed
 
 KNOWN ISSUES
 
-1 - BUG SCOREBOARD SAYS COMP VERSING HUMAN
+1 - BUG SCOREBOARD SAYS COMP VERSING HUMAN - Resolved
 2 - GLOBAL VARIABLE USE
 3 - GAME BOARD CONNECTION TO GAME ARRAY IS B GRADE CODING
-4 - Changing players has an occasional issue. It occurs on computer start and player win. 
-5* - WHAT IF 2 WINS AT SAME TIME? >> Resolved via return to end function
+4 - Changing players has an occasional issue. It occurs on computer start and player win - Resolved
+5* - WHAT IF 2 WINS AT SAME TIME? >> Resolves
