@@ -17,32 +17,27 @@ body {
  }
  
 
-
-.game_control{
+.game_control {
 	margin-left:auto; 
     margin-right:auto;
 	text-align: center;
 	margin-top:3%;
-
 }
+
 
 .game_control h1{
 	font-family: Impact;
 	margin-top: 5%;
  }
 
-.game_control table{
+
+.game_control table {
     margin-left:auto; 
     margin-right:auto;
 	margin-top:2%;
 	text-align:center;
 }
 
-.game_control .game_options{
-	font-weight: bold;
-	cursor: pointer;
-	width: 47%;
-}
 
 .game_control .game_options td {
 	border-radius: 8px;
@@ -50,17 +45,28 @@ body {
 	padding: 1%;
 }
 
+
+.game_control .game_options {
+	font-weight: bold;
+	cursor: pointer;
+	width: 47%;
+}
+
+
 .game_control img{
 	width: 70%;
 }
+
 
 #human {
 	background-color:lightblue;
 }
 
+
 #easy {
 	background-color: lightgreen;
 }
+
 
 #med {
 	background-color: yellow;
@@ -172,7 +178,6 @@ footer {
     left: 74%;
     top: 22%;
 	font-size: 15px;
-	cursor:pointer;
 	text-align: center;
 }
 
@@ -180,14 +185,20 @@ footer {
 	border-style: solid;
 	border-width: 2px;
 	border-color: black;
-	padding:5px;
+	padding:8px;
 }
 
 #line {
-
   height: 40px;
   width: 500px;
   border-bottom: 3px solid red;
+}
+
+#line_up {
+  height: 40px;
+  width: 500px;
+  border-bottom: 3px solid red;
+  transform: skew(90deg);
 }
 
 #line_d1 {
