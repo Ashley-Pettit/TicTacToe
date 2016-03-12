@@ -19,42 +19,27 @@ function countdown_animation() {
 
     $('.game_options').click(function() {
 
-        // WITHOUT DELAYS - FOR TESTING
-        who_starts(); // NOTE THIS IS HERE BECAUSE GAME DIFFICULTY MUST BE CLICKED BEFORE CAN WORK OUT WHO STARTS
-        $('.game_control').fadeOut(500);
-        $('#play_lets').delay().fadeIn(750).delay().fadeOut(750); // In at 500 Out at 10,000
-        $('#play5').delay().fadeIn(750).fadeOut(750); // In at 500 out at 2000
-        $('#play4').delay().fadeIn(750).fadeOut(750); // In at 2000 out at 3500
-        $('#play3').delay().fadeIn(750).fadeOut(750); // In at 3500 out at 5000
-        $('#play2').delay().fadeIn(750).fadeOut(750); // in at 5000 out at 6500
-        $('#play1').delay().fadeIn(750).fadeOut(750); // in at 6500 out at 8000
-        $('#play_is').delay().fadeIn(750); // in at 8000, does not go out
-        $('#begun').delay().fadeIn(1500); // in at 10,000 - Does not go out
-        $('.game_table').delay().fadeIn(1500); // in at 10,000 - Does not go out
-        $('#play_again').delay().fadeIn(1500);
-        $('#whos_turn_is_it').delay(100).empty().fadeIn(1500).prepend(current_player + " It's your turn");
-        $('#home').delay().fadeIn(1500);
-        $('#score').delay().fadeIn(1500);
-
-    /* WITH DELAYS - Need to reduce delay times and neaten code.
+    // Try 2 DELAYS - Need to reduce delay times and neaten code.
 
 		who_starts();  // NOTE THIS IS HERE BECAUSE GAME DIFFICULTY MUST BE CLICKED BEFORE CAN WORK OUT WHO STARTS
-		$('.game_control').fadeOut(500);
-		$('#play_lets').delay(500).fadeIn(750).delay(8070).fadeOut(750); // In at 500 Out at 10,000
-		$('#play5').delay(501).fadeIn(750).fadeOut(750); // In at 500 out at 2000
-		$('#play4').delay(2020).fadeIn(750).fadeOut(750); // In at 2000 out at 3500
-		$('#play3').delay(3530).fadeIn(750).fadeOut(750); // In at 3500 out at 5000
-		$('#play2').delay(5040).fadeIn(750).fadeOut(750); // in at 5000 out at 6500 
-		$('#play1').delay(6550).fadeIn(750).fadeOut(750); // in at 6500 out at 8000
-		$('#play_is').delay(8060).fadeIn(750);  // in at 8000, does not go out
-		$('#play_happening').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
-		$('.game_table').delay(10080).fadeIn(1500); // in at 10,000 - Does not go out
-		$('#play_again').delay(10080).fadeIn(1500);
-		$('#whos_turn_is_it').delay(10080).fadeIn(1500).prepend(current_player + " It's your turn"); 
-		$('#home').delay(10080).fadeIn(1500);
-		$('#score').delay(10080).fadeIn(1500);
-
-    */
+		$('.game_control').fadeOut(200);
+		$('#play_lets').delay(200).fadeIn(500).delay(4360).fadeOut(500); // In at 500 Out at 10,000
+		$('#play5').delay(501).fadeIn(500).fadeOut(500); // In at 500 out at 2000
+		$('#play4').delay(1520).fadeIn(500).fadeOut(500); // In at 2000 out at 3500
+		$('#play3').delay(2530).fadeIn(500).fadeOut(500); // In at 3500 out at 5000
+		$('#play2').delay(3540).fadeIn(500).fadeOut(500); // in at 5000 out at 6500 
+		$('#play1').delay(4550).fadeIn(500).fadeOut(500); // in at 6500 out at 8000
+		$('#play_is').delay(5560).fadeIn(500);  // in at 8000, does not go out
+		$('#begun').delay(5560).fadeIn(1500); // in at 10,000 - Does not go out
+		$('#play_happening').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
+		$('.game_table').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
+		$('#play_again').delay(5570).fadeIn(1500);
+        $('#whos_turn_is_it').delay(5570).empty().fadeIn(1500).prepend(current_player + " It's your turn");
+		$('#home').delay(5570).fadeIn(1500);
+		$('#score').delay(5570).fadeIn(1500);
+		$('#title_score1').prepend("Computer Score");
+		$('#title_score2').prepend("Human Score");
+    //
     });
 }
 
@@ -137,15 +122,17 @@ function td_clicked() {
 
 function update_board() { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NEW DATA EXISTS? At the moment it's removing all data, then putting data back in. => Hacky
     $('.game_table td').empty();
-    $('#A1').prepend(game_board[0]);
-    $('#A2').prepend(game_board[1]);
-    $('#A3').prepend(game_board[2]);
-    $('#B1').prepend(game_board[3]);
-    $('#B2').prepend(game_board[4]);
-    $('#B3').prepend(game_board[5]);
-    $('#C1').prepend(game_board[6]);
-    $('#C2').prepend(game_board[7]);
-    $('#C3').prepend(game_board[8]);
+
+   // for (var i = 0; i<9;i++) => How do you get jquery to insert class based on a variable
+    $('#0').prepend(game_board[0]);
+    $('#1').prepend(game_board[1]);
+    $('#2').prepend(game_board[2]);
+    $('#3').prepend(game_board[3]);
+    $('#4').prepend(game_board[4]);
+    $('#5').prepend(game_board[5]);
+    $('#6').prepend(game_board[6]);
+    $('#7').prepend(game_board[7]);
+    $('#8').prepend(game_board[8]);
 }
 
 
@@ -155,16 +142,26 @@ function clear_board() {
         for (var i = 0; i < 9; i++) { // Clearing the array 
             game_board[i] = null;
         }
-        update_board();
         is_round_in_progress = true;
+        update_board();
         $('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
         $('#won').empty();
+    	if  ((current_player === "X") && (difficulty !== "human")) {
+    		$('#play_is').delay().empty().append("The computer of Doom has started this round. (As X)"); 
+    	}
+    	else if ((current_player === "O") && (difficulty !== "human")) {
+    		$('#play_is').delay().empty().append("The human will start this round. (As O)"); 
+    	}
+    	else if (current_player === "O") {
+    		$('#play_is').delay().empty().append("The first human will start this round (As X)"); 
+    	}
+    	else if (current_player === "O") {
+    		$('#play_is').delay().empty().append("The second human will start this round (As O)"); 
+    	}
+    	$('#begun').delay().empty().append("The game continues!"); // in at 10,000 - Does not go out
         if (current_player === "X") {
             AI_play();
         }   
-    	$('#play_is').delay().empty().append(current_player + " will start this round"); // in at 8000, does not go out
-    	$('#begun').delay().empty().append("The game continues!"); // in at 10,000 - Does not go out
-
     });
 }
 
@@ -175,18 +172,21 @@ function check_for_win() {
     for (var i = 0; i < 3; i++) {
         if (game_board[i] === current_player && game_board[i + 3] === current_player && game_board[i + 6] === current_player) {
             round_won();
+            return;
         }
     }
     // check row win
     for (var j = 0; j < 9; j += 3) {
         if (game_board[j] === current_player && game_board[j + 1] === current_player && game_board[j + 2] === current_player) {
             round_won();
+            return;
         }
     }
     // check diagonal win
     for (var k = 0; k <= 2; k += 2) {
         if (game_board[k] === current_player && game_board[4] === current_player && game_board[8 - k] === current_player) {
             round_won();
+            return;
         }
     }
 
@@ -219,20 +219,20 @@ function round_drew() {
     update_board();
 }
 
-
 function AI_play() {
 
-    if (difficulty === "easy" && is_round_in_progress === true) {
+    if ((difficulty === "easy") && (is_round_in_progress === true)) {
         AI_easy();
     }
 }
 
-function AI_easy() { // THIS LOGIC IS INCORRECT!!!! 
+function AI_easy() { //Make me a little harder. If can win make it win
     var AI_playing = true;
     while (AI_playing) {
         var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
         if (game_board[random_move] === null) {
             game_board[random_move] = current_player; // Updating the array
+            game_board[random_move] = current_player;
             update_board();
             check_for_win();
             check_for_draw();
@@ -248,7 +248,23 @@ function AI_Intermediate() {
 }
 
 function AI_hard_agressive() {
+	var AI_playing = true;
+	while (AI_playing) {
+	var random_move = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
+	// PLAY 1 - COMPUTER PLAYER A CORNER CELL
+	// PLAY 2 - COMPUTER PLAYS A SIDE CELL
+	// PLAY 3 - COMPUTER PLAYS IN MIDDLE
+	var random_orientation = Math.floor(Math.random() * 4) // After finding out what type of cell to play. Then randomly orient the play
+	if (random_move = 1) { 
+		//If computer played on first turn on a corner cell it has three possible next moves. 
+		//OPTION 1 (Preferenced) - The computer will play in the center -  The computer will now win in 1-2 moves
+		//OPTION 2 - The computer will play either the side cell which is 3 units ahead of the current cell (Attempting to force a 2 way win situation) OR
+		//OPTION 3 - The computer plays in the opposite corner - Again attempting to try to force a 2 way win situation.  
+	}
+		//If the computer did option 1 
 
+
+	}
 }
 
 function AI_hard_defending() {

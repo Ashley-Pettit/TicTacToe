@@ -182,3 +182,24 @@ footer {
 	border-color: black;
 	padding:5px;
 }
+
+#line {
+
+  height: 40px;
+  width: 500px;
+  border-bottom: 3px solid red;
+}
+
+#line_d1 {
+  height: 500px;
+  width: 500px;
+  border-right: 3px solid red;
+  transform: skew(-45deg);
+}
+
+#line_d2 {
+  height: 500px;
+  width: 500px;
+  border-right: 3px solid red;
+  transform: skew(45deg);
+}

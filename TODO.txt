@@ -1,10 +1,23 @@
 
-SCORE BOARD
-Number of rounds
-AI - Beg
-AI - IN
-AI - Adv
+Improve beginner AI - Make it go for win if it has 2 in a row
+
 Page Responsive (Adjusts to screen size)
+
+AI - in
+AI - Adv
+
+
 Red line through winning pieces
 
-computer goes if it plays first
+
+
+BUG = PLAYER TURN SWITCHING IS BUGGED
+BUG = WHAT IF 2 WINS AT SAME TIME??? >> HAS RETURN FIXED THIS?
+DELAY COMPUTER MOVE
+
+Fix how the game board connects with the game array. At the moment it's 'hacky' :P
+
+
+Fix global variable use
+
+BUG SCOREBOARD SAYS COMP VERSING HUMAN
