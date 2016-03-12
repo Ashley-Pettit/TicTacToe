@@ -15,6 +15,7 @@ function initialize() { // Turning on all clickable features and loading page
     player2_score = 0;
 }
 
+
 function countdown_animation() {
 
     $('.game_options').click(function() {
@@ -43,6 +44,7 @@ function countdown_animation() {
     });
 }
 
+
 function difficulty_selected() { // NOTE USE OF GLOBAL VARIABLE DUE TO DOCUMENT.READY
     $('#human').click(function() {
         difficulty = "human";
@@ -58,6 +60,7 @@ function difficulty_selected() { // NOTE USE OF GLOBAL VARIABLE DUE TO DOCUMENT.
     });
 }
 
+
 function set_up_board() {
     var game_board = new Array(9);
     for (var i = 0; i < game_board.length; i++) {
@@ -68,9 +71,9 @@ function set_up_board() {
 
 
 function who_starts() {
-    var starting_player = Math.floor(Math.random() * 2 + 1);
+    var random_player = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
-        if (starting_player === 1) {
+        if (random_player === 1) {
             starting_player = "The Computer of Doom! (As X)";
             current_player = 'X';
             AI_play();
@@ -79,7 +82,7 @@ function who_starts() {
             current_player = 'O';
         }
     } else {
-        if (starting_player === 1) {
+        if (random_player === 1) {
             starting_player = "Human Number 1! (As X)";
             current_player = 'X';
         } else {
@@ -101,6 +104,26 @@ function change_player() {
 }
 
 
+function change_starting_player() {
+	if (starting_player === "The Computer of Doom! (As X)") {
+		starting_player = "The Human! (As O)";
+		current_player = 'O';
+    } 
+    else if (starting_player === "The Human! (As O)") {
+		starting_player = "The Computer of Doom! (As X)"; 
+		current_player = 'X';
+	}
+    else if (starting_player === "Human Number 1! (As X)") {
+    	starting_player = "Human Number 2 (O)";
+        current_player = 'O';
+    } 
+    else if (starting_player === "Human Number 2! (As O)") {
+    	starting_player = "Human Number 1 (X)";
+        current_player = 'X';
+    } 
+}
+
+
 function td_clicked() {
 
     $('.game_table td').click(function() {
@@ -110,8 +133,8 @@ function td_clicked() {
             if (game_board[row * 3 + col] === null) { // checks if position on board has already been played
                 game_board[row * 3 + col] = current_player; // UPDATING THE ARRAY
                 update_board(); // UPDATE THE VISUAL BOARD
-                check_for_win(game_board);
-                check_for_draw(game_board);
+                check_for_win();
+                check_for_draw();
                 change_player();
                 AI_play(); // AI PLAYS STRAIGHT AFTER
             }
@@ -138,30 +161,19 @@ function update_board() { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NE
 
 function clear_board() {
     $('#play_again').click(function() {
-        alert("TIME FOR THE NEXT ROUND! SWAPPING STARTING PLAYER");
+    	$('#won').empty();
+        is_round_in_progress = true;
+		change_starting_player();
         for (var i = 0; i < 9; i++) { // Clearing the array 
             game_board[i] = null;
         }
-        is_round_in_progress = true;
         update_board();
-        $('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
-        $('#won').empty();
-    	if  ((current_player === "X") && (difficulty !== "human")) {
-    		$('#play_is').delay().empty().append("The computer of Doom has started this round. (As X)"); 
+    	$('#play_is').empty().append(starting_player + " will start this round."); 
+    	$('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
+    	$('#begun').empty().append("The game continues!"); // in at 10,000 - Does not go out
+    	if (current_player === "X") {
+    		AI_play();
     	}
-    	else if ((current_player === "O") && (difficulty !== "human")) {
-    		$('#play_is').delay().empty().append("The human will start this round. (As O)"); 
-    	}
-    	else if (current_player === "O") {
-    		$('#play_is').delay().empty().append("The first human will start this round (As X)"); 
-    	}
-    	else if (current_player === "O") {
-    		$('#play_is').delay().empty().append("The second human will start this round (As O)"); 
-    	}
-    	$('#begun').delay().empty().append("The game continues!"); // in at 10,000 - Does not go out
-        if (current_player === "X") {
-            AI_play();
-        }   
     });
 }
 
@@ -169,6 +181,7 @@ function clear_board() {
 function check_for_win() {
 
     // check col win
+
     for (var i = 0; i < 3; i++) {
         if (game_board[i] === current_player && game_board[i + 3] === current_player && game_board[i + 6] === current_player) {
             round_won();
@@ -192,6 +205,7 @@ function check_for_win() {
 
 }
 
+
 function check_for_draw() {
     if (is_round_in_progress === true) {
         var isAtLeastOneNull = game_board.some(function(p) {
@@ -199,6 +213,7 @@ function check_for_draw() {
         });
         if (!isAtLeastOneNull) {
             round_drew();
+            return (is_round_in_progress = false)
         }
     }
 }
@@ -210,14 +225,18 @@ function round_won() {
     is_round_in_progress = false;
     update_score();
     update_board();
+    AI_playing = false;
 }
+
 
 function round_drew() {
     $('#won').prepend("It's a draw!").fadeIn(100); // THIS CODE SHOULDN'T BE HERE
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
     update_board();
+    AI_playing = false;
 }
+
 
 function AI_play() {
 
@@ -225,6 +244,7 @@ function AI_play() {
         AI_easy();
     }
 }
+ 
 
 function AI_easy() { //Make me a little harder. If can win make it win
     var AI_playing = true;
@@ -232,7 +252,6 @@ function AI_easy() { //Make me a little harder. If can win make it win
         var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
         if (game_board[random_move] === null) {
             game_board[random_move] = current_player; // Updating the array
-            game_board[random_move] = current_player;
             update_board();
             check_for_win();
             check_for_draw();
@@ -243,9 +262,11 @@ function AI_easy() { //Make me a little harder. If can win make it win
     }
 }
 
+
 function AI_Intermediate() {
 
 }
+
 
 function AI_hard_agressive() {
 	var AI_playing = true;
@@ -266,6 +287,7 @@ function AI_hard_agressive() {
 
 	}
 }
+
 
 function AI_hard_defending() {
 
