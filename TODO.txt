@@ -1,23 +1,25 @@
 
-Improve beginner AI - Make it go for win if it has 2 in a row
 
-Page Responsive (Adjusts to screen size)
+TO DO SOON
 
-AI - in
-AI - Adv
-
-
-Red line through winning pieces
+BUG FIXING
+RED LINE THROUGH WIN
+ADVANCED AGGRESSIVE AI
 
 
+TO DO LATER
 
-BUG = PLAYER TURN SWITCHING IS BUGGED
-BUG = WHAT IF 2 WINS AT SAME TIME??? >> HAS RETURN FIXED THIS?
-DELAY COMPUTER MOVE
+ADVANCED DEFENSIVE AI
+MAKE PAGE RESPONSIVE - LOOKS TERRIBLE ON DIFFERENT RESOLUTIONS
+INTERMEDIATE AI - Should merely play as beginner except should win when it can and should block any 2 in a rows. Thus the player must force a 2 win scenario to beat the computer
+DELAY COMPUTER MOVE >> Requires known issue 3 fixed
 
-Fix how the game board connects with the game array. At the moment it's 'hacky' :P
 
 
-Fix global variable use
+KNOWN ISSUES
 
-BUG SCOREBOARD SAYS COMP VERSING HUMAN
+1 - BUG SCOREBOARD SAYS COMP VERSING HUMAN
+2 - GLOBAL VARIABLE USE
+3 - GAME BOARD CONNECTION TO GAME ARRAY IS B GRADE CODING
+4 - Changing players has an occasional issue. It occurs on computer start and player win. 
+5* - WHAT IF 2 WINS AT SAME TIME? >> Resolved via return to end function
