@@ -12,4 +12,4 @@ Save it to your computer then just run the Game.Html file
 
 *No code tampering or exploiting bugs!
 
-<img src="/images/ttt.png"/>
+<img src="/Images/TTT.png"/>
