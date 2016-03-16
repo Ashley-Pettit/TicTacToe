@@ -174,7 +174,7 @@ function clear_board() {
 }
 
 
-function check_for_win() {
+function check_for_win(checking_cell) {
 
     // check col win
 
@@ -199,14 +199,7 @@ function check_for_win() {
 }
 
 function is_computer_able_to_win () {
-	for (i = 0; i < 9; i++) {
-		if (game_board[i] === null) {
-			game_board[i] = 'X'
-			if (check_for_win()) {
-				alert("THIS MOVE WILL MAKE ME WIN. PLAYING AT " + i)
-			}
-		}
-	}
+	
 }
 
 
@@ -228,6 +221,7 @@ function round_won() {
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
     update_score();
+    AI_playing = false;
     $('#play_again').fadeIn(1000);
 }
 
@@ -236,6 +230,7 @@ function round_drew() {
     $('#won').prepend("It's a draw!").fadeIn(100); // THIS CODE SHOULDN'T BE HERE
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
+    AI_playing = false;
     $('#play_again').fadeIn(1500);
 }
 
@@ -249,7 +244,8 @@ function AI_play() {
  
 
 function AI_easy() { //Make me a little harder. If can win make it win
-    is_computer_able_to_win();
+    var AI_playing = true;
+    while (AI_playing) {
         var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
         if (game_board[random_move] === null) {
             game_board[random_move] = current_player; // Updating the array
@@ -261,8 +257,10 @@ function AI_easy() { //Make me a little harder. If can win make it win
 				round_drew();
             }
             change_player();
+            AI_playing = false;
             break;
         }
+    }
 }
 
 
@@ -292,6 +290,8 @@ function AI_Intermediate() {
 function AI_hard_agressive() {
 // This AI occurs when hard is selected and the AI has the starting turn. As the starting player the computer agressively attempts to force 2 win scenarios. 
 
+	//var AI_playing = true;
+	//while (AI_playing) {
 	//var random_move = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
 	
 	// TURN 1
