@@ -129,6 +129,7 @@ function change_starting_player() {
 }
 
 
+
 function td_clicked() {
 
     $('.game_table td').click(function() {
@@ -150,17 +151,9 @@ function td_clicked() {
 
 function update_board() { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NEW DATA EXISTS? At the moment it's removing all data, then putting data back in. => Hacky
     $('.game_table td').empty();
-
-    // for (var i = 0; i<9;i++) => How do you get jquery to insert class based on a variable
-    $('#0').prepend(game_board[0]);
-    $('#1').prepend(game_board[1]);
-    $('#2').prepend(game_board[2]);
-    $('#3').prepend(game_board[3]);
-    $('#4').prepend(game_board[4]);
-    $('#5').prepend(game_board[5]);
-    $('#6').prepend(game_board[6]);
-    $('#7').prepend(game_board[7]);
-    $('#8').prepend(game_board[8]);
+   	for (var i = 0; i<9;i++) {
+    	$('#' + i).prepend(game_board[i]);
+	}
 }
 
 
@@ -331,9 +324,17 @@ function AI_hard_agressive() {
 
 // Has corner and middle but can't win. The computer blocks any player win if it has to. 
 //After this there are 2 cells. They are -3 or + 1 of the corner cell. Playing either will result in a 2 way win condition. 
+<<<<<<< HEAD
+ 
+
+// TURN 7
+
+
+=======
 
 // TURN 7 
 // Attempts win. Blocks losss. If none is possible then random play as game will draw no matter what is played. 
+>>>>>>> origin/master
 
 //TURN 9
 
