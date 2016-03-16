@@ -8,11 +8,12 @@ function initialize() { // Turning on all clickable features and loading page
     is_round_in_progress = true;
     countdown_animation();
     game_board = set_up_board();
-    td_clicked();
+    player_move();
     clear_board();
     home();
     player1_score = 0;
     player2_score = 0;
+    which_cell_was_clicked();
 }
 
 
@@ -130,15 +131,14 @@ function change_starting_player() {
 
 
 
-function td_clicked() {
+function player_move() {
 
-    $('.game_table td').click(function() {
+	$("td").click(function(e) {
+		id_cell_just_clicked = e.target.id;
         if (is_round_in_progress === true) {
-            var col = $(this).parent().children().index($(this)); // Jake's complex thingo that works well :P
-            var row = $(this).parent().parent().children().index($(this).parent());
-            if (game_board[row * 3 + col] === null) { // checks if position on board has already been played
-                game_board[row * 3 + col] = current_player; // UPDATING THE ARRAY
-                update_board(); // UPDATE THE VISUAL BOARD
+            if (game_board[id_cell_just_clicked] === null) { // checks if position on board has already been played
+                game_board[id_cell_just_clicked] = current_player; // UPDATING THE ARRAY
+                $('#' + id_cell_just_clicked).prepend(current_player);
                 check_for_win();
                 check_for_draw();
                 change_player();
@@ -212,7 +212,7 @@ function check_for_draw() {
         });
         if (!isAtLeastOneNull) {
             round_drew();
-            return (is_round_in_progress === false);
+            return;
         }
     }
 }
@@ -253,7 +253,7 @@ function AI_easy() { //Make me a little harder. If can win make it win
         var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
         if (game_board[random_move] === null) {
             game_board[random_move] = current_player; // Updating the array
-            update_board();
+            $('#' + random_move).prepend(current_player);
             check_for_win();
             check_for_draw();
             change_player();
@@ -324,17 +324,9 @@ function AI_hard_agressive() {
 
 // Has corner and middle but can't win. The computer blocks any player win if it has to. 
 //After this there are 2 cells. They are -3 or + 1 of the corner cell. Playing either will result in a 2 way win condition. 
-<<<<<<< HEAD
- 
-
-// TURN 7
-
-
-=======
 
 // TURN 7 
 // Attempts win. Blocks losss. If none is possible then random play as game will draw no matter what is played. 
->>>>>>> origin/master
 
 //TURN 9
 
