@@ -139,21 +139,18 @@ function player_move() {
             if (game_board[id_cell_just_clicked] === null) { // checks if position on board has already been played
                 game_board[id_cell_just_clicked] = current_player; // UPDATING THE ARRAY
                 $('#' + id_cell_just_clicked).prepend(current_player);
-                check_for_win();
-                check_for_draw();
-                change_player();
+                if (check_for_win()) {
+                	round_won();
+                }
+            	else if (check_for_draw()){
+					round_drew();
+            	}                
+            	change_player();
+            	checking_board = game_board; //The computer will use the checking board to check for available wins or to stop losses
                 AI_play(); // AI PLAYS STRAIGHT AFTER
             }
         }
     });
-}
-
-
-function update_board() { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NEW DATA EXISTS? At the moment it's removing all data, then putting data back in. => Hacky
-    $('.game_table td').empty();
-   	for (var i = 0; i<9;i++) {
-    	$('#' + i).prepend(game_board[i]);
-	}
 }
 
 
@@ -166,7 +163,7 @@ function clear_board() {
         for (var i = 0; i < 9; i++) { // Clearing the array 
             game_board[i] = null;
         }
-        update_board();
+    	$('.game_table td').empty(); //Clear the table visuals
         $('#play_is').empty().append(starting_player + " will start this round.");
         $('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
         $('#begun').empty().append("The game continues!"); // in at 10,000 - Does not go out
@@ -177,45 +174,46 @@ function clear_board() {
 }
 
 
-function check_for_win() {
+function check_for_win(checking_cell) {
 
     // check col win
 
     for (var i = 0; i < 3; i++) {
         if (game_board[i] === current_player && game_board[i + 3] === current_player && game_board[i + 6] === current_player) {
-            round_won();
-            return;
+            return true;
         }
     }
     // check row win
     for (var j = 0; j < 9; j += 3) {
         if (game_board[j] === current_player && game_board[j + 1] === current_player && game_board[j + 2] === current_player) {
-            round_won();
-            return;
+			return true;
         }
     }
     // check diagonal win
     for (var k = 0; k <= 2; k += 2) {
         if (game_board[k] === current_player && game_board[4] === current_player && game_board[8 - k] === current_player) {
-            round_won();
-            return;
+            return true;
         }
     }
 
 }
+
+function is_computer_able_to_win () {
+	
+}
+
+
 
 
 function check_for_draw() {
-    if (is_round_in_progress === true) {
-        var isAtLeastOneNull = game_board.some(function(p) {
-            return p === null;
-        });
-        if (!isAtLeastOneNull) {
-            round_drew();
-            return;
-        }
-    }
+	for (i = 0; i < 9; i++) {
+		if (game_board[i] === null) {
+			return false;
+		}
+	}
+	return true;
 }
+
 
 
 function round_won() {
@@ -223,7 +221,6 @@ function round_won() {
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
     update_score();
-    update_board();
     AI_playing = false;
     $('#play_again').fadeIn(1000);
 }
@@ -233,9 +230,8 @@ function round_drew() {
     $('#won').prepend("It's a draw!").fadeIn(100); // THIS CODE SHOULDN'T BE HERE
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
-    update_board();
     AI_playing = false;
-    $('#play_again').delay().fadeIn(1500);
+    $('#play_again').fadeIn(1500);
 }
 
 
@@ -254,8 +250,12 @@ function AI_easy() { //Make me a little harder. If can win make it win
         if (game_board[random_move] === null) {
             game_board[random_move] = current_player; // Updating the array
             $('#' + random_move).prepend(current_player);
-            check_for_win();
-            check_for_draw();
+            if (check_for_win()) {
+                round_won();
+            }
+            else if (check_for_draw()){
+				round_drew();
+            }
             change_player();
             AI_playing = false;
             break;
@@ -266,6 +266,20 @@ function AI_easy() { //Make me a little harder. If can win make it win
 
 function AI_Intermediate() {
 // Check if able to win
+	for (var i = 0; i < 9; i++) {
+		game_board[i] === "X"
+		if (check_for_win()) {
+			//DO NOTHING PLAY THE ABOVE CELL AS IT'S A WINNING CELL
+		}
+		else {
+			game_board[i] === null;
+		}
+
+	}
+
+
+
+//	if check_for_win(game_board[i])
 
 // Check if the player is going to win and needs to block
 
@@ -366,7 +380,6 @@ function update_score() {
         player2_score++;
         $('#score2').empty().prepend(player2_score);
     }
-
 }
 
 
