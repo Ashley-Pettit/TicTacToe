@@ -154,6 +154,10 @@ footer {
  	cursor:pointer;
  }
 
+ #highlight {
+ 	border-color: red !important;
+ }
+
 
 #won {
 	position: absolute;
