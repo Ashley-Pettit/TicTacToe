@@ -113,19 +113,19 @@ function change_starting_player() {
 	if (starting_player === "The Computer of Doom! (X)") {
 		starting_player = "The Human! (O)";
 		current_player = 'O';
-    } 
+    }
     else if (starting_player === "The Human! (O)") {
-		starting_player = "The Computer of Doom! (X)"; 
+		starting_player = "The Computer of Doom! (X)";
 		current_player = 'X';
 	}
     else if (starting_player === "Human Number 1! (X)") {
-    	starting_player = "Human Number 2! (O)";
+        starting_player = "Human Number 2! (O)";
         current_player = 'O';
-    } 
+    }
     else if (starting_player === "Human Number 2! (O)") {
-    	starting_player = "Human Number 1! (X)";
+        starting_player = "Human Number 1! (X)";
         current_player = 'X';
-    } 
+    }
 }
 
 
@@ -159,7 +159,7 @@ function update_board() { // HOW CAN WE REMOVE HARD CODING??? ONLY PREPEND IF NE
 
 function clear_board() {
     $('#play_again').click(function() {
-    	$('#won').empty();
+        $('#won').empty();
         is_round_in_progress = true;
 		change_starting_player();
 		$('#play_again').fadeOut(1000);
@@ -167,12 +167,12 @@ function clear_board() {
             game_board[i] = null;
         }
         update_board();
-    	$('#play_is').empty().append(starting_player + " will start this round."); 
-    	$('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
-    	$('#begun').empty().append("The game continues!"); // in at 10,000 - Does not go out
-    	if (current_player === "X") {
-    		AI_play();
-    	}
+        $('#play_is').empty().append(starting_player + " will start this round.");
+        $('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
+        $('#begun').empty().append("The game continues!"); // in at 10,000 - Does not go out
+        if (current_player === "X") {
+            AI_play();
+        }
     });
 }
 
@@ -212,7 +212,7 @@ function check_for_draw() {
         });
         if (!isAtLeastOneNull) {
             round_drew();
-            return (is_round_in_progress = false)
+            return (is_round_in_progress === false);
         }
     }
 }
@@ -276,19 +276,19 @@ function AI_Intermediate() {
 function AI_hard_agressive() {
 // This AI occurs when hard is selected and the AI has the starting turn. As the starting player the computer agressively attempts to force 2 win scenarios. 
 
-	var AI_playing = true;
-	while (AI_playing) {
-	var random_move = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
+	//var AI_playing = true;
+	//while (AI_playing) {
+	//var random_move = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
 	
 	// TURN 1
 
 	// Option 1-1 - COMPUTER PLAYER A CORNER CELL
 	// Option 1-2 - COMPUTER PLAYS A SIDE CELL
 	// Option 1-3 - COMPUTER PLAYS IN MIDDLE
-	var random_orientation = Math.floor(Math.random() * 4) // After finding out what type of cell to play. Then randomly orient the play
-	if (random_move = 1) { 
+	//var random_orientation = Math.floor(Math.random() * 4); // After finding out what type of cell to play. Then randomly orient the play
+	//if (random_move = 1) { 
 
-	// TURN 3
+    // TURN 3
 
 	//IF TURN 1 = OPTION 1  
 
@@ -297,7 +297,7 @@ function AI_hard_agressive() {
 		//OPTION 1-3 - The computer plays in the opposite corner - Again attempting to try to force a 2 way win situation.  
 		// NOTE - The computer does not play turn 2 in either of the matching side cells. This is considered a poor move (As their is less opportunity to win)
 		// Likewise playing either side cell next to the played corner cell is also considered a poor move.
-	}
+
 	// IF TURN 1 = OPTION 2
 
 	//OPTION (T3)2-1 - The computer takes the center (Preferenced)
@@ -308,7 +308,6 @@ function AI_hard_agressive() {
 	// OPTION (T3)3-1 - The computer takes any free corner. There are 4. 
 	// Playing a side cell is considered a poor move. 
 
-	}
 
 	// TURN 5
 
@@ -325,11 +324,17 @@ function AI_hard_agressive() {
 
 // Has corner and middle but can't win. The computer blocks any player win if it has to. 
 //After this there are 2 cells. They are -3 or + 1 of the corner cell. Playing either will result in a 2 way win condition. 
+<<<<<<< HEAD
  
 
 // TURN 7
 
 
+=======
+
+// TURN 7 
+// Attempts win. Blocks losss. If none is possible then random play as game will draw no matter what is played. 
+>>>>>>> origin/master
 
 //TURN 9
 
@@ -341,13 +346,13 @@ function AI_hard_agressive() {
 function AI_hard_defending() {
 //This AI occurs when hard is selected yet the computer does not start the round. The computer will aim to draw the round. It will win if possible but it's key goal is to draw and wait for the next round. 
 
-// PLAY 1 
+// TURN 2
 
 // OPTION (T2)1-1 - The computer takes the center (If the center is not taken by the 2nd turn a loss is possible. Thus this move must be taken unless the player went centre) (Preferenced)
 // OPTION (T2)1-2 - If center is taken the computer takes any corner 
 // Note a side is considered a poor play
 
-// PLAY 2 
+// TURN 4
 
 // 
 
