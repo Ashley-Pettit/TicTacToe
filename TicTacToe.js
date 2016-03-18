@@ -267,12 +267,12 @@ function AI_easy() { //Make me a little harder. If can win make it win
 function AI_Intermediate() {
 // Check if able to win
 	for (var i = 0; i < 9; i++) {
-		game_board[i] === "X"
+		game_board[i] = "X";
 		if (check_for_win()) {
 			//DO NOTHING PLAY THE ABOVE CELL AS IT'S A WINNING CELL
 		}
 		else {
-			game_board[i] === null;
+			game_board[i] = null
 		}
 
 	}
