@@ -1,44 +1,36 @@
 <!doctype html>
-
 <head>
-    <title>Jake and Ash's Tic Tac Toe</title>
-    <link rel='stylesheet' type='text/css' href='css.css'/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-    <script src='TicTacToe.js' type='text/javascript'></script>
-
+	<title>Ash's Tic Tac Toe</title>
+	<link rel='stylesheet' type='text/css' href='css.css'/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src='TicTacToe.js' type='text/javascript'></script>
 	<!-- bootstrap link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
-
+<header>Ash's Tic Tac Toe</header>
 <body>
-	<div class ="heading">Tic Tac Toe </div>
-
-	<div class = "game_control">
-
-		<h1>Choose your difficulty </h1>
-		<table class="game_options">
-			<tr>
-				<td id="human">Human Verus Human</td> <td></td>
-				<td id="easy" >Beginner</td><td></td>
-				<td id="med"  >Intermediate<BR>(Not available)</td><td></td>
-				<td id="hard" >Take on the BOSS!!<BR>(Not available)</td><td></td>
-			</tr>
-		</table>
-		
-		<table>
-			<tr>
-				<td id="win1000"> 
-					<p> Beat boss difficulty and win a $1,000 prize! </p>
-				</td>
-				<td> <img src="images/tic_tac_toe_win.jpg"/> </td>
-			</tr>
-		</table>
-
-	</div> 
-
-	<div class ="game_in_play">
-
-		<p id = "play_lets">LET'S PLAY! Rolling to see who goes first.... <p>
+<div class = "game_control">
+	<h1>Choose your difficulty </h1>
+	<table class="game_options">
+		<tr>
+			<td id="human">Human Verus Human</td> <td></td>
+			<td id="easy" >Beginner</td><td></td>
+			<td id="med"  >Intermediate<BR>(Not available)</td><td></td>
+			<td id="hard" >Take on the BOSS!!<BR>(Not available)</td><td></td>
+		</tr>
+	</table>
+	
+	<table>
+		<tr>
+			<td id="win1000">
+				<p> Beat boss difficulty and win a $1,000 prize! </p>
+			</td>
+			<td> <img src="images/tic_tac_toe_win.jpg"/> </td>
+		</tr>
+	</table>
+</div>
+<div class ="game_in_play">
+	<p id = "play_lets">LET'S PLAY! Rolling to see who goes first.... <p>
 		<p id = "play5"> 5... </p>
 		<p id = "play4"> 4... </p>
 		<p id = "play3"> 3... </p>
@@ -46,34 +38,30 @@
 		<p id = "play1"> 1... </p>
 		<p id = "play_is"> The starting player is </p>
 		<p id = "begun"> The game has begun.</p>
-
 		<div class="game_table_div">
-		<table class="game_table">
-			<tr>
-				<td class ="game_cell" id = "0"></td>
-				<td class ="game_cell" id = "1"></td>
-				<td class ="game_cell" id = "2"></td>
-			</tr>
-			<tr>
-				<td class ="game_cell" id = "3"></td>
-				<td class ="game_cell" id = "4"></td>
-				<td class ="game_cell" id = "5"></td>
-			</tr>
-			<tr>
-				<td class ="game_cell" id = "6"></td>
-				<td class ="game_cell" id = "7"></td>
-				<td class ="game_cell" id = "8"></td>
-			</tr>
-		</table>
+			<table class="game_table">
+				<tr>
+					<td class ="game_cell" id = "0"></td>
+					<td class ="game_cell" id = "1"></td>
+					<td class ="game_cell" id = "2"></td>
+				</tr>
+				<tr>
+					<td class ="game_cell" id = "3"></td>
+					<td class ="game_cell" id = "4"></td>
+					<td class ="game_cell" id = "5"></td>
+				</tr>
+				<tr>
+					<td class ="game_cell" id = "6"></td>
+					<td class ="game_cell" id = "7"></td>
+					<td class ="game_cell" id = "8"></td>
+				</tr>
+			</table>
 		</div>
-
 		<p id = "play_again"><a>Next Round!</a></p>
 	</div>
-
 	<p id = "whos_turn_is_it"> </p>
-
 	<div id ="score">
-		<table>	
+		<table>
 			<tr>
 				<td id = "title_score1"></td>
 				<td id = "title_score2"></td>
@@ -84,10 +72,8 @@
 			</tr>
 		</table>
 	</div>
-
 	<p id = "won"></p>
 	<p id = "home"><a>Restart</a></p>
-
-	<footer>OpenSource Ashley Pettit and Jake Naughton 2016</footer>
-	</body>
+<footer>OpenSource Ashley Pettit 2016</footer>
+</body>
 </html>

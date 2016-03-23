@@ -1,13 +1,14 @@
-
 body {
 	padding-top:2%;
+	width:80%;
+	text-align:center;
 }
 
-.heading {
+header {
 	position: absolute;
 	left: 0;
-    top: 0;
-    width: 100%;
+  top: 0;
+  width: 100%;
 	background-color:teal;
 	color:white;
 	font-size: 50px;
