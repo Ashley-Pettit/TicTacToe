@@ -2,6 +2,12 @@ $(document).ready(function() {
     initialize();
 });
 
+//rewriting code here
+
+//variables for event listeners here - should attach to docu.ready
+
+
+//END NEW CODE
 
 function initialize() { // Turning on all clickable features and loading page
     difficulty_selected();
@@ -13,7 +19,6 @@ function initialize() { // Turning on all clickable features and loading page
     home();
     player1_score = 0;
     player2_score = 0;
-    which_cell_was_clicked();
 }
 
 
@@ -46,7 +51,7 @@ function countdown_animation() {
 			$('#title_score1').prepend("Computer Score");
 			$('#title_score2').prepend("Human Score");
 		}
-    //
+    
     });
 }
 
@@ -59,7 +64,7 @@ function difficulty_selected() { // NOTE USE OF GLOBAL VARIABLE DUE TO DOCUMENT.
         difficulty = "easy";
     });
     $('#med').click(function() {
-        difficulty = "easy";
+        difficulty = "intermediate";
     });
     $('#hard').click(function() {
         difficulty = "easy";
@@ -144,10 +149,11 @@ function player_move() {
                 }
             	else if (check_for_draw()){
 					round_drew();
-            	}                
-            	change_player();
-            	checking_board = game_board; //The computer will use the checking board to check for available wins or to stop losses
-                AI_play(); // AI PLAYS STRAIGHT AFTER
+            	}            
+                else {    
+                    change_player();
+                    AI_play(); //AI plays if game not won or drawn
+                }
             }
         }
     });
@@ -174,7 +180,7 @@ function clear_board() {
 }
 
 
-function check_for_win(checking_cell) {
+function check_for_win() {
 
     // check col win
 
@@ -195,18 +201,13 @@ function check_for_win(checking_cell) {
             return true;
         }
     }
-
+    return false;
 }
-
-function is_computer_able_to_win () {
-	
-}
-
 
 
 
 function check_for_draw() {
-	for (i = 0; i < 9; i++) {
+	for (var i = 0; i < 9; i++) {
 		if (game_board[i] === null) {
 			return false;
 		}
@@ -221,7 +222,6 @@ function round_won() {
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
     update_score();
-    AI_playing = false;
     $('#play_again').fadeIn(1000);
 }
 
@@ -230,60 +230,129 @@ function round_drew() {
     $('#won').prepend("It's a draw!").fadeIn(100); // THIS CODE SHOULDN'T BE HERE
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
-    AI_playing = false;
     $('#play_again').fadeIn(1500);
 }
 
 
 function AI_play() {
-
     if ((difficulty === "easy") && (is_round_in_progress === true)) {
         AI_easy();
+    }
+    else if ((difficulty === "intermediate") && (is_round_in_progress === true)) {
+        AI_Intermediate();
+    }
+}
+
+
+function is_computer_able_to_win () {
+    //The computer plays in any open cell. It then checks if that cell will cause it to win.
+    //If the cell will cause a win return the id of that cell
+    for (var x=0;x<9; x++) { 
+        if (game_board[x] === null) {
+            game_board[x] = current_player;
+            if (check_for_win()) {
+                $('#' + x).prepend(current_player);
+                console.log("computer able to win");
+                return true;
+            }
+            else {
+                game_board[x] = null;    
+            }
+        }
+    }
+    return false;
+}
+
+function does_computer_need_to_block () {
+    //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
+    //If the cell will cause a human win return the id of that cell
+    for (var p=0;p<9; p++) { 
+        change_player()
+        if (game_board[p] === null) {
+            game_board[p] = current_player;
+            if (check_for_win()) {
+                console.log("human able to win - must block");
+                game_board[p] = null;
+                humanAbleToWinAt = p;
+                change_player();
+                return true;
+            }
+            else {
+                change_player();
+                game_board[p] = null;
+            }
+        }
+        else { 
+            change_player();
+        }
     }
 }
  
 
-function AI_easy() { //Make me a little harder. If can win make it win
-    var AI_playing = true;
-    while (AI_playing) {
-        var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
-        if (game_board[random_move] === null) {
-            game_board[random_move] = current_player; // Updating the array
-            $('#' + random_move).prepend(current_player);
-            if (check_for_win()) {
-                round_won();
+function AI_easy() {
+    var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
+    if (is_computer_able_to_win()) {
+        //computer plays in winning cell
+        round_won();
+        console.log("computer played to win")
+    }
+    else {
+        var findingFreeCell = true
+        while(findingFreeCell) {
+            var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
+            if (game_board[random_move] === null) {
+                game_board[random_move] = current_player; // Updating the array
+                $('#' + random_move).prepend(current_player);
+                findingFreeCell = false
+                if (check_for_win()) {
+                    round_won();
+                }
+                else if (check_for_draw()){
+                    round_drew();
+                }
+                change_player();
+                console.log("computer played randomly");
             }
-            else if (check_for_draw()){
-				round_drew();
-            }
-            change_player();
-            AI_playing = false;
-            break;
         }
     }
 }
 
 
 function AI_Intermediate() {
-// Check if able to win
-	for (var i = 0; i < 9; i++) {
-		game_board[i] = "X";
-		if (check_for_win()) {
-			//DO NOTHING PLAY THE ABOVE CELL AS IT'S A WINNING CELL
-		}
-		else {
-			game_board[i] = null
-		}
-
-	}
-
-
-
-//	if check_for_win(game_board[i])
-
-// Check if the player is going to win and needs to block
-
-
+    if (is_computer_able_to_win()) {
+          //computer plays in winning cell
+        round_won();
+        console.log("computer played to win");
+    }
+    else if (does_computer_need_to_block()) {
+        //computer plays in blocking cell
+        game_board[humanAbleToWinAt] = current_player; // Updating the array
+        $('#' + humanAbleToWinAt).prepend(current_player);
+        console.log("computer played to block win");
+        change_player();
+        if (check_for_draw()){
+            round_drew();
+        }
+    }
+    else {
+        var findingFreeCell = true
+        while(findingFreeCell) {
+            var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
+            if (game_board[random_move] === null) {
+                game_board[random_move] = current_player; // Updating the array
+                $('#' + random_move).prepend(current_player);
+                findingFreeCell = false;
+                if (check_for_win()) {
+                    round_won();
+                }
+                else if (check_for_draw()){
+                    round_drew();
+                }
+                change_player();
+                console.log("computer played randomly")
+            }
+        }
+    }
 }
 
 
@@ -382,25 +451,3 @@ function update_score() {
     }
 }
 
-
-
-
-/*
-
-
-//CODE NOT YET IN USE 
-
-
-
-
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
-*/

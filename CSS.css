@@ -1,60 +1,54 @@
 body {
-	padding-top:2%;
-	width:80%;
 	text-align:center;
+	margin:0 auto;
+}
+
+.container {
+	width:80%;
 }
 
 header {
 	position: absolute;
+	display:block;
 	left: 0;
   top: 0;
   width: 100%;
 	background-color:teal;
 	color:white;
 	font-size: 50px;
-    margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
+  margin: 0 auto;
  }
  
+.game_control h1 {
+	font-family: Impact;
+	display:block;
+	margin-top:100px;
+	margin-bottom:2%;
+}
 
-.game_control {
-	margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
+.game_options {
+	font-weight: bold;
+	cursor: pointer;
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom:3%;
 	margin-top:3%;
 }
 
-
-.game_control h1{
-	font-family: Impact;
-	margin-top: 5%;
- }
-
-
-.game_control table {
-    margin-left:auto; 
-    margin-right:auto;
-	margin-top:2%;
-	text-align:center;
-}
-
-
-.game_control .game_options td {
+.game_options td {
 	border-radius: 8px;
 	text-align: center;
-	padding: 1%;
+	padding:5px;
+	min-width: 100px;
+	margin:5%;
+}
+
+.game_options table{
+	width:100%;
 }
 
 
-.game_control .game_options {
-	font-weight: bold;
-	cursor: pointer;
-	width: 47%;
-}
-
-
-.game_control img{
+.game_options img{
 	width: 70%;
 }
 
@@ -77,74 +71,43 @@ header {
 	background-color: orange;
 }
 
-#win1000 {
-	margin-top: 10%;
-	font-family: fantasy;
-	font-size: 35px;
-}
-
-
-#home {
-	position:absolute;
-	left: 90%;
-	top: 87%;
-	font-size: 25px;
-	text-align: center;
-	font-color:white;
- }
- 
-
-footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 4%;
-    width: 100%;
-	background-color:teal;
-	color:white;
-	text-align: center;
-	font-size: 18px;
-	padding-top: .5%;
-	padding-bottom: 1.65%;
-}
-
-
 /* After 1st page */
 
 .game_in_play {
-	margin-top:3%;
+	cursor: pointer;
+	width: 70%;
+	margin-top:100px;
+	margin-bottom:3%;
+	text-align:center;
+	margin-left:15%;
 }
 
-.game_in_play p {
+.game_in_play div {
+	margin-top: 2%;
 	font-size: 25px;
-	margin-left:auto; 
-    margin-right:auto;
+	margin: 0, top;
 	text-align: center;
 }
 
-#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #begun, #play_again, #computer_takes_round, #human_takes_round, #new_round, #score, #home {
+#play_lets, #play1, #play2, #play3, #play4, #play5, #play_is, #begun, #play_again, #computer_takes_round, #human_takes_round, #new_round, #score, #home, #whos_turn_is_it {
 	display:none;
 }
 
 .game_table {
 	text-align: center;
-	margin-top: 1.5%;
-	margin-bottom: 1%;
-	margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
+	margin: 0 auto;
 	display:none;
-	width: 30%;
+	width: 60%;
+	margin-top:5%;
 }
 
 .game_table td {
 	border-style: solid;
 	border-width: 2px;
-	margin-left:auto; 
-    margin-right:auto;
+	margin: 0 auto;
 	text-align: center;
 	border-color: black;
-	padding-top: 2%;
+	margin-top: 2%;
 	font-size: 25px;
 	width: 200px;
 	height: 200px;
@@ -161,36 +124,35 @@ footer {
 
 
 #won {
-	position: absolute;
-    left: 68%;
-    top: 51%;
+	position: fixed;
+  left: 65%;
+  top: 48%;
 	font-size: 25px;
 	font-family:fantasy;
-	display:none;
 }
 
 #whos_turn_is_it {
-	position: absolute;
-    left: 25%;
-    top: 51%;
+	position: fixed;
+  left: 26%;
+  top: 48%;
 	font-size: 25px;
 	font-family:fantasy;
-	display:none;
 }
 
 #score {
-	position: absolute;
-    left: 74%;
-    top: 22%;
+	position: fixed;
+	left:77%;
+	top:12%;
 	font-size: 15px;
 	text-align: center;
+	float:right;
 }
 
 #score td {
 	border-style: solid;
 	border-width: 2px;
 	border-color: black;
-	padding:8px;
+	padding:10px;
 }
 
 #line {
@@ -221,36 +183,33 @@ footer {
 }
 
 
-/*
-.game_table_div {
-	height:30%;
-	width:30%;
+#win1000 {
+	margin-top: 10%;
+	font-family: fantasy;
+	font-size: 35px;
 }
 
-.game_table {
-	text-align: center;
-	margin-top: 1.5%;
-	margin-bottom: 1%;
-	margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
-	display:none;
-	width:100%;
-	height:100%;
-}
 
-.game_table td {
-	border-style: solid;
-	border-width: 2px;
-	margin-left:auto; 
-    margin-right:auto;
-	text-align: center;
-	border-color: black;
-	padding-top: 2%;
+#home {
+	position:absolute;
+	left: 90%;
+	top: 87%;
 	font-size: 25px;
-	cursor:pointer;
-	height:30%;
-	width:30%;
+	text-align: center;
+	font-color:white;
+ }
+ 
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+	background-color:teal;
+	color:white;
+	text-align: center;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
-*/

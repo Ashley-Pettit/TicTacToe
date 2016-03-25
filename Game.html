@@ -7,37 +7,38 @@
 	<!-- bootstrap link -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
-<header>Ash's Tic Tac Toe</header>
 <body>
-<div class = "game_control">
-	<h1>Choose your difficulty </h1>
-	<table class="game_options">
-		<tr>
-			<td id="human">Human Verus Human</td> <td></td>
-			<td id="easy" >Beginner</td><td></td>
-			<td id="med"  >Intermediate<BR>(Not available)</td><td></td>
-			<td id="hard" >Take on the BOSS!!<BR>(Not available)</td><td></td>
-		</tr>
-	</table>
-	
-	<table>
-		<tr>
-			<td id="win1000">
-				<p> Beat boss difficulty and win a $1,000 prize! </p>
-			</td>
-			<td> <img src="images/tic_tac_toe_win.jpg"/> </td>
-		</tr>
-	</table>
-</div>
-<div class ="game_in_play">
-	<p id = "play_lets">LET'S PLAY! Rolling to see who goes first.... <p>
-		<p id = "play5"> 5... </p>
-		<p id = "play4"> 4... </p>
-		<p id = "play3"> 3... </p>
-		<p id = "play2"> 2... </p>
-		<p id = "play1"> 1... </p>
-		<p id = "play_is"> The starting player is </p>
-		<p id = "begun"> The game has begun.</p>
+<header>Ash's Tic Tac Toe</header>
+<div class = "container">
+	<div class = "game_control">
+		<h1>Choose your difficulty </h1>
+		<table class="game_options">
+			<tr>
+				<td id="human">Human Verus Human</td>
+				<td id="easy">Beginner</td>
+				<td id="med">Intermediate<BR>(New!)</td>
+				<td id="hard">Take on the BOSS!!<BR>(Coming Soon)</td>
+			</tr>
+		</table>
+		
+		<table>
+			<tr>
+				<td id="win1000">
+					<div> Beat boss difficulty and win a $1,000 prize! </div>
+				</td>
+				<td> <img src="images/tic_tac_toe_win.jpg"/> </td>
+			</tr>
+		</table>
+	</div>
+	<div class ="game_in_play">
+		<div id = "play_lets">LET'S PLAY! Rolling to see who goes first.... </div>
+		<div id = "play5"> 5... </div>
+		<div id = "play4"> 4... </div>
+		<div id = "play3"> 3... </div>
+		<div id = "play2"> 2... </div>
+		<div id = "play1"> 1... </div>
+		<div id = "play_is"> The starting player is </div>
+		<div id = "begun"> The game has begun.</div>
 		<div class="game_table_div">
 			<table class="game_table">
 				<tr>
@@ -57,9 +58,9 @@
 				</tr>
 			</table>
 		</div>
-		<p id = "play_again"><a>Next Round!</a></p>
+		<div id = "play_again"><a>Next Round!</a></div>
 	</div>
-	<p id = "whos_turn_is_it"> </p>
+	<div id = "whos_turn_is_it"> </div>
 	<div id ="score">
 		<table>
 			<tr>
@@ -72,8 +73,9 @@
 			</tr>
 		</table>
 	</div>
-	<p id = "won"></p>
-	<p id = "home"><a>Restart</a></p>
+	<div id = "won"></div>
+	<div id = "home"><a>Restart</a></div>
+</div>
 <footer>OpenSource Ashley Pettit 2016</footer>
 </body>
 </html>
