@@ -6,6 +6,7 @@ $(document).ready(function() {
 
 //variables for event listeners here - should attach to docu.ready
 
+//ALL SHOULD BE CAMELCASE****
 
 //END NEW CODE
 
@@ -146,6 +147,9 @@ function player_move() {
             if (game_board[id_cell_just_clicked] === null) { // checks if position on board has already been played
                 game_board[id_cell_just_clicked] = current_player; // UPDATING THE ARRAY
                 $('#' + id_cell_just_clicked).prepend(current_player);
+               // $(this).addClass("highlight");
+               // $(".highlight").css("background-color", "red");
+                    //THIS MAKES THE HUMAN PLAY FLASH
                 if (check_for_win()) {
                 	round_won();
                 }
@@ -158,8 +162,8 @@ function player_move() {
                     setTimeout(function() {
                         is_round_in_progress = true;
                         AI_play();
-                        //APPLY CLASS TO PLAYED CELL .HIGHLIGHT
                     }, 500); 
+
                 }
             }
         }
@@ -176,6 +180,7 @@ function clear_board() {
 		$('#play_again').fadeOut(1000);
         for (var i = 0; i < 9; i++) { // Clearing the array 
             game_board[i] = null;
+            $("#" + winningCells[i]).css("background-color", "white");
         }
     	$('.game_table td').empty(); //Clear the table visuals
         $('#play_is').empty().append(starting_player + " will start this round.");
@@ -194,21 +199,24 @@ function check_for_win() {
 
     for (var i = 0; i < 3; i++) {
         if (game_board[i] === current_player && game_board[i + 3] === current_player && game_board[i + 6] === current_player) {
-            // drawLine("vertical")
+            winningCells = [i, i+3, i+6]
+            console.log("winning cells where " + winningCells)
             return true;
         }
     }
     // check row win
     for (var j = 0; j < 9; j += 3) {
         if (game_board[j] === current_player && game_board[j + 1] === current_player && game_board[j + 2] === current_player) {
-            // drawLine("horizontal")
+            winningCells = [j, j+1, j+2]
+            console.log("winning cells where " + winningCells)
             return true;
         }
     }
     // check diagonal win
     for (var k = 0; k <= 2; k += 2) {
         if (game_board[k] === current_player && game_board[4] === current_player && game_board[8 - k] === current_player) {
-            // drawLine("diagonal")
+            winningCells = [k, 4, 8-k]
+            console.log("winning cells where " + winningCells)
             return true;
         }
     }
@@ -231,13 +239,16 @@ function check_for_draw() {
 function round_won() {
     $('#won').prepend(current_player + " Takes The Round!").fadeIn(100);
     update_score();
-    endRound()
+    endRound();
+    for (var i = 0; i < 3; i++) {
+        $("#" + winningCells[i]).css("background-color", "red");
+    }
 }
 
 
 function round_drew() {
     $('#won').prepend("It's a draw!").fadeIn(100);
-    endRound()
+    endRound();
 }
 
 function endRound(){
@@ -313,7 +324,7 @@ function AI_easy() {
             if (game_board[random_move] === null) {
                 game_board[random_move] = current_player; // Updating the array
                 $('#' + random_move).prepend(current_player);
-                findingFreeCell = false
+                findingFreeCell = false;
                 if (check_for_win()) {
                     round_won();
                 }
