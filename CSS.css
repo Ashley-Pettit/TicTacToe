@@ -29,10 +29,12 @@ header {
 .game_options {
 	font-weight: bold;
 	cursor: pointer;
-	width: 70%;
+	width: 80%;
 	margin: 0 auto;
 	margin-bottom:3%;
 	margin-top:3%;
+	border-spacing: 20px;
+	border-collapse: separate;
 }
 
 .game_options td {
@@ -40,11 +42,7 @@ header {
 	text-align: center;
 	padding:5px;
 	min-width: 100px;
-	margin:5%;
-}
-
-.game_options table{
-	width:100%;
+	border-spacing: 10px;
 }
 
 
@@ -54,21 +52,21 @@ header {
 
 
 #human {
-	background-color:lightblue;
+	background-color:lightgreen;
 }
 
 
 #easy {
-	background-color: lightgreen;
+	background-color: yellow;
 }
 
 
 #med {
-	background-color: yellow;
+	background-color: orange;
 }
 
 #hard {
-	background-color: orange;
+	background-color: red;
 }
 
 /* After 1st page */
@@ -116,6 +114,7 @@ header {
 
  a {
  	cursor:pointer;
+ 	text-decoration: none;
  }
 
  #highlight {
@@ -125,16 +124,17 @@ header {
 
 #won {
 	position: fixed;
-  left: 65%;
-  top: 48%;
+  left: 67%;
+  top: 52%;
 	font-size: 25px;
 	font-family:fantasy;
+	display:inline-block;
 }
 
 #whos_turn_is_it {
 	position: fixed;
-  left: 26%;
-  top: 48%;
+  left: 21%;
+  top: 52%;
 	font-size: 25px;
 	font-family:fantasy;
 }
@@ -152,7 +152,8 @@ header {
 	border-style: solid;
 	border-width: 2px;
 	border-color: black;
-	padding:10px;
+	padding:14px;
+	font-size:18px;
 }
 
 #line {
@@ -192,11 +193,17 @@ header {
 
 #home {
 	position:absolute;
-	left: 90%;
+	left: 85%;
 	top: 87%;
 	font-size: 25px;
 	text-align: center;
 	font-color:white;
+ }
+
+ #play_again {
+ 	margin-top:3%;
+ 	font-size:35px;
+ 	cursor:pointer;
  }
  
 
@@ -209,7 +216,7 @@ footer {
 	color:white;
 	text-align: center;
 	font-size: 20px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: .6%;
+	padding-bottom: .6%;
 }
 

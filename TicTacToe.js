@@ -19,14 +19,13 @@ function initialize() { // Turning on all clickable features and loading page
     home();
     player1_score = 0;
     player2_score = 0;
+    round = 1;
 }
 
 
 function countdown_animation() {
 
     $('.game_options').click(function() {
-
-    // Try 2 DELAYS - Need to reduce delay times and neaten code.
 
 		who_starts();  // NOTE THIS IS HERE BECAUSE GAME DIFFICULTY MUST BE CLICKED BEFORE CAN WORK OUT WHO STARTS
 		$('.game_control').fadeOut(200);
@@ -62,7 +61,7 @@ function difficulty_selected() { // NOTE USE OF GLOBAL VARIABLE DUE TO DOCUMENT.
     });
     $('#easy').click(function() {
         difficulty = "easy";
-        console.log("loading easy computer")
+        console.log("loading easy computer");
     });
     $('#med').click(function() {
         difficulty = "intermediate";
@@ -155,9 +154,12 @@ function player_move() {
             	}            
                 else {    
                     change_player();
+                    is_round_in_progress = false; //PLAYER CANNOT PLAY WHILE AI IS "THINKING"
                     setTimeout(function() {
-                        AI_play(); //AI plays if game not won or drawn
-                    }, 250);
+                        is_round_in_progress = true;
+                        AI_play();
+                        //APPLY CLASS TO PLAYED CELL .HIGHLIGHT
+                    }, 500); 
                 }
             }
         }
@@ -167,6 +169,7 @@ function player_move() {
 
 function clear_board() {
     $('#play_again').click(function() {
+        round++
         $('#won').empty();
         is_round_in_progress = true;
 		change_starting_player();
@@ -177,7 +180,7 @@ function clear_board() {
     	$('.game_table td').empty(); //Clear the table visuals
         $('#play_is').empty().append(starting_player + " will start this round.");
         $('#whos_turn_is_it').empty().fadeIn(1500).prepend(current_player + " It's your turn");
-        $('#begun').empty().append("The game continues!"); // in at 10,000 - Does not go out
+        $('#begun').empty().append("The game continues! Round " + round); // in at 10,000 - Does not go out
         if (current_player === "X") {
             AI_play();
         }
@@ -227,23 +230,23 @@ function check_for_draw() {
 
 function round_won() {
     $('#won').prepend(current_player + " Takes The Round!").fadeIn(100);
-    $('#whos_turn_is_it').fadeOut(0);
-    is_round_in_progress = false;
     update_score();
-    $('#play_again').fadeIn(1000);
+    endRound()
 }
 
 
 function round_drew() {
-    $('#won').prepend("It's a draw!").fadeIn(100); // THIS CODE SHOULDN'T BE HERE
+    $('#won').prepend("It's a draw!").fadeIn(100);
+    endRound()
+}
+
+function endRound(){
     $('#whos_turn_is_it').fadeOut(0);
     is_round_in_progress = false;
     $('#play_again').fadeIn(1500);
 }
 
-
 function AI_play() {
-    humanturn = true
     if ((difficulty === "easy") && (is_round_in_progress === true)) {
         AI_easy();
     }
@@ -275,7 +278,7 @@ function does_computer_need_to_block () {
     //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
     //If the cell will cause a human win return the id of that cell. Then clear the cell.
     for (var p=0;p<9; p++) { 
-        change_player()
+        change_player();
         if (game_board[p] === null) {
             game_board[p] = current_player;
             if (check_for_win()) {
@@ -301,7 +304,7 @@ function AI_easy() {
     if (is_computer_able_to_win()) {
         //computer plays in winning cell
         round_won();
-        console.log("computer played to win")
+        console.log("computer played to win");
     }
     else {
         var findingFreeCell = true
