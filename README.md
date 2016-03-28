@@ -1,6 +1,6 @@
 <b>The original Tic Tac Toe game bought back to life.</b>
 
-Play veruses a human or 3 levels of AI. Beat the Boss level in a match to 3 rounds and we will give you $1000*! <BR>
+Play veruses a human or 3 levels of AI. Beat the Boss level in a match to 3 rounds and we will give you $1000*! <BR><BR>
 Beat the hard level in a match to 3 rounds and I'll be very impressed but won't give you any money! :P
 
 Built in JavaScript/Jquery with an interactive front-end interface. 
