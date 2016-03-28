@@ -21,6 +21,7 @@ function initialize() { // Turning on all clickable features and loading page
     player1_score = 0;
     player2_score = 0;
     round = 1;
+    turn = 0;
 }
 
 
@@ -34,13 +35,13 @@ function countdown_animation() {
 		$('#play5').delay(501).fadeIn(500).fadeOut(500); // In at 500 out at 2000
 		$('#play4').delay(1520).fadeIn(500).fadeOut(500); // In at 2000 out at 3500
 		$('#play3').delay(2530).fadeIn(500).fadeOut(500); // In at 3500 out at 5000
-		$('#play2').delay(3540).fadeIn(500).fadeOut(500); // in at 5000 out at 6500 
+		$('#play2').delay(3540).fadeIn(500).fadeOut(500); // in at 5000 out at 6500
 		$('#play1').delay(4550).fadeIn(500).fadeOut(500); // in at 6500 out at 8000
 		$('#play_is').delay(5560).fadeIn(500);  // in at 8000, does not go out
 		$('#begun').delay(5560).fadeIn(1500); // in at 10,000 - Does not go out
 		$('#play_happening').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
 		$('.game_table').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
-        $('#whos_turn_is_it').delay(5570).empty().fadeIn(1500).prepend(current_player + " It's your turn");
+    $('#whos_turn_is_it').delay(5570).empty().fadeIn(1500).prepend(current_player + " It's your turn");
 		$('#home').delay(5570).fadeIn(1500);
 		$('#score').delay(5570).fadeIn(1500);
 		if (difficulty === "human") {
@@ -51,7 +52,7 @@ function countdown_animation() {
 			$('#title_score1').prepend("Computer Score");
 			$('#title_score2').prepend("Human Score");
 		}
-    
+
     });
 }
 
@@ -120,18 +121,18 @@ function change_player() {
 
 function change_starting_player() {
 	if (starting_player === "The Computer of Doom! (X)") {
-		starting_player = "The Human! (O)";
+	  starting_player = "The Human! (O)";
 		current_player = 'O';
-    }
-    else if (starting_player === "The Human! (O)") {
-		starting_player = "The Computer of Doom! (X)";
-		current_player = 'X';
+  }
+  else if (starting_player === "The Human! (O)") {
+	   starting_player = "The Computer of Doom! (X)";
+     current_player = 'X';
 	}
-    else if (starting_player === "Human Number 1! (X)") {
-        starting_player = "Human Number 2! (O)";
-        current_player = 'O';
-    }
-    else if (starting_player === "Human Number 2! (O)") {
+  else if (starting_player === "Human Number 1! (X)") {
+    starting_player = "Human Number 2! (O)";
+    current_player = 'O';
+  }
+  else if (starting_player === "Human Number 2! (O)") {
         starting_player = "Human Number 1! (X)";
         current_player = 'X';
     }
@@ -147,23 +148,20 @@ function player_move() {
             if (game_board[id_cell_just_clicked] === null) { // checks if position on board has already been played
                 game_board[id_cell_just_clicked] = current_player; // UPDATING THE ARRAY
                 $('#' + id_cell_just_clicked).prepend(current_player);
-               // $(this).addClass("highlight");
-               // $(".highlight").css("background-color", "red");
-                    //THIS MAKES THE HUMAN PLAY FLASH
+                turn++;
                 if (check_for_win()) {
                 	round_won();
                 }
             	else if (check_for_draw()){
-					round_drew();
-            	}            
-                else {    
+					           round_drew();
+            	}
+                else {
                     change_player();
                     is_round_in_progress = false; //PLAYER CANNOT PLAY WHILE AI IS "THINKING"
                     setTimeout(function() {
                         is_round_in_progress = true;
                         AI_play();
-                    }, 500); 
-
+                    }, 500);
                 }
             }
         }
@@ -178,7 +176,7 @@ function clear_board() {
         is_round_in_progress = true;
 		change_starting_player();
 		$('#play_again').fadeOut(1000);
-        for (var i = 0; i < 9; i++) { // Clearing the array 
+        for (var i = 0; i < 9; i++) { // Clearing the array
             game_board[i] = null;
             $("#" + winningCells[i]).css("background-color", "white");
         }
@@ -257,6 +255,24 @@ function endRound(){
     $('#play_again').fadeIn(1500);
 }
 
+function update_score() {
+    if (current_player === 'X') {
+        player1_score++;
+        $('#score1').empty().prepend(player1_score);
+    } else if (current_player === 'O') {
+        player2_score++;
+        $('#score2').empty().prepend(player2_score);
+    }
+}
+
+
+function home() {
+    $('#home').click(function() {
+        location.reload();
+    });
+}
+
+
 function AI_play() {
     if ((difficulty === "easy") && (is_round_in_progress === true)) {
         AI_easy();
@@ -264,13 +280,14 @@ function AI_play() {
     else if ((difficulty === "intermediate") && (is_round_in_progress === true)) {
         AI_Intermediate();
     }
+    turn++
 }
 
 
 function is_computer_able_to_win () {
     //The computer plays in any open cell. It then checks if that cell will cause it to win.
     //If the cell will cause a win return the id of that cell otherwise clear the cell.
-    for (var x=0;x<9; x++) { 
+    for (var x=0;x<9; x++) {
         if (game_board[x] === null) {
             game_board[x] = current_player;
             if (check_for_win()) {
@@ -278,7 +295,7 @@ function is_computer_able_to_win () {
                 return true;
             }
             else {
-                game_board[x] = null;    
+                game_board[x] = null;
             }
         }
     }
@@ -288,7 +305,7 @@ function is_computer_able_to_win () {
 function does_computer_need_to_block () {
     //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
     //If the cell will cause a human win return the id of that cell. Then clear the cell.
-    for (var p=0;p<9; p++) { 
+    for (var p=0;p<9; p++) {
         change_player();
         if (game_board[p] === null) {
             game_board[p] = current_player;
@@ -303,12 +320,31 @@ function does_computer_need_to_block () {
                 game_board[p] = null;
             }
         }
-        else { 
+        else {
             change_player();
         }
     }
 }
- 
+
+function playRandomly(){
+  var findingFreeCell = true
+  while(findingFreeCell) {
+      var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
+      if (game_board[random_move] === null) {
+          game_board[random_move] = current_player; // Updating the array
+          $('#' + random_move).prepend(current_player);
+          findingFreeCell = false;
+          if (check_for_win()) {
+              round_won();
+          }
+          else if (check_for_draw()){
+              round_drew();
+          }
+          change_player();
+          console.log("computer played randomly");
+      }
+  }
+}
 
 function AI_easy() {
     var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
@@ -318,23 +354,7 @@ function AI_easy() {
         console.log("computer played to win");
     }
     else {
-        var findingFreeCell = true
-        while(findingFreeCell) {
-            var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
-            if (game_board[random_move] === null) {
-                game_board[random_move] = current_player; // Updating the array
-                $('#' + random_move).prepend(current_player);
-                findingFreeCell = false;
-                if (check_for_win()) {
-                    round_won();
-                }
-                else if (check_for_draw()){
-                    round_drew();
-                }
-                change_player();
-                console.log("computer played randomly");
-            }
-        }
+      playRandomly()
     }
 }
 
@@ -353,61 +373,56 @@ function AI_Intermediate() {
         change_player();
         if (check_for_draw()){ //Necessary in case computer draws whilist blocking human win
             round_drew();
-        } 
-    }
-    else {
-        var findingFreeCell = true
-        while(findingFreeCell) {
-            var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
-            if (game_board[random_move] === null) {
-                game_board[random_move] = current_player; // Updating the array
-                $('#' + random_move).prepend(current_player);
-                findingFreeCell = false;
-                if (check_for_win()) {
-                    round_won();
-                }
-                else if (check_for_draw()){
-                    round_drew();
-                }
-                change_player();
-                console.log("computer played randomly")
-            }
+        }
+        else {
+          playRandomly()
         }
     }
 }
 
+function getARandomOption(arrayOfOptions) {
+  //This function is used to randomise a selection of possible moves for the AI
+  //Passing an array returns a random element of the array
+    for (var i = arrayOfOptions.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arrayOfOptions[i];
+        arrayOfOptions[i] = arrayOfOptions[j];
+        arrayOfOptions[j] = temp;
+    }
+    return arrayOfOptions[0];
+}
 
 function AI_hard_agressive() {
-// This AI occurs when hard is selected and the AI has the starting turn. As the starting player the computer agressively attempts to force 2 win scenarios. 
+// This AI occurs when hard is selected and the AI has the starting turn. As the starting player the computer agressively attempts to force 2 win scenarios.
 	//var random_move = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
-	
+
 	// TURN 1
 
 	// Option 1-1 - COMPUTER PLAYER A CORNER CELL
 	// Option 1-2 - COMPUTER PLAYS A SIDE CELL
 	// Option 1-3 - COMPUTER PLAYS IN MIDDLE
 	//var random_orientation = Math.floor(Math.random() * 4); // After finding out what type of cell to play. Then randomly orient the play
-	//if (random_move = 1) { 
+	//if (random_move = 1) {
 
     // TURN 3
 
-	//IF TURN 1 = OPTION 1  
+	//IF TURN 1 = OPTION 1
 
 		//OPTION 1-1 - The computer will play in the center(Preferenced)
 		//OPTION 1-2 - The computer will play either the side cell which is 3 units ahead of the current cell (Attempting to force a 2 way win situation) OR
-		//OPTION 1-3 - The computer plays in the opposite corner - Again attempting to try to force a 2 way win situation.  
+		//OPTION 1-3 - The computer plays in the opposite corner - Again attempting to try to force a 2 way win situation.
 		// NOTE - The computer does not play turn 2 in either of the matching side cells. This is considered a poor move (As their is less opportunity to win)
 		// Likewise playing either side cell next to the played corner cell is also considered a poor move.
 
 	// IF TURN 1 = OPTION 2
 
 	//OPTION (T3)2-1 - The computer takes the center (Preferenced)
-	//OPTION (T3)2-2 - The computer takes a corner cell which must be on the opposite side of the board. There are two of these. 
+	//OPTION (T3)2-2 - The computer takes a corner cell which must be on the opposite side of the board. There are two of these.
 
 	// IF TURN 1 = OPTION 3
 
-	// OPTION (T3)3-1 - The computer takes any free corner. There are 4. 
-	// Playing a side cell is considered a poor move. 
+	// OPTION (T3)3-1 - The computer takes any free corner. There are 4.
+	// Playing a side cell is considered a poor move.
 
 
 	// TURN 5
@@ -417,99 +432,86 @@ function AI_hard_agressive() {
 
 // OTHER SCENARIOS
 
-// Has side and corner. if player plays in cells +1 or +2 of the corner cell the computer forces a two way win by playing -1 from the it's middle cell. 
+// Has side and corner. if player plays in cells +1 or +2 of the corner cell the computer forces a two way win by playing -1 from the it's middle cell.
 // HAS side and corner. Only 2 more situations exist which are player played in cells -1 or +1 of middle cell. No win is possible. Random play
 
 // Has corner and corner. The computer simply blocks any win condition of the player. The player will have win conditions in all directions. The computer must block them. If this leads to a corner play the
 // computer will win on TURN 7
 
-// Has corner and middle but can't win. The computer blocks any player win if it has to. 
-//After this there are 2 cells. They are -3 or + 1 of the corner cell. Playing either will result in a 2 way win condition. 
+// Has corner and middle but can't win. The computer blocks any player win if it has to.
+//After this there are 2 cells. They are -3 or + 1 of the corner cell. Playing either will result in a 2 way win condition.
 
-// TURN 7 
-// Attempts win. Blocks losss. If none is possible then random play as game will draw no matter what is played. 
+// TURN 7
+// Attempts win. Blocks losss. If none is possible then random play as game will draw no matter what is played.
 
 //TURN 9
 
-// Very simple. The computer plays the remaining cell. 
+// Very simple. The computer plays the remaining cell.
 
 }
 
+//
+//  function AI_hard_defending() {
+// //NOTATION
+// TURN 2
+// Type 1 - Occurs where center is taken on turn 1
+// Computer must play a corner or is open to a two way win. Plays any of the 4 corners.
+// TURN 4
+// //  Type2 two way win => Occurs where the opposite corners are taken on the 3rd turn
+// //  Type3 two way win => Occurs where a corner is taken as well as the opposite side
+// //  All other winning types are blocked by intermediate level play
+//   if (is_computer_able_to_win()) {
+//         //computer plays in winning cell
+//       round_won();
+//       console.log("computer played to win");
+//   }
+//   else if (does_computer_need_to_block()) {
+//       //computer plays in blocking cell
+//       game_board[humanAbleToWinAt] = current_player; // Updating the array
+//       $('#' + humanAbleToWinAt).prepend(current_player);
+//       console.log("computer played to block human win");
+//       change_player();
+//       if (check_for_draw()){ //Necessary in case computer draws whilist blocking human win
+//           round_drew();
+//       }
+//   }
+//   else if (game_board[4] === null) {
+//       game_board[4] = current_player;
+//       $('#' + 4).prepend(current_player);
+//       console.log("Computer took the center to be defensive");
+//   }
+//   else if (turn == 2 && game_board[4] == 'O') {
+//     //Looking for if human going for 'type 1' two way win. Play any corner cell
+//     var possibilities = [0,2,6,8]
+//     var randomCorner = getARandomOption(possibilities)
+//     $('#' + randomCorner).prepend(current_player); //Add a randomizer here to occasionally play 5
+//     console.log("Computer played in a random corner to block a possible setup of a type 1 two way win");
+//   }
+//   else if (turn == 4 && game_board[0] == 'O' && game_board[8]) == 'O' || (turn == 3 && game_board[2] == 'O' && game_board[6] == 'O'){
+//     //Looking for if human going for 'type 2' two way win
+//     var possibilities = [1,3,5,7]
+//     var randomSide = getARandomOption(possibilities)
+//     $('#' + randomSide).prepend(current_player); //Add a randomizer here to occasionally play 5
+//     console.log("Computer played T4 to block a possible setup of a type 2 two way win");
+//   }
+//   else if (turn == 4 && game_board[0] = 'O' && game_board[8]) = 'O')
+  //Looking for if human going for 'type 3' two way win
 
-// function AI_hard_defending() {
-//     if (is_computer_able_to_win()) {
-//           //computer plays in winning cell
-//         round_won();
-//         console.log("computer played to win");
-//     }
-//     else if (does_computer_need_to_block()) {
-//         //computer plays in blocking cell
-//         game_board[humanAbleToWinAt] = current_player; // Updating the array
-//         $('#' + humanAbleToWinAt).prepend(current_player);
-//         console.log("computer played to block human win");
-//         change_player();
-
-//     }
-//     else if (game_board[4] === null) { //A very defensive play
-//         game_board[4] = current_player; 
-//         $('#' + 4).prepend(current_player);
-//         console.log("Computer took the center");
-//     }
-//     else if        //Looking for if human is setting up a two way win
-// Unconsidered scenarios are 
-// 1 - human has 0, 8. Computer has 4. Computer should play 3 or 5
-// 2 - human has 2, 6. Computer has 4. Computer should should 3 or 5
-// 3 - human has a corner and a side(that aren't inline else block will trigger). 
-// 3 - Computer has 4. Computer plays the corner nearest the side piece 
+//This gets complex as there are 8 scenarios to consider all leading to two way wins
+//Each different scenario has diferent 'safe cells'
 
 // after 3 >> computer can play simply. win>block>random and will win or tie the game
 // after 1 or 2 the computer can play win>block>random and will win or tie the game
-// 
+//
 // If center is taken first
-// computer takes 0, 2, 6 or 8 (a corner) 
+// computer takes 0, 2, 6 or 8 (a corner)
 // The next round is only a threat if the player takes opposite corner
 // if player has opposite corner > the computer takes either of the leftover corners forcing the human to block
 // the game will now win or tie
-// 
 
-//     if (check_for_win()) {
-//         round_won();    
-//     }
-//     else if (check_for_draw()){
-//         round_drew();
-//     }
-//     change_player();
+//
+//
+// else {
+//   playRandomly()
 // }
-
-
-function home() {
-    $('#home').click(function() {
-        location.reload();
-    });
-}
-
-
-function update_score() {
-    if (current_player === 'X') {
-        player1_score++;
-        $('#score1').empty().prepend(player1_score);
-    } else if (current_player === 'O') {
-        player2_score++;
-        $('#score2').empty().prepend(player2_score);
-    }
-}
-
-function drawLine(direction) {
-    if (direction === horizontal) {
-
-    }
-    else if (direction === vertical) {
-
-    }
-    else if (direction === diagonal) {
-
-    }
-    return
-}
-
-
+// }
