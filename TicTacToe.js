@@ -374,9 +374,9 @@ function AI_Intermediate() {
         if (check_for_draw()){ //Necessary in case computer draws whilist blocking human win
             round_drew();
         }
-        else {
-          playRandomly()
-        }
+    }
+    else {
+      playRandomly()
     }
 }
 
