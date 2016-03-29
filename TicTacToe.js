@@ -2,15 +2,19 @@
 //Please note the code is still a work in progress! Not best practice yet! :)
 
 //Fix if parent of difficulty clicked but not on a direct child >> app still launches == bad. 
+//Add testing
+//Wireframe the front end with a bootstrap style design
 
 $(document).ready(function() {
     gameBoard = setUpBoard();
     $('.game_options').click(function(e) {
-        difficulty = e.target.id;
-        who_starts(); // is this okay here?? this must run before countdownAnimation
-        countdownAnimation();
-        console.log("loading " + difficulty + " computer");
-
+        if (app.gameOptionsAlreadyclicked === false) { //prevents a rare bug if gameoptions is dblclicked
+            difficulty = e.target.id;
+            who_starts();
+            countdownAnimation();
+            app.gameOptionsAlreadyclicked = true;
+            console.log("Loading " + difficulty + " computer");
+        }
     });
 
     $(".game_table").click(function(e) {
@@ -36,7 +40,7 @@ app.round = 1;
 app.player1Score = 0;
 app.player2Score = 0;
 app.isRoundInProgress = true;
-
+app.gameOptionsAlreadyclicked = false;
 
 function countdownAnimation() {
 
@@ -67,7 +71,7 @@ function countdownAnimation() {
 }
 
 
-function setUpBoard() { //How else could this be done? Is this really necessary?
+function setUpBoard() { //How else could this be done more efficently?
     var gameBoard = new Array(9);
     for (var i = 0; i < gameBoard.length; i++) {
         gameBoard[i] = null;
@@ -105,7 +109,7 @@ function changePlayer() {
     } else {
         currentPlayer = 'X';
     }
-    $('#whos_turn_is_it').empty().prepend(currentPlayer + " It's your turn");
+    $('#whos_turn_is_it').text(currentPlayer + " It's your turn");
 }
 
 
@@ -165,9 +169,9 @@ function clearBoard() {
         gameBoard[i] = null;
     }
 	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
-    $('#play_is').empty().append(startingPlayer + " will start this round.");
-    $('#whos_turn_is_it').empty().fadeIn(1500).prepend(currentPlayer + " It's your turn");
-    $('#begun').empty().append("The game continues! Round " + app.round); // in at 10,000 - Does not go out
+    $('#play_is').text(startingPlayer + " will start this round.");
+    $('#whos_turn_is_it').fadeIn(1500).text(currentPlayer + " It's your turn");
+    $('#begun').text("The game continues! Round " + app.round);
     if (currentPlayer === "X") {
         AIPlay();
     }
@@ -177,7 +181,6 @@ function clearBoard() {
 function checkForWin() {
 
     // check col win
-
     for (var i = 0; i < 3; i++) {
         if (gameBoard[i] === currentPlayer && gameBoard[i + 3] === currentPlayer && gameBoard[i + 6] === currentPlayer) {
             winningCells = [i, i+3, i+6]; //For CSS coloring
@@ -202,7 +205,6 @@ function checkForWin() {
 }
 
 
-
 function checkForDraw() {
     //if all elements are not null then unless a win, it must be a draw
 	for (var i = 0; i < 9; i++) {
@@ -215,17 +217,17 @@ function checkForDraw() {
 
 
 function roundDrew() {
-    $('#won').prepend("It's a draw!").fadeIn(100);
+    $('#won').text("It's a draw!").fadeIn(100);
     endRound();
 }
 
 
 function roundWon() {
-    $('#won').prepend(currentPlayer + " Takes The Round!").fadeIn(100);
+    $('#won').text(currentPlayer + " Takes The Round!").fadeIn(100);
     console.log("winning cells where " + winningCells);
     updateScore();
     endRound();
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) { //Look into using .each or similar rather than a for loop
         $("#" + winningCells[i]).css("background-color", "red");
     }
 }
@@ -234,7 +236,7 @@ function roundWon() {
 function endRound(){
     $('#whos_turn_is_it').fadeOut(0);
     app.isRoundInProgress = false;
-    $('#play_again').fadeIn(1500);
+    $('#play_again').fadeIn(1500); //Ideally this should be next round as id
 }
 
 
@@ -309,10 +311,10 @@ function doesComputerNeedToBlock () {
 function playRandomly(){
     var findingFreeCell = true;
     while(findingFreeCell) {
-        var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
-        if (gameBoard[random_move] === null) {
-            gameBoard[random_move] = currentPlayer; // Updating the array
-            $('#' + random_move).prepend(currentPlayer);
+        var randomMove = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
+        if (gameBoard[randomMove] === null) {
+            gameBoard[randomMove] = currentPlayer; // Updating the array
+            $('#' + randomMove).prepend(currentPlayer);
             findingFreeCell = false;
             if (checkForWin()) {
                 roundWon();
@@ -327,7 +329,7 @@ function playRandomly(){
 }
 
 function AIEasy() {
-    var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
+    var randomMove = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
     if (isComputerAbleToWin()) {
         roundWon();
         console.log("Computer played to win");
@@ -358,17 +360,16 @@ function AIIntermediate() {
     }
 }
 
-// function getARandomOption(arrayOfOptions) {
-//   //This function is used to randomise a selection of possible moves for the AI
-//   //Passing an array returns a random element of the array
-//     for (var i = arrayOfOptions.length - 1; i > 0; i--) {
-//         var j = Math.floor(Math.random() * (i + 1));
-//         var temp = arrayOfOptions[i];
-//         arrayOfOptions[i] = arrayOfOptions[j];
-//         arrayOfOptions[j] = temp;
-//     }
-//     return arrayOfOptions[0];
-// }
+function getARandomOption(arrayOfOptions) {
+  //This function is used to randomise a selection of possible moves for the AI
+    for (var i = arrayOfOptions.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arrayOfOptions[i];
+        arrayOfOptions[i] = arrayOfOptions[j];
+        arrayOfOptions[j] = temp;
+    }
+    return arrayOfOptions[0];
+}
 
 
 
@@ -469,7 +470,7 @@ function AIIntermediate() {
 
 
 
-//     //var random_move = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
+//     //var randomMove = Math.floor(Math.random() * 3); // The computer has 3 possible opening moves which are then rotated by a 25 degrees leading to 12 possible opening plays
 
 //     // TURN 1
 
@@ -477,7 +478,7 @@ function AIIntermediate() {
 //     // Option 1-2 - COMPUTER PLAYS A SIDE CELL
 //     // Option 1-3 - COMPUTER PLAYS IN MIDDLE
 //     //var random_orientation = Math.floor(Math.random() * 4); // After finding out what type of cell to play. Then randomly orient the play
-//     //if (random_move = 1) {
+//     //if (randomMove = 1) {
 
 //     // TURN 3
 
