@@ -1,19 +1,36 @@
+
+//Please note the code is still a work in progress! Not best practice yet! :)
+
+//Fix if parent of difficulty clicked but not on a direct child >> app still launches == bad. 
+
 $(document).ready(function() {
-     //App simply stores information to avoid global variable use
-    initialize();
-    //setup your click events here. Seperate clicks from functionality
+    gameBoard = setUpBoard();
     $('.game_options').click(function(e) {
-        var difficultyClicked = e.target.id;
-        difficultySelected(difficultyClicked);
+        difficulty = e.target.id;
+        who_starts(); // is this okay here?? this must run before countdownAnimation
         countdownAnimation();
+        console.log("loading " + difficulty + " computer");
+
     });
+
     $(".game_table").click(function(e) {
         var IDOfCellClicked = e.target.id;
         playerMove(IDOfCellClicked);
     });
-});
+    
+    $('#play_again').click(function() {
+        clearBoard();
+    });
 
-var app = {}; //This contains lots of game information to prevent globalisation of variables
+    $('#home').click(function() {
+        location.reload();
+    });
+});
+     
+
+//App simply stores information as an object to avoid global variable use. 
+//It acts to allow 'class' type variables.
+var app = {}; 
 app.turn = 0;
 app.round = 1;
 app.player1Score = 0;
@@ -21,20 +38,10 @@ app.player2Score = 0;
 app.isRoundInProgress = true;
 
 
-
-function initialize() { // Turning on all clickable features and loading page
-    difficultySelected();
-    gameBoard = setUpBoard();
-    playerMove();
-    clearBoard();
-    home();
-}
-
-
 function countdownAnimation() {
 
-	who_starts();  // difficulty must be clicked before can work out who starts
-	$('.game_control').fadeOut(200);
+    //How could this animation be optimised? Are so many elements really needed?
+	$('.game_control').fadeOut(200); //Careful for doubleclicks - should build functionality to avoid
 	$('#play_lets').delay(200).fadeIn(500).delay(4360).fadeOut(500); // In at 500 Out at 10,000
 	$('#play5').delay(501).fadeIn(500).fadeOut(500); // In at 500 out at 2000
 	$('#play4').delay(1520).fadeIn(500).fadeOut(500); // In at 2000 out at 3500
@@ -45,28 +52,22 @@ function countdownAnimation() {
 	$('#begun').delay(5560).fadeIn(1500); // in at 10,000 - Does not go out
 	$('#play_happening').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
 	$('.game_table').delay(5570).fadeIn(1500); // in at 10,000 - Does not go out
-    $('#whos_turn_is_it').delay(5570).empty().fadeIn(1500).prepend(currentPlayer + " It's your turn");
+    $('#whos_turn_is_it').delay(5570).empty().fadeIn(1500).text(currentPlayer + " It's your turn");
 	$('#home').delay(5570).fadeIn(1500);
 	$('#score').delay(5570).fadeIn(1500);
+    $('#play_is').append(startingPlayer); //Leave this as append
 	if (difficulty === "human") {
-		$('#title_score1').prepend("Human 1 Score");
-		$('#title_score2').prepend("Human 2 Score");
+		$('#title_score1').text("Human 1 Score");
+		$('#title_score2').text("Human 2 Score");
 	}
 	else {
-		$('#title_score1').prepend("Computer Score");
-		$('#title_score2').prepend("Human Score");
+		$('#title_score1').text("Computer Score");
+		$('#title_score2').text("Human Score");
 	}
 }
 
 
-function difficultySelected(difficultyClicked) { // NOTE USE OF GLOBAL VARIABLE DUE TO DOCUMENT.READY
-    difficulty = difficultyClicked;
-    console.log("loading " + difficulty + " computer");
-}
-
-
-
-function setUpBoard() {
+function setUpBoard() { //How else could this be done? Is this really necessary?
     var gameBoard = new Array(9);
     for (var i = 0; i < gameBoard.length; i++) {
         gameBoard[i] = null;
@@ -75,7 +76,7 @@ function setUpBoard() {
 }
 
 
-function who_starts() {
+function who_starts() { //Could this be written shorter?
     var randomPlayer = Math.floor(Math.random() * 2 + 1);
     if (difficulty !== "human") {
         if (randomPlayer === 1) {
@@ -95,7 +96,6 @@ function who_starts() {
             currentPlayer = 'O';
         }
     }
-    $('#play_is').append(startingPlayer);
 }
 
 
@@ -156,24 +156,21 @@ function playerMove(IDOfCellClicked) {
 
 
 function clearBoard() {
-    $('#play_again').click(function() {
-        app.round++;
-        $('#won').empty();
-        app.isRoundInProgress = true;
-		changeStartingPlayer();
-		$('#play_again').fadeOut(1000);
-        for (var i = 0; i < 9; i++) { // Clearing the array
-            gameBoard[i] = null;
-            $("#" + winningCells[i]).css("background-color", "white");
-        }
-    	$('.game_table td').empty(); //Clear the table visuals
-        $('#play_is').empty().append(startingPlayer + " will start this round.");
-        $('#whos_turn_is_it').empty().fadeIn(1500).prepend(currentPlayer + " It's your turn");
-        $('#begun').empty().append("The game continues! Round " + app.round); // in at 10,000 - Does not go out
-        if (currentPlayer === "X") {
-            AIPlay();
-        }
-    });
+    app.round++;
+    $('#won').empty();
+    app.isRoundInProgress = true;
+	changeStartingPlayer();
+	$('#play_again').fadeOut(1000);
+    for (var i = 0; i < 9; i++) { // Clearing the array
+        gameBoard[i] = null;
+    }
+	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
+    $('#play_is').empty().append(startingPlayer + " will start this round.");
+    $('#whos_turn_is_it').empty().fadeIn(1500).prepend(currentPlayer + " It's your turn");
+    $('#begun').empty().append("The game continues! Round " + app.round); // in at 10,000 - Does not go out
+    if (currentPlayer === "X") {
+        AIPlay();
+    }
 }
 
 
@@ -183,16 +180,14 @@ function checkForWin() {
 
     for (var i = 0; i < 3; i++) {
         if (gameBoard[i] === currentPlayer && gameBoard[i + 3] === currentPlayer && gameBoard[i + 6] === currentPlayer) {
-            winningCells = [i, i+3, i+6];
-            console.log("winning cells where " + winningCells);
+            winningCells = [i, i+3, i+6]; //For CSS coloring
             return true;
-        }
+        } //THIS LINE OFTEN ERRORS????
     }
     // check row win
     for (var j = 0; j < 9; j += 3) {
         if (gameBoard[j] === currentPlayer && gameBoard[j + 1] === currentPlayer && gameBoard[j + 2] === currentPlayer) {
             winningCells = [j, j+1, j+2];
-            console.log("winning cells where " + winningCells);
             return true;
         }
     }
@@ -200,7 +195,6 @@ function checkForWin() {
     for (var k = 0; k <= 2; k += 2) {
         if (gameBoard[k] === currentPlayer && gameBoard[4] === currentPlayer && gameBoard[8 - k] === currentPlayer) {
             winningCells = [k, 4, 8-k];
-            console.log("winning cells where " + winningCells);
             return true;
         }
     }
@@ -210,6 +204,7 @@ function checkForWin() {
 
 
 function checkForDraw() {
+    //if all elements are not null then unless a win, it must be a draw
 	for (var i = 0; i < 9; i++) {
 		if (gameBoard[i] === null) {
 			return false;
@@ -219,9 +214,15 @@ function checkForDraw() {
 }
 
 
+function roundDrew() {
+    $('#won').prepend("It's a draw!").fadeIn(100);
+    endRound();
+}
+
 
 function roundWon() {
     $('#won').prepend(currentPlayer + " Takes The Round!").fadeIn(100);
+    console.log("winning cells where " + winningCells);
     updateScore();
     endRound();
     for (var i = 0; i < 3; i++) {
@@ -230,33 +231,25 @@ function roundWon() {
 }
 
 
-function roundDrew() {
-    $('#won').prepend("It's a draw!").fadeIn(100);
-    endRound();
-}
-
 function endRound(){
     $('#whos_turn_is_it').fadeOut(0);
     app.isRoundInProgress = false;
     $('#play_again').fadeIn(1500);
 }
 
+
 function updateScore() {
     if (currentPlayer === 'X') {
         app.player1Score++;
-        $('#score1').empty().prepend(app.player1Score);
+        $('#score1').text(app.player1Score);
     } else if (currentPlayer === 'O') {
         app.player2Score++;
-        $('#score2').empty().prepend(app.player2Score);
+        $('#score2').text(app.player2Score);
     }
 }
 
 
-function home() {
-    $('#home').click(function() {
-        location.reload();
-    });
-}
+//SEPERATE THIS INTO A DIFFERENT FILE CALLED AI.JS
 
 
 function AIPlay() {
@@ -273,7 +266,7 @@ function AIPlay() {
 function isComputerAbleToWin () {
     //The computer plays in any open cell. It then checks if that cell will cause it to win.
     //If the cell will cause a win return the id of that cell otherwise clear the cell.
-    for (var x=0;x<9; x++) {
+    for (var x = 0; x < 9; x++) {
         if (gameBoard[x] === null) {
             gameBoard[x] = currentPlayer;
             if (checkForWin()) {
@@ -291,7 +284,7 @@ function isComputerAbleToWin () {
 function doesComputerNeedToBlock () {
     //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
     //If the cell will cause a human win return the id of that cell. Then clear the cell.
-    for (var p=0;p<9; p++) {
+    for (var p = 0; p < 9; p++) {
         changePlayer();
         if (gameBoard[p] === null) {
             gameBoard[p] = currentPlayer;
@@ -336,7 +329,6 @@ function playRandomly(){
 function AIEasy() {
     var random_move = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
     if (isComputerAbleToWin()) {
-        //computer plays in winning cell
         roundWon();
         console.log("Computer played to win");
     }
@@ -348,7 +340,6 @@ function AIEasy() {
 
 function AIIntermediate() {
     if (isComputerAbleToWin()) {
-        //computer plays in winning cell
         roundWon();
         console.log("computer played to win");
     }

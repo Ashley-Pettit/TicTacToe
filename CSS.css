@@ -1,3 +1,7 @@
+/*cursor pointer occurs in margins of elements
+text overlaps on some resolutions >> need to redesign table by % not px. Bootstrap it so mobile will work
+*/
+
 body {
 	text-align:center;
 	margin:0 auto;
