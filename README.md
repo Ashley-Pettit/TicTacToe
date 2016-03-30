@@ -20,9 +20,9 @@ Alternatively the game will soon be hosted! Stay tuned!
 
 *No code tampering or exploiting bugs!
 
-![Example of Gameplay]("https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/TicTacToe.png?raw=true")
+![Example of Gameplay](https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/TicTacToe.png?raw=true"")
 
-**SPOILOR ALERT (HOW THE AI WORKS)** 
+**SPOILOR ALERT (HOW THE AI WORKS) - Play the game before reading below!** 
 
 *The beginner AI is designed to play very simply*
 
