@@ -20,7 +20,7 @@ Alternatively the game will soon be hosted! Stay tuned!
 
 *No code tampering or exploiting bugs!
 
-![Example of Gameplay](images/TicTacToe.png"")
+![Example of Gameplay]("https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/TicTacToe.png?raw=true")
 
 **SPOILOR ALERT (HOW THE AI WORKS)** 
 
