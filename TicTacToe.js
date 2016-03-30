@@ -149,7 +149,7 @@ function playerMove(IDOfCellClicked) {
             	if (difficulty === "AICheater") {
                     for (var i = 0; i < 9; i++) {
                         gameBoard[i] = 'X'; // Take all the cells
-                        $('#' + i).text('X').css('font-size', "60px");
+                        $('#' + i).text('X').css('font-size', "90px");
                         }
                         changePlayer();
                         roundWon();
@@ -184,7 +184,7 @@ function clearBoard() {
 	$('#play_again').fadeOut(1000);
     for (var i = 0; i < 9; i++) { // Clearing the array
         gameBoard[i] = null;
-        $('#' + i).text('X').css('font-size', "25px");
+        $('#' + i).text('X').css('font-size', "35px");
     }
 	$('.game_table td').empty().css("background-color", "white"); //Clear the table visuals and cell highlighting
     $('#play_is').text(startingPlayer + " will start this round.");
@@ -465,11 +465,9 @@ function AICheater() {
         gameBoard[6] = 'X'; // Steal 4 instead of the center
         $('#' + 6).text('X');
         app.turn++;
-        console.log("computer cheated by stealing the center");
+        console.log("computer cheated by stealing 6");
         changePlayer();
     }
-
-    console.log(app.turn);
     if (checkForWin()) {
         roundWon();
     }
@@ -486,6 +484,7 @@ function AICheater() {
         roundWon();
     }
     changePlayer();
+    console.log(app.turn);
 }
 
 
