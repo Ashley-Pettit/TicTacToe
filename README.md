@@ -5,12 +5,17 @@ Beat the hard level in a match to 3 rounds and I'll be very impressed but won't 
 
 Built in JavaScript/Jquery with an interactive front-end interface. 
 
+
+
 <b> HOW TO RUN </b>
 
 To run the program click <a href="https://github.com/Ashley-Pettit/TicTacToe/archive/master.zip">download ZIP</a>
 
-Save it to your computer then just run the Game.Html file
+Save it to your computer then just run the Game.Html file. 
+
+Alternatively the game will soon be hosted! Stay tuned! 
 
 *No code tampering or exploiting bugs!
 
-<img src="/Images/TTT.png"/>
+![Example of Gameplay](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "")
+
