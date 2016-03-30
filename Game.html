@@ -4,12 +4,13 @@
 	<link rel='stylesheet' type='text/css' href='css.css'/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src='TicTacToe.js' type='text/javascript'></script>
-	<!-- bootstrap link -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- BS - Latest compiled and minified JavaScript -->
+<!-- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+ -->	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <header>Ash's Tic Tac Toe</header>
-<div class = "container">
+<div class = ".container-fluid">
 	<div class = "game_control">
 		<h1>Choose your difficulty </h1>
 		<table class="game_options">
@@ -17,10 +18,11 @@
 				<td id="human">Human Verus Human</td>
 				<td id="easy">Normal</td>
 				<td id="intermediate">Hard<BR>(New!)</td>
-				<td id="hard">THE BOSS<BR>(Coming Soon)</td>
+				<td id="AIHardDefending">THE BOSS<BR>(Coming Soon)</td>
+				<td id="AICheater"></td>
 			</tr>
 		</table>
-		
+	<div class="imageAndPrize">
 		<table>
 			<tr>
 				<td id="win1000">
@@ -30,6 +32,7 @@
 			</tr>
 		</table>
 	</div>
+	</div> <!-- end game control -->
 	<div class ="game_in_play">
 		<div id = "play_lets">LET'S PLAY! Rolling to see who goes first.... </div>
 		<div id = "play5"> 5... </div>
@@ -59,8 +62,7 @@
 			</table>
 		</div>
 		<div id = "play_again"><a>Next Round!</a></div>
-	</div>
-	<div id = "whos_turn_is_it"> </div>
+	</div> <!-- End game_in_play -->
 	<div id ="score">
 		<table>
 			<tr>
@@ -72,10 +74,9 @@
 				<td id = "score2">0</td>
 			</tr>
 		</table>
-	</div>
-	<div id = "won"></div>
+	</div> <!-- End score -->
 	<div id = "home"><a>Back to difficulty</a></div>
-</div>
+</div> <!-- End container -->
 <footer>OpenSource Ashley Pettit 2016</footer>
 </body>
 </html>
