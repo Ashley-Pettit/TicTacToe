@@ -14,8 +14,6 @@ Built in JavaScript/Jquery with an interactive front-end interface. Will work on
 
 ![Example of Gameplay](https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/tictactoegameplay1.png?raw=true"")
 
-![Example of Gameplay](https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/tictactoegameplay2.png?raw=true"")
-
 **SPOILER ALERT (HOW THE AI WORKS) - Play the game before reading below!**
 
 *The beginner AI is designed to play very simply*
