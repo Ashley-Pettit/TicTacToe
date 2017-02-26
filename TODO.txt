@@ -1,0 +1,28 @@
+TO DO SOON
+
+ADVANCED AGGRESSIVE AI
+Optimise animation
+ADVANCED DEFENSIVE AI
+Readme in Markup.
+
+
+
+TO DO LATER
+
+MAKE PAGE RESPONSIVE - LOOKS TERRIBLE ON DIFFERENT RESOLUTIONS >> In progress. Most sized screens now work well. Appending or prepending elements such that they don’t overlap. Minimal pos absolute usage. Score is still pos absolute. Need to update this.
+
+KNOWN ISSUES
+
+2 - GLOBAL VARIABLE USE - In progress via object app. 
+
+Done
+5* - WHAT IF 2 WINS AT SAME TIME? >> Resolved via return to end function
+1 - BUG SCOREBOARD SAYS COMP VERSING HUMAN - fixed
+2- Cheating computer
+3 - GAME BOARD CONNECTION TO GAME ARRAY IS B GRADE CODING - fixed via loop
+4 - Changing players has an occasional issue. It occurs on computer start and player win. - fixed. A computer move wasn’t changing turns
+RED LINE THROUGH WIN - Done
+INTERMEDIATE AI - Should merely play as beginner except should win when it can and should block any 2 in a rows. Thus the player must force a 2 win scenario to beat the computer
+DELAY COMPUTER MOVE >> Requires known issue 3 fixed >> done via 500 ms delay. Player can’t play during this time.
+
+

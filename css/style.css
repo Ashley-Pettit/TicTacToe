@@ -1,0 +1,81 @@
+.difficulty_button {
+	width:22%;
+	margin: 1.1rem;
+	border-radius: 1.1rem;
+	text-align: center;
+	min-width: 21rem;
+	border-spacing: .5rem;
+	cursor: pointer;
+	font-size:1.3rem;
+	padding: 1.2rem;
+	color:rgba(255,255,255,.9);
+}
+
+a[disabled] {
+	pointer-events: none;
+  color: gray;
+}
+
+/* After 1st page */
+
+
+#begun, #play_again, #computer_takes_round, #human_takes_round, #new_round, #score, #whos_turn_is_it, #starting_player_is, #next_round, #rolling, #wonDiv {
+	display:none;
+}
+
+.game_table {
+	text-align: center;
+	margin: 0 auto;
+	display:none;
+	margin-top:.6rem;
+	width:18rem;
+	height:18rem;
+}
+
+.game_table td {
+	border-style: solid;
+	border-width: 2px;
+	margin: 0 auto;
+	text-align: center;
+	border-color: black;
+	font-size: 1.3em;
+	color:rgba(255,255,255,.7);
+	width: 5rem;
+	height: 5rem;
+	cursor:pointer;
+	position:relative;
+	font-family:Futura, cursive, sans-serif;
+}
+
+#wonDiv {
+	margin-top:2rem;
+	color:rgba(255,255,255,.7);
+}
+
+header .header-content .header-content-inner p{
+	font-size:.9em;
+}
+
+h1{
+	color:rgba(255,255,255,.7);
+}
+
+@media (min-width: 800px) {
+	.game_table {
+		margin-top:1.5rem;
+		width:30rem;
+		height:30rem;
+	}
+
+	.game_table td {
+		font-size: 2.5rem;
+		width: 9rem;
+		height: 9rem;
+	}
+
+header .header-content .header-content-inner p{
+	font-size:1.5em;
+}
+
+
+}
