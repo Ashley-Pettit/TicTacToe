@@ -73,9 +73,7 @@ h1{
 		height: 9rem;
 	}
 
-header .header-content .header-content-inner p{
-	font-size:1.5em;
-}
-
-
+  header .header-content .header-content-inner p{
+    font-size:1.5em;
+  }
 }
