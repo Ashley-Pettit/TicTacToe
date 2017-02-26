@@ -10,7 +10,7 @@ Play versus a human or 3 levels of AI. Beat the Boss level in a match to 3 round
 
 For a bit of a laugh or to make someone a little frustrated click the ? button and see what happens!
 
-Built in JavaScript/Jquery with an interactive front-end interface. Will work on most mobiles
+Built in JavaScript/Jquery with an interactive front-end interface.
 
 ![Example of Gameplay](https://github.com/Ashley-Pettit/TicTacToe/blob/master/Images/tictactoegameplay1.png?raw=true"")
 
