@@ -417,7 +417,7 @@ function AICheater() {
     playToWin();
     return;
   }
-  else if (app.turn > 7 && canStealCellAndWin() && feelLikeCheating(.20)) {
+  else if (app.turn > 7 && canStealCellAndWin() && feelLikeCheating(.15)) {
     console.log("Turn " + app.turn + ". The computer stole cell " + app.stealWhichCellToWin +  " to win.");
     app.turn++
     stealCell()
@@ -479,7 +479,7 @@ function stealCell(playType) {
 function cheatingMoves() {
   app.currentPlayer = 'X'
   if (((app.turn > 5) && app.turn < 8) && app.isRoundInProgress === true) {
-    if (isComputerAbleToWin() && ((app.turn > 6) && app.turn < 9) && feelLikeCheating(.17)) {
+    if (isComputerAbleToWin() && ((app.turn > 6) && app.turn < 9) && feelLikeCheating(.13)) {
       app.turn++
       playToWin();
       console.log("Turn " + app.turn + ". The computer snuck victory with a dirty double play.");
@@ -487,18 +487,18 @@ function cheatingMoves() {
     }
     else if (doesComputerNeedToBlock()) {
       console.log('%cWARNING - 2 way win detected. Cheating odds have been drastically increased.', 'color: red')
-      if (isComputerAbleToWin() && feelLikeCheating(.62)){
+      if (isComputerAbleToWin() && feelLikeCheating(.75)){
         app.turn++
         playToWin();
         console.log("Turn " + app.turn + ". A sneaky double play was used for an instant win.");
         return;
       }
-      else if (canStealCellAndWin() && feelLikeCheating(.85)) {
+      else if (canStealCellAndWin() && feelLikeCheating(.65)) {
         stealCell();
         console.log("Turn " + app.turn + ". With impending doom the computer had no choice but to steal cell " + app.stealWhichCellToWin +  " to win.");
         return;
       }
-      else if (doesComputerNeedToBlock() && feelLikeCheating(.25)) {
+      else if (doesComputerNeedToBlock() && feelLikeCheating(.30)) {
         app.turn++;
         app.currentPlayer = 'X'
         playToBlock(); //If unable to instantly win then block the two win scenarios.
@@ -515,9 +515,9 @@ function cheatOnDraw() {
       gameBoard[i] = 'X';
       $('#' + i).text('X');
     }
-    launchWin();
-    alert("I see a BOOORRRING DRAW coming. MEH I'll just take the win! Sucker!");
     console.log("Turn " + app.turn + ". The computer decided draws are boring and instead decided it would just win instead.")
+    alert("I see a BOOORRRING DRAW coming. MEH I'll just take the win! Sucker!");
+    launchWin();
   }
   app.currentPlayer = 'O'
 }
