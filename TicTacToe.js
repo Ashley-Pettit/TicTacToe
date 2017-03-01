@@ -31,6 +31,7 @@ $(document).ready(function() {
   $('#home').click(function() {
       location.reload();
   });
+  console.log('%cWelcome to Ash\'s TicTacToe! ', 'color: red');
 });
 
 
@@ -43,6 +44,7 @@ app.isRoundInProgress = true;
 app.gameOptionsAlreadyclicked = false;
 app.startingPlayer = null;
 app.currentPlayer = null;
+app.hasBlocked = null;
 //App is designed to allow 'class' type variables to minimise the need for unnecessary parameter passing.
 
 
@@ -96,7 +98,10 @@ function whoStarts() {
       if (randomPlayer === 1) {
           app.startingPlayer = "The Computer of Doom!";
           app.currentPlayer = 'X';
-          AIPlay();
+          setTimeout(function() {
+              app.isRoundInProgress = true;
+              AIPlay();
+          }, 5000);
       } else {
           app.startingPlayer = "The Human";
           app.currentPlayer = 'O';
@@ -139,11 +144,10 @@ function changeStartingPlayer() {
 
 function playerMove(IDOfCellClicked) {
   if (app.isRoundInProgress === true) {
-    console.log("Player playing on Turn " + app.turn)
     if (gameBoard[IDOfCellClicked] === null) { // checks if position on board has already been played
         gameBoard[IDOfCellClicked] = app.currentPlayer; // UPDATING THE ARRAY
         $('#' + IDOfCellClicked).prepend(app.currentPlayer);
-         console.log("Player played cell " + IDOfCellClicked)
+         console.log("Turn " + app.turn + ". The player played in cell " + IDOfCellClicked)
         if (checkForWin()) {
             if (difficulty === "AICheater") {
               completelyCheatIfHumanCanWin()
@@ -171,18 +175,17 @@ function clearBoard() {
   app.isRoundInProgress = true;
   changeStartingPlayer();
   for (var i = 0; i < 9; i++) { // Clearing the array
-      gameBoard[i] = null;
+    gameBoard[i] = null;
   }
   $('.game_table td').empty().css("background-color", "transparent");
   $('#starting_player_is').text(app.startingPlayer + " will start this round.");
   $('#begun').text("The game continues! Round " + app.round);
+  console.log("%cNew round! " + app.currentPlayer + " will start this round.", 'color: red');
   if (app.currentPlayer === "X") {
       AIPlay();
   }
   $('#next_round').attr("disabled", "disabled");
-  console.log("New round! The " + app.currentPlayer + " will start this round.")
 }
-
 
 function checkForWin() {
   // check col win
@@ -213,13 +216,12 @@ function checkForWin() {
 function checkForDraw() {
   //if all elements are not null then unless a win, it must be a draw
   for (var i = 0; i < 9; i++) {
-      if (gameBoard[i] === null) {
-          return false;
-      }
+    if (gameBoard[i] === null) {
+        return false;
+    }
   }
   return true;
 }
-
 
 function roundDrew() {
   $('#starting_player_is').text("It's a draw!").fadeIn(100);
@@ -229,11 +231,10 @@ function roundDrew() {
 
 function launchWin() {
   $('#starting_player_is').text(app.currentPlayer + " Takes The Round!").fadeIn(100);
-  console.log("winning cells where " + winningCells);
   updateScore();
   endRound();
   for (var i = 0; i < 3; i++) { //Look into using .each or similar rather than a for loop
-      $("#" + winningCells[i]).css("background-color", "red");
+    $("#" + winningCells[i]).css("background-color", "red");
   }
 }
 
@@ -241,22 +242,20 @@ function launchWin() {
 function endRound() {
   app.isRoundInProgress = false;
   $('#next_round').attr("disabled", false);
+  console.log("Winning cells where " + winningCells + ". The score is Player - " + app.player2Score + " to Computer - " + app.player1Score);
 }
 
 function updateScore() {
   if (app.currentPlayer === 'X') {
     app.player1Score++;
-    console.log("player1Score " + app.player1Score)
     $('#player1ScoreBoard').text(app.player1Score);
   } else if (app.currentPlayer === 'O') {
     app.player2Score++;
     $('#player2ScoreBoard').text(app.player2Score);
-    console.log("player2Score " + app.player2Score)
   }
 }
 
 function AIPlay() {
-  console.log("Computer playing on Turn " + app.turn)
   if (difficulty === "easy" && app.isRoundInProgress === true) {
       AIEasy();
   } else if (difficulty === "intermediate" && app.isRoundInProgress === true) {
@@ -274,98 +273,98 @@ function isComputerAbleToWin() {
   //The computer plays in any open cell. It then checks if that cell will cause it to win.
   //If the cell will cause a win return the id of that cell otherwise clear the cell.
   for (var x = 0; x < 9; x++) {
-      if (gameBoard[x] === null) {
-          gameBoard[x] = app.currentPlayer;
-          if (checkForWin()) {
-              $('#' + x).prepend(app.currentPlayer);
-              console.log("Computer played to win. Cell " + x);
-              return true;
-          } else {
-              gameBoard[x] = null;
-          }
+    if (gameBoard[x] === null) {
+      gameBoard[x] = app.currentPlayer; //careful
+      if (checkForWin()) {
+        app.getRidOfthis = x
+        gameBoard[x] = null;
+        return true
+      } else {
+        gameBoard[x] = null;
       }
+    }
   }
   return false;
 }
 
-function doesComputerNeedToBlock() {
+function playToWin() {
+  $('#' + app.getRidOfthis).prepend(app.currentPlayer);
+  console.log("Turn " + app.turn + ". The computer played to win. Took cell " + app.getRidOfthis);
+  launchWin();
+}
+
+function doesComputerNeedToBlock(mode) {
   //The computer plays as the human in any open cell. It then checks if that cell will cause a human win.
   //If the cell will cause a human win return the id of that cell. Then clear the cell.
+  changePlayer();
   for (var p = 0; p < 9; p++) {
-    changePlayer();
     if (gameBoard[p] === null) {
-        gameBoard[p] = app.currentPlayer;
-        if (checkForWin()) {
-            gameBoard[p] = null;
-            humanAbleToWinAt = p;
-            changePlayer();
-            return true;
-        } else {
-            changePlayer();
-            gameBoard[p] = null;
+      gameBoard[p] = app.currentPlayer;
+      if (checkForWin()) {
+        gameBoard[p] = null;
+        humanAbleToWinAt = p;
+        if (mode === 'first') {
+          app.cheatBlockAt = p;
         }
-    } else {
-        changePlayer();
+        app.currentPlayer = 'X'
+        return true;
+      }
+      else {
+        gameBoard[p] = null;
+      }
     }
   }
+  changePlayer();
 }
 
 function playRandomly() {
   var findingFreeCell = true;
   while (findingFreeCell) { //while works better than a for loop because the ending is uncertain.
-  var randomMove = Math.floor(Math.random() * 9); // COME UP WITH A RANDOM NUMBER 0-8
-  if (gameBoard[randomMove] === null) {
+    var randomMove = Math.floor(Math.random() * 9);
+    if (gameBoard[randomMove] === null) {
       gameBoard[randomMove] = app.currentPlayer; // Updating the array
       $('#' + randomMove).prepend(app.currentPlayer);
       findingFreeCell = false;
       if (checkForWin()) {
-          launchWin();
+        launchWin();
       } else if (checkForDraw()) {
-          roundDrew();
+        roundDrew();
       }
       changePlayer();
-      console.log("Computer played in cell " +  randomMove + ". Decision made randomly.");
-  }
+      console.log("Turn " + app.turn + ". The computer played randomly. Took cell " + randomMove);
+    }
   }
 }
 
 function AIEasy() {
   if (isComputerAbleToWin()) {
-      launchWin();
+    playToWin();
   } else {
-      playRandomly();
+    playRandomly();
   }
 }
 
 function AIIntermediate() {
   if (isComputerAbleToWin()) {
-      launchWin();
-  } else if (doesComputerNeedToBlock()) {
-      playToBlock();
-      if (checkForDraw()) { //In case computer draws whilist blocking human win
-          roundDrew();
-      }
-  } else {
-      playRandomly();
+    playToWin();
+  }
+  else if (doesComputerNeedToBlock()) {
+    playToBlock();
+    if (checkForDraw()) { //In case computer draws whilist blocking human win
+    roundDrew();
+    }
+  }
+  else {
+    playRandomly();
   }
 }
 
-function getARandomOption(arrayOfOptions) {
-  //This function is used to randomise a selection of possible moves for the AI
-  for (var i = arrayOfOptions.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = arrayOfOptions[i];
-      arrayOfOptions[i] = arrayOfOptions[j];
-      arrayOfOptions[j] = temp;
-  }
-  return arrayOfOptions[0];
-}
 
 function AIHardDefending() {
   //This is loaded when the computer plays 2nd. The computer is aiming to draw.
   if (isComputerAbleToWin()) {
     //computer plays in winning cell
-    launchWin();
+    playToWin();
   } else if (doesComputerNeedToBlock()) {
     playToBlock()
   } else if (gameBoard[4] === null) {
@@ -403,96 +402,152 @@ function AIHardDefending() {
 function playToBlock() {
   //computer plays in blocking cell
   gameBoard[humanAbleToWinAt] = app.currentPlayer;
-  $('#' + humanAbleToWinAt).text(app.currentPlayer);
+  $('#' + humanAbleToWinAt).prepend(app.currentPlayer);
   changePlayer();
-  console.log("Computer played in cell " + humanAbleToWinAt + " to block human win");
+  console.log("Turn " + app.turn + ". Computer played in cell " + humanAbleToWinAt + " to block human win.");
   if (checkForDraw()) {
-      roundDrew();
+    roundDrew();
   }
 }
 
 function AICheater() {
+  app.currentPlayer = 'X'
+  app.blockThisTurn = 0
   if (isComputerAbleToWin()) {
-      launchWin();
-      return;
-  } else if (doesComputerNeedToBlock()) {
-      playToBlock();
-  } else {
-      playRandomly();
+    playToWin();
+    return;
   }
-  if (checkForWin()) { //Did the computer win before cheating?
-    launchWin();
+  else if (app.turn > 7 && canStealCellAndWin() && feelLikeCheating(.20)) {
+    console.log("Turn " + app.turn + ". The computer stole cell " + app.stealWhichCellToWin +  " to win.");
+    app.turn++
+    stealCell()
+    return
+  }
+  else if (doesComputerNeedToBlock('first')) {
+    playToBlock();
+    app.blockThisTurn = 1
+  }
+  else if ((gameBoard[4] === null) && weightedPlay(Math.pow(.08, 1/app.turn)))  {
+    gameBoard[4] = app.currentPlayer;
+    $('#' + 4).prepend(app.currentPlayer);
+    changePlayer();
+    console.log("Turn " + app.turn + ". The computer played weighted defensively. Decided it needed the center");
+  }
+  else {
+    playRandomly();
   }
   cheatingMoves(); // Chance to play twice
-  cheatWinConditions(); //Did the computer win or draw by cheating?
+  cheatOnDraw(); //Did the computer win or draw by cheating?
+}
+
+function canStealCellAndWin() {
+  for (var x = 0; x < 9; x++) {
+    if (gameBoard[x] === 'O') {
+      gameBoard[x] = 'X'
+      if (checkForWin()) {
+        app.stealWhichCellToWin = x
+        gameBoard[x] = 'O';
+        return true
+      } else {
+        gameBoard[x] = 'O';
+      }
+    }
+  }
+  return false;
+}
+
+function stealCell(playType) {
+  gameBoard[app.stealWhichCellToWin] = 'X';
+  if (app.blockThisTurn === 1) { //If first pay not used in win then hide it
+    gameBoard[app.cheatBlockAt] = null;
+    $('#' + app.cheatBlockAt).text('');
+  }
+  // for (var y = 0; y < 9; y++) {
+  //   if (gameBoard[y] == null && app.round > 4 && app.turn > 5)  {
+  //     $("#" + y).text("O");
+  //     console.log("Adding player token to cell " + y + " to add confusion" )
+  //     break
+  //   }
+  // } // Add in a mystery player token so it doesn't look suss
+  for (var i = 0; i < 3; i++) {
+    $("#" + winningCells[i]).css("background-color", "red");
+    $("#" + winningCells[i]).text("X");
+  }
+  launchWin();
 }
 
 function cheatingMoves() {
-  changePlayer(); //This is a 2nd turn so must be playing as computer
-  if (feelLikeCheating(.17) && app.turn > 5 && app.round > 2 ) {
-    if (isComputerAbleToWin()) { //A small chance to win instantly
-      launchWin();
-      console.log("The computer just felt like playing twice! :P");
+  app.currentPlayer = 'X'
+  if (((app.turn > 5) && app.turn < 8) && app.isRoundInProgress === true) {
+    if (isComputerAbleToWin() && ((app.turn > 6) && app.turn < 9) && feelLikeCheating(.17)) {
+      app.turn++
+      playToWin();
+      console.log("Turn " + app.turn + ". The computer snuck victory with a dirty double play.");
       return;
     }
-  }
-  // Does the human have a 2 way win scenario? If so increase cheat chance
-  else if (doesComputerNeedToBlock() && app.turn > 5 && feelLikeCheating(.75)) {
-    if (isComputerAbleToWin()) {
-        console.log("The human was setting up a 2 way win and needed to be stopped. A double play was used for an instant win. Won on turn " + app.turn);
-        launchWin();
+    else if (doesComputerNeedToBlock()) {
+      console.log('%cWARNING - 2 way win detected. Cheating odds have been drastically increased.', 'color: red')
+      if (isComputerAbleToWin() && feelLikeCheating(.62)){
+        app.turn++
+        playToWin();
+        console.log("Turn " + app.turn + ". A sneaky double play was used for an instant win.");
         return;
+      }
+      else if (canStealCellAndWin() && feelLikeCheating(.85)) {
+        stealCell();
+        console.log("Turn " + app.turn + ". With impending doom the computer had no choice but to steal cell " + app.stealWhichCellToWin +  " to win.");
+        return;
+      }
+      else if (doesComputerNeedToBlock() && feelLikeCheating(.25)) {
+        app.turn++;
+        app.currentPlayer = 'X'
+        playToBlock(); //If unable to instantly win then block the two win scenarios.
+        app.currentPlayer = 'X'
+        console.log("Turn - " + app.turn + " The computer couldn't win but felt the need to play twice to ruin your chances :).");
+      }
     }
-    else {
-      playToBlock(); //If unable to instantly win then block the two win scenarios.
-      console.log("The human was setting up a 2 way win and needed to be stopped by playing an extra time. Turn " + app.turn);
-      app.turn++;
-    }
-  }
-  else if ((app.turn == 7 || app.turn == 8) && (gameBoard[4] !== 'X' && app.round > 6)) {
-    gameBoard[4] = 'X'; // Steal the center
-    $('#' + 4).text('X');
-    console.log("Computer cheated by stealing 4. Turn " + app.turn);
-    changePlayer();
-    app.turn++;
-  }
-  else {
-    changePlayer();
   }
 }
 
-function cheatWinConditions() {
-  if (checkForDraw() && app.round > 10) { //was it a draw after round 10? If so win
+function cheatOnDraw() {
+  if (checkForDraw() && app.round > 6 && feelLikeCheating(.35)) {
     for (var i = 0; i < 9; i++) {
-        gameBoard[i] = 'X';
-        $('#' + i).text('X');
+      gameBoard[i] = 'X';
+      $('#' + i).text('X');
     }
     launchWin();
-    alert("Muhahahaa FOR NO REASON AT ALL - I DECIDE TO WIN!");
+    alert("I see a BOOORRRING DRAW coming. MEH I'll just take the win! Sucker!");
+    console.log("Turn " + app.turn + ". The computer decided draws are boring and instead decided it would just win instead.")
   }
-  changePlayer();
-  if (checkForWin()) { //Did the AI win whilst cheating?
-      launchWin();
-  }
-  changePlayer();
+  app.currentPlayer = 'O'
 }
 
 function completelyCheatIfHumanCanWin() {
   for (var i = 0; i < 9; i++) {
-      gameBoard[i] = 'X'; // Take all the cells
-      $('#' + i).text('X').css('background-color','red');
+    gameBoard[i] = 'X'; // Take all the cells
+    $('#' + i).text('X').css('background-color','red');
   }
   changePlayer();
+  alert("MUHAHAHAHA... YOU THINK YOU WIN????? WRONG I DO! FIND ANOTHER GAME TO WIN! Sucker...");
+  console.log("Turn " + app.turn + ". The player was going to win so the computer took all the cells and won.")
   launchWin();
-  alert("MUHAHAHAHA... YOU THINK YOU WIN????? WRONG I DO!");
 }
 
 function feelLikeCheating(chance) {
-  value =  Math.random()
+  value =  Math.random().toFixed(2);
   if (value < chance) {
+    // console.log("Rolling for cheat. Success! ", value, chance)
     return true
   }
-  else if (value < chance) {
+  else {
+    // console.log("Rolling for cheat. Gah...! ", value, chance)
+    return false
+  }
+}
+
+function weightedPlay(chance){
+  value =  Math.random().toFixed(2);
+  if (value < chance) {
     return true
   }
   else {
