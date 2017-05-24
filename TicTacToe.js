@@ -19,7 +19,11 @@ $(document).ready(function() {
     clearBoard();
   });
 
-  $('#scores').click(function() {
+  $('#scoresheader').click(function() {
+    toggleScores();
+  });
+
+  $('#closeScores').click(function() {
     toggleScores();
   });
 
@@ -37,16 +41,17 @@ $(document).ready(function() {
 
 var app = app || {};
 app.turn = 1;
-app.round = 1;
 app.player1Score = 0;
 app.player2Score = 0;
-app.isRoundInProgress = true;
+app.round = 1;
+app.isRoundInProgress = false;
 app.gameOptionsAlreadyclicked = false;
 app.startingPlayer = null;
 app.currentPlayer = null;
 app.hasBlocked = null;
+app.scoresEnabled = false
+app.scoresShown = false
 //App is designed to allow 'class' type variables to minimise the need for unnecessary parameter passing.
-
 
 function countdownAnimation() {
   $('.game_in_play').fadeIn();
@@ -67,16 +72,45 @@ function countdownAnimation() {
     setupScoreBoard();
     $('#next_round').attr("disabled", "disabled");
  }, 500);
+ setTimeout(function(){
+   app.isRoundInProgress = true
+   app.scoresEnabled = true
+ }, 6000);
+}
+
+function toggleScores(){
+  if (app.scoresEnabled === true) {
+    if (app.scoresShown === false) {
+    $('.game_table').fadeOut();
+    $('#next_round').fadeOut();
+    $('#begun').fadeOut();
+    $('#starting_player_is').fadeOut();
+    setTimeout(function() {
+      $('#scores').fadeIn();
+      app.scoresShown = true
+    }, 500);
+    }
+    else {
+      $('#scores').fadeOut();
+      setTimeout(function() {
+        $('#starting_player_is').fadeIn();
+        $('.game_table').fadeIn();
+        $('#begun').fadeIn();
+        $('#next_round').fadeIn();
+        app.scoresShown = false;
+      }, 500);
+    }
+  }
 }
 
 function setupScoreBoard() {
   if (difficulty === "human") {
-      $('#title_score1').text("Player 1 Score");
-      $('#title_score2').text("Player 2 Score");
+      $('#player1Score').text("Player 1 Score - " + app.player1Score);
+      $('#player2Score').text("Player 2 Score - " + app.player2Score);
   }
   else {
-      $('#title_score1').text("Computer Score");
-      $('#title_score2').text("Player Score");
+      $('#player1Score').text("Computer Score - " + app.player1Score);
+      $('#player2Score').text("Player Score - " + app.player2Score);
   }
 }
 
@@ -86,10 +120,6 @@ function setUpBoard() {
         gameBoard[i] = null;
     }
     return gameBoard;
-}
-
-function toggleScores(){
-  $('#scoreBox').fadeIn(500);
 }
 
 function whoStarts() {
@@ -123,7 +153,9 @@ function changePlayer() {
   } else {
       app.currentPlayer = 'X';
   }
-  $('#starting_player_is').text(app.currentPlayer + " It's your turn");
+  if (app.isRoundInProgress) {
+    $('#starting_player_is').text(app.currentPlayer + " It's your turn");
+  }
 }
 
 function changeStartingPlayer() {
@@ -162,7 +194,7 @@ function playerMove(IDOfCellClicked) {
           setTimeout(function() {
               app.isRoundInProgress = true;
               AIPlay();
-          }, 500);
+          }, 600);
         }
       app.turn++;
     }
@@ -236,22 +268,21 @@ function launchWin() {
   for (var i = 0; i < 3; i++) { //Look into using .each or similar rather than a for loop
     $("#" + winningCells[i]).css("background-color", "red");
   }
+  console.log("Winning cells where " + winningCells + ". The score is Player - " + app.player2Score + " to Computer - " + app.player1Score);
 }
-
 
 function endRound() {
   app.isRoundInProgress = false;
   $('#next_round').attr("disabled", false);
-  console.log("Winning cells where " + winningCells + ". The score is Player - " + app.player2Score + " to Computer - " + app.player1Score);
 }
 
 function updateScore() {
   if (app.currentPlayer === 'X') {
     app.player1Score++;
-    $('#player1ScoreBoard').text(app.player1Score);
+    $('#player1Score').text("Computer Score - " + app.player1Score);
   } else if (app.currentPlayer === 'O') {
     app.player2Score++;
-    $('#player2ScoreBoard').text(app.player2Score);
+    $('#player2Score').text("Player - " + app.player2Score);
   }
 }
 
@@ -479,7 +510,7 @@ function stealCell(playType) {
 function cheatingMoves() {
   app.currentPlayer = 'X'
   if (((app.turn > 5) && app.turn < 8) && app.isRoundInProgress === true) {
-    if (isComputerAbleToWin() && ((app.turn > 6) && app.turn < 9) && feelLikeCheating(.13)) {
+    if (isComputerAbleToWin() && ((app.turn > 6) && app.turn < 9) && feelLikeCheating(.17)) {
       app.turn++
       playToWin();
       console.log("Turn " + app.turn + ". The computer snuck victory with a dirty double play.");
@@ -487,18 +518,18 @@ function cheatingMoves() {
     }
     else if (doesComputerNeedToBlock()) {
       console.log('%cWARNING - 2 way win detected. Cheating odds have been drastically increased.', 'color: red')
-      if (isComputerAbleToWin() && feelLikeCheating(.75)){
+      if (isComputerAbleToWin() && feelLikeCheating(.80)){
         app.turn++
         playToWin();
         console.log("Turn " + app.turn + ". A sneaky double play was used for an instant win.");
         return;
       }
-      else if (canStealCellAndWin() && feelLikeCheating(.65)) {
+      else if (canStealCellAndWin() && feelLikeCheating(.85)) {
         stealCell();
         console.log("Turn " + app.turn + ". With impending doom the computer had no choice but to steal cell " + app.stealWhichCellToWin +  " to win.");
         return;
       }
-      else if (doesComputerNeedToBlock() && feelLikeCheating(.30)) {
+      else if (doesComputerNeedToBlock() && feelLikeCheating(.25)) {
         app.turn++;
         app.currentPlayer = 'X'
         playToBlock(); //If unable to instantly win then block the two win scenarios.
@@ -515,9 +546,9 @@ function cheatOnDraw() {
       gameBoard[i] = 'X';
       $('#' + i).text('X');
     }
-    console.log("Turn " + app.turn + ". The computer decided draws are boring and instead decided it would just win instead.")
-    alert("I see a BOOORRRING DRAW coming. MEH I'll just take the win! Sucker!");
     launchWin();
+    alert("I see a BOOORRRING DRAW coming. MEH I'll just take the win! Sucker!");
+    console.log("Turn " + app.turn + ". The computer decided draws are boring and instead decided it would just win instead.")
   }
   app.currentPlayer = 'O'
 }
