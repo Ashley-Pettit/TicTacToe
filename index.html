@@ -55,6 +55,9 @@
                         <a class="page-scroll" id = "switch_player" href="">Switch Players</a>
                     </li>
                     <li>
+                        <a class="page-scroll" id = "changeName" href="">Change Name</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" id = "scoresheader" href="#contact">Score</a>
                     </li>
 
@@ -69,50 +72,56 @@
 
 
     <header style="min-height:100%">
-        <div class="header-content">
-            <div class="header-content-inner" id="game_options">
-                <div class = "game_control">
-                    <h2 style = "margin-top:-.5rem">Choose your difficulty </h2>
-                    <hr>
-				<a id ="human" class="difficulty_button btn btn-primary btn-xl" style ="background-color:teal;">Human Verus Human</a>
-				<a id ="easy" class="difficulty_button btn btn-primary btn-xl" style ="background-color:green" >Easy</a>
-				<a id ="intermediate" class="difficulty_button btn btn-primary btn-xl" style = " background-color:orange">Intermediate</a>
-				<a id ="AIHardDefending" class="difficulty_button btn btn-primary btn-xl" style ="background-color:red">Hard (Beta)</a>
-                <a id ="AICheater"  class="difficulty_button btn btn-xl" style ="background-color:clear">?</a>
-            </div>
-        </div>
+      <div class="header-content">
+        <div class="header-content-inner" id="game_options">
+          <div class = "game_control">
+            <h2 style = "margin-top:-.5rem">Choose your difficulty </h2>
+              <hr>
+      				<a id ="human" class="difficulty_button btn btn-primary btn-xl" style ="background-color:teal;">Human Verus Human</a>
+      				<a id ="easy" class="difficulty_button btn btn-primary btn-xl" style ="background-color:green" >Easy</a>
+      				<a id ="intermediate" class="difficulty_button btn btn-primary btn-xl" style = " background-color:orange">Intermediate</a>
+      				<a id ="AIHardDefending" class="difficulty_button btn btn-primary btn-xl" style ="background-color:red">Hard (Beta)</a>
+              <a id ="AICheater"  class="difficulty_button btn btn-xl" style ="background-color:clear; font-size:18px">?</a>
+          </div>
+      </div>
 
+      <div class="header-content-inner" id="userName">
+        <h2 style = "margin-top:-.5rem">What shall we call you?</h2>
+          <hr>
+          <input type="text" style ='color:black' autofocus></input><br><br>
+          <a id ="saveName" class="btn btn-primary btn-xl" style ="background-color:teal;">Save</a>
+      </div>
 
-                <div class="header-content-inner game_options">
-                        <p id = "rolling" style="margin-bottom:0rem;">Rolling to see who goes first.... </p>
-                        <p id = "countdown" style="margin-bottom:0rem;"> </p>
-                        <p style="padding:0px; margin-top:-2.5rem; margin-bottom:.2rem" id = "starting_player_is">The starting player is </p>
-                        <p id = "begun" style="margin-top:1rem; margin-bottom:1rem"> The game has begun.</p>
-                        <div class="game_table_div">
-                        <table class="game_table">
-                  				<tr>
-                  					<td class ="game_cell" id = "0"></td>
-                  					<td class ="game_cell" id = "1"></td>
-                  					<td class ="game_cell" id = "2"></td>
-                  				</tr>
-                  				<tr>
-                  					<td class ="game_cell" id = "3"></td>
-                  					<td class ="game_cell" id = "4"></td>
-                  					<td class ="game_cell" id = "5"></td>
-                  				</tr>
-                  				<tr>
-                  					<td class ="game_cell" id = "6"></td>
-                  					<td class ="game_cell" id = "7"></td>
-                  					<td class ="game_cell" id = "8"></td>
-                  				</tr>
-                			</table>
-                      <div id = "scores">
-                        <p id = "player1Score"></p>
-                        <p id = "player2Score"></p>
-                        <a id ="closeScores" class="btn btn-primary btn-xl" style ="background-color:teal">Back to the game!</a>
-                      </div>
-                    </div>
+            <div class="header-content-inner game_options">
+                    <p id = "rolling" style="margin-bottom:0rem;">Rolling to see who goes first.... </p>
+                    <p id = "countdown" style="margin-bottom:0rem;"> </p>
+                    <p style="padding:0px; margin-top:-2.5rem; margin-bottom:.2rem" id = "starting_player_is">The starting player is </p>
+                    <p id = "begun" style="margin-top:1rem; margin-bottom:1rem"> The game has begun.</p>
+                    <div class="game_table_div">
+                    <table class="game_table">
+              				<tr>
+              					<td class ="game_cell" id = "0"></td>
+              					<td class ="game_cell" id = "1"></td>
+              					<td class ="game_cell" id = "2"></td>
+              				</tr>
+              				<tr>
+              					<td class ="game_cell" id = "3"></td>
+              					<td class ="game_cell" id = "4"></td>
+              					<td class ="game_cell" id = "5"></td>
+              				</tr>
+              				<tr>
+              					<td class ="game_cell" id = "6"></td>
+              					<td class ="game_cell" id = "7"></td>
+              					<td class ="game_cell" id = "8"></td>
+              				</tr>
+            			</table>
+                  <div id = "scores">
+                    <p id = "player1Score"></p>
+                    <p id = "player2Score"></p>
+                    <a id ="closeScores" class="btn btn-primary btn-xl" style ="background-color:teal">Back to the game!</a>
+                  </div>
                 </div>
+            </div>
         <p>
           <div class="header-content-inner game_options" style="margin-top:3rem">
               <a id="next_round" class="btn btn-primary btn-xl">Next Round</a>
