@@ -19,9 +19,22 @@ $(document).ready(function() {
     clearBoard();
   });
 
-  $('#scores').click(function() {
+  $('#scoresheader').click(function() {
     toggleScores();
   });
+
+  $('#closeScores').click(function() {
+    toggleScores();
+  });
+
+  $('#changeName').click(function() {
+    toggleChangeName();
+  });
+
+  $('#saveName').click(function() {
+    saveName();
+  });
+
 
   $('#switch_player').click(function() {
       app.round--;
@@ -34,23 +47,24 @@ $(document).ready(function() {
   console.log('%cWelcome to Ash\'s TicTacToe! ', 'color: red');
 });
 
-
 var app = app || {};
 app.turn = 1;
-app.round = 1;
 app.player1Score = 0;
 app.player2Score = 0;
-app.isRoundInProgress = true;
+app.round = 1;
+app.isRoundInProgress = false;
 app.gameOptionsAlreadyclicked = false;
 app.startingPlayer = null;
 app.currentPlayer = null;
 app.hasBlocked = null;
+app.scoresEnabled = false
+app.scoresShown = false
 //App is designed to allow 'class' type variables to minimise the need for unnecessary parameter passing.
-
 
 function countdownAnimation() {
   $('.game_in_play').fadeIn();
   $('.game_control').fadeOut(500);
+  $('#changeName').fadeOut(500);
   var countDownFrom = 4;
   setTimeout(function(){
     $('#countdown').delay(500).text("5...").fadeIn(500).fadeOut(500);
@@ -67,16 +81,59 @@ function countdownAnimation() {
     setupScoreBoard();
     $('#next_round').attr("disabled", "disabled");
  }, 500);
+ setTimeout(function(){
+   app.isRoundInProgress = true
+   app.scoresEnabled = true
+ }, 6000);
+}
+
+function toggleScores(){
+  if (app.scoresEnabled === true) {
+    if (app.scoresShown === false) {
+    $('.game_table').fadeOut();
+    $('#next_round').fadeOut();
+    $('#begun').fadeOut();
+    $('#starting_player_is').fadeOut();
+    setTimeout(function() {
+      $('#scores').fadeIn();
+      app.scoresShown = true
+    }, 500);
+    }
+    else {
+      $('#scores').fadeOut();
+      setTimeout(function() {
+        $('#starting_player_is').fadeIn();
+        $('.game_table').fadeIn();
+        $('#begun').fadeIn();
+        $('#next_round').fadeIn();
+        app.scoresShown = false;
+      }, 500);
+    }
+  }
+}
+
+function saveName() {
+  $('#userName').fadeOut();
+  setTimeout(function() {
+    $('.game_control').fadeIn();
+  }, 500);
+}
+
+function toggleChangeName(){
+  $('.game_control').fadeOut();
+  setTimeout(function() {
+    $('#userName').fadeIn();
+  }, 500);
 }
 
 function setupScoreBoard() {
   if (difficulty === "human") {
-      $('#title_score1').text("Player 1 Score");
-      $('#title_score2').text("Player 2 Score");
+      $('#player1Score').text("Player 1 Score - " + app.player1Score);
+      $('#player2Score').text("Player 2 Score - " + app.player2Score);
   }
   else {
-      $('#title_score1').text("Computer Score");
-      $('#title_score2').text("Player Score");
+      $('#player1Score').text("Computer Score - " + app.player1Score);
+      $('#player2Score').text("Player Score - " + app.player2Score);
   }
 }
 
@@ -86,10 +143,6 @@ function setUpBoard() {
         gameBoard[i] = null;
     }
     return gameBoard;
-}
-
-function toggleScores(){
-  $('#scoreBox').fadeIn(500);
 }
 
 function whoStarts() {
@@ -123,7 +176,9 @@ function changePlayer() {
   } else {
       app.currentPlayer = 'X';
   }
-  $('#starting_player_is').text(app.currentPlayer + " It's your turn");
+  if (app.isRoundInProgress) {
+    $('#starting_player_is').text(app.currentPlayer + " It's your turn");
+  }
 }
 
 function changeStartingPlayer() {
@@ -158,12 +213,14 @@ function playerMove(IDOfCellClicked) {
             roundDrew();
         } else {
           changePlayer();
+          if (difficulty != 'human') {
           app.isRoundInProgress = false; //PLAYER CANNOT PLAY WHILE AI IS "THINKING"
           setTimeout(function() {
               app.isRoundInProgress = true;
               AIPlay();
-          }, 500);
+          }, 600);
         }
+      }
       app.turn++;
     }
   }
@@ -236,22 +293,21 @@ function launchWin() {
   for (var i = 0; i < 3; i++) { //Look into using .each or similar rather than a for loop
     $("#" + winningCells[i]).css("background-color", "red");
   }
+  console.log("Winning cells where " + winningCells + ". The score is Player - " + app.player2Score + " to Computer - " + app.player1Score);
 }
-
 
 function endRound() {
   app.isRoundInProgress = false;
   $('#next_round').attr("disabled", false);
-  console.log("Winning cells where " + winningCells + ". The score is Player - " + app.player2Score + " to Computer - " + app.player1Score);
 }
 
 function updateScore() {
   if (app.currentPlayer === 'X') {
     app.player1Score++;
-    $('#player1ScoreBoard').text(app.player1Score);
+    $('#player1Score').text("Computer Score - " + app.player1Score);
   } else if (app.currentPlayer === 'O') {
     app.player2Score++;
-    $('#player2ScoreBoard').text(app.player2Score);
+    $('#player2Score').text("Player - " + app.player2Score);
   }
 }
 
@@ -417,7 +473,7 @@ function AICheater() {
     playToWin();
     return;
   }
-  else if (app.turn > 7 && canStealCellAndWin() && feelLikeCheating(.20)) {
+  else if (app.turn > 7 && canStealCellAndWin() && feelLikeCheating(.15)) {
     console.log("Turn " + app.turn + ". The computer stole cell " + app.stealWhichCellToWin +  " to win.");
     app.turn++
     stealCell()
@@ -487,7 +543,7 @@ function cheatingMoves() {
     }
     else if (doesComputerNeedToBlock()) {
       console.log('%cWARNING - 2 way win detected. Cheating odds have been drastically increased.', 'color: red')
-      if (isComputerAbleToWin() && feelLikeCheating(.65)){
+      if (isComputerAbleToWin() && feelLikeCheating(.80)){
         app.turn++
         playToWin();
         console.log("Turn " + app.turn + ". A sneaky double play was used for an instant win.");
