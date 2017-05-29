@@ -11,6 +11,10 @@
 	color:rgba(255,255,255,.9);
 }
 
+#scores, #userName {
+	display:none;
+}
+
 a[disabled] {
 	pointer-events: none;
   color: gray;
