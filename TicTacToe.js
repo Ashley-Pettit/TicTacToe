@@ -27,6 +27,15 @@ $(document).ready(function() {
     toggleScores();
   });
 
+  $('#changeName').click(function() {
+    toggleChangeName();
+  });
+
+  $('#saveName').click(function() {
+    saveName();
+  });
+
+
   $('#switch_player').click(function() {
       app.round--;
       clearBoard();
@@ -37,7 +46,6 @@ $(document).ready(function() {
   });
   console.log('%cWelcome to Ash\'s TicTacToe! ', 'color: red');
 });
-
 
 var app = app || {};
 app.turn = 1;
@@ -56,6 +64,7 @@ app.scoresShown = false
 function countdownAnimation() {
   $('.game_in_play').fadeIn();
   $('.game_control').fadeOut(500);
+  $('#changeName').fadeOut(500);
   var countDownFrom = 4;
   setTimeout(function(){
     $('#countdown').delay(500).text("5...").fadeIn(500).fadeOut(500);
@@ -101,6 +110,20 @@ function toggleScores(){
       }, 500);
     }
   }
+}
+
+function saveName() {
+  $('#userName').fadeOut();
+  setTimeout(function() {
+    $('.game_control').fadeIn();
+  }, 500);
+}
+
+function toggleChangeName(){
+  $('.game_control').fadeOut();
+  setTimeout(function() {
+    $('#userName').fadeIn();
+  }, 500);
 }
 
 function setupScoreBoard() {
@@ -190,12 +213,14 @@ function playerMove(IDOfCellClicked) {
             roundDrew();
         } else {
           changePlayer();
+          if (difficulty != 'human') {
           app.isRoundInProgress = false; //PLAYER CANNOT PLAY WHILE AI IS "THINKING"
           setTimeout(function() {
               app.isRoundInProgress = true;
               AIPlay();
           }, 600);
         }
+      }
       app.turn++;
     }
   }
